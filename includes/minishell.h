@@ -1,6 +1,9 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+/*
+ ** INCLUDES
+ */
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -11,6 +14,15 @@
 # include <termios.h>
 # include <sys/wait.h>
 
+/*
+ ** DEFINES
+ */
+# define	TRUE	1
+# define	FALSE	0
+
+/*
+ ** FUNCTIONS
+ */
 void	clear_screen(void);
 
 #endif 
