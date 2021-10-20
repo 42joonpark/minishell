@@ -6,7 +6,7 @@
 /*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 16:16:28 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/18 17:02:18 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/10/20 14:00:50 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	**make_ret(char const *s, char c)
 	return (ret);
 }
 
-char	**pp_split(char const *s, char c)
+char	**pp_split(char *s, char c)
 {
 	const char	*cur;
 	char		**ret;

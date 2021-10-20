@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
+/*   Updated: 2021/10/20 15:42:04 by joonpark         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -19,20 +31,23 @@
  */
 # define	TRUE	1
 # define	FALSE	0
+# define WHICH_DIR	"/usr/bin/which"
 
 /*
  ** TYPEDEFS
  */
-typedef struct	s_command{
-  char			*name;					/* User printable name of the function. */
-  int 			(*func)(char **args);	/* Function to call to do the job. */
-  char			*doc;					/* Documentation for this function.  */
-}				t_command;
+typedef struct s_command{
+	char			*name;
+	int				(*func)(char **args);
+	char			*doc;
+}					t_command;
 
 /*
  ** FUNCTIONS
  */
 void	clear_screen(void);
-char	**pp_split(char const *s, char c);
+char	**pp_split(char *s, char c);
+void	find_executable(char *command, char *envs[], char buffer[],
+			int buf_size);
 
 #endif 
