@@ -12,6 +12,72 @@ typedef struct s_info
 	char	**builtin_str;
 }	t_info;
 
+int		memory_free(char **mem)
+{
+	if (*mem)
+	{
+		free(*mem);
+		*mem = 0;
+		return (1);
+	}
+	return (0);
+}
+
+void	double_memory_free(char **mem)
+{
+	int		i;
+
+	i = 0;
+	while (mem[i])
+	{
+		free(mem[i]);
+		mem[i] = 0;
+		i++;
+	}
+	free(mem);
+	mem = 0;
+}
+
+void	cmd_execve(char *cmd, char **env)
+{
+	char	**colon_split;
+	char	**cmd_split;
+	int		i;
+	char	*slash_join;
+	char	*executed_location;
+
+	colon_split = ft_split(getenv("PATH"), ':');	// 환경변수 받아서 실행 디렉토리 별로 분리
+	cmd_split = ft_split(cmd, ' ');					// cmd option 분리 (ex. echo -n)
+	i = 0;
+	while (colon_split[i])
+	{
+		slash_join = ft_strjoin(colon_split[i], "/");		// (ex. /bin → /bin/)
+		executed_location = ft_strjoin(slash_join, cmd_split[0]);	// (ex. /bin/ → /bin/echo)
+		memory_free(&slash_join);
+		execve(executed_location, (char *const *)cmd_split, env);
+		memory_free(&executed_location);
+		i++;
+	}
+	double_memory_free(colon_split);
+	double_memory_free(cmd_split);
+}
+
+int	main(int ac, char **av, char **env)
+{
+	/**
+	 * echo		(o)
+	 * cd		(x)
+	 * pwd		(o)
+	 * export	(x)
+	 * unset	(x)
+	 * env		(x)
+	 */
+	cmd_execve("env", env);
+
+	return (0);
+}
+
+/*
 void	init(t_info *info)
 {
 
@@ -38,15 +104,14 @@ int	execute(char **args, t_info *info)
 		ret_cmp = ft_strncmp(args[0], info->builtin_str[i], ft_strlen(info->builtin_str[i] + 1));
 		if (ret_cmp == 0)
 		{
-
+			cmd_execve(&args[0]);
 		}
 		i++;
 	}
 	printf("No built in commmand");
-
 }
 
-void lsh_loop(t_info *info)
+void loop(t_info *info)
 {
 	char *line;
 	char **args;
@@ -62,7 +127,6 @@ void lsh_loop(t_info *info)
 		free(args);
 	}
 }
-
 
 int main(int argc, char **argv)
 {
@@ -80,3 +144,4 @@ int main(int argc, char **argv)
 	// Perform any shutdown/cleanup.
 	return (0);
 }
+*/
