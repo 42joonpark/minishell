@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear.c                                            :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
+/*   By: joonpark <joonpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 15:43:03 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/18 15:43:10 by joonpark         ###   ########.fr       */
+/*   Created: 2021/10/18 17:22:28 by joonpark          #+#    #+#             */
+/*   Updated: 2021/10/18 17:24:37 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void clear_screen(void)
+int	pp_cd(char **args)
 {
-	static const char *CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
-
-	write(STDOUT_FILENO, CLEAR_SCREEN_ANSI, 10);
+	return (1);
 }

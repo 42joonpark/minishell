@@ -6,43 +6,44 @@
 #    By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/18 14:22:28 by joonpark         ###   ########.fr        #
+#    Updated: 2021/10/20 14:18:41 by joonpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC			:= gcc
+CC			:= 	gcc
 
-INC			:= -I./includes
+INC			:= 	-I./includes
 
-CFLAGS		:= -g -Wall -Wextra -Werror
+CFLAGS		:= 	-g -Wall -Wextra -Werror
 
-SRCS_DIR	:= ./src/
-SOURCES		:= main.c \
-				clear.c
-SRCS		:= $(addprefix $(SRCS_DIR), $(SOURCES))
+SRCS_DIR	:= 	./src/
+SOURCES		:= 	main.c \
+				clear.c \
+				utils/pp_split.c
+SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
-OBJS_DIR	:= ./obj/
-OBJECTS		:= $(SOURCES:.c=.o)
-OBJS		:= $(addprefix $(OBJS_DIR), $(OBJECTS))
+OBJS_DIR	:=	./obj/
+OBJECTS		:=	$(SOURCES:.c=.o)
+OBJS		:=	$(addprefix $(OBJS_DIR), $(OBJECTS))
 
-NAME		:= minishell
+NAME		:=	minishell
 
 # colors
-RED			:= \033[31m
-GREEN 		:= \033[32m
-YELLOW 		:= \033[33m
-BLUE 		:= \033[34m
-MAGENTA		:= \033[35m
-CYAN		:= \033[36m
-WHITE		:= \033[37m
-PINK		:= \033[38;5;201m
-OBJS_DOT	:= \033[38;5;201m\033[48;5;252m\033[1m\033[3m
-MENT		:= \033[38;5;191m\033[1m
-RE_MENT		:= \033[38;5;63m\033[1m
-RESET		:= \033[0m
+RED			:=	\033[31m
+GREEN 		:=	\033[32m
+YELLOW 		:=	\033[33m
+BLUE 		:=	\033[34m
+MAGENTA		:=	\033[35m
+CYAN		:=	\033[36m
+WHITE		:=	\033[37m
+PINK		:=	\033[38;5;201m
+OBJS_DOT	:=	\033[38;5;201m\033[48;5;252m\033[1m\033[3m
+MENT		:=	\033[38;5;191m\033[1m
+RE_MENT		:=	\033[38;5;63m\033[1m
+RESET		:=	\033[0m
 
-.PHONY		:= all ment_re $(NAME) bonus clean fclean re
+.PHONY		:=	all ment_re $(NAME) bonus clean fclean re
 
 $(NAME) : $(OBJS_DIR) $(OBJS) 
 	@$(CC) -o $@ $(OBJS) -lreadline
@@ -50,9 +51,14 @@ $(NAME) : $(OBJS_DIR) $(OBJS)
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)/utils
 	@echo "$(BLUE)[ Created obj directory ... ]$(NC)"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
+	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
+	@echo "$(OBJS_DOT).$(RESET)\c"
+
+$(OBJS_DIR)/utils/%.o : $(SRCS_DIR)/utils/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
 	@echo "$(OBJS_DOT).$(RESET)\c"
 

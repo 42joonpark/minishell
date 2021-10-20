@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clear.c                                            :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 15:43:03 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/18 15:43:10 by joonpark         ###   ########.fr       */
+/*   Created: 2021/10/18 15:47:27 by joonpark          #+#    #+#             */
+/*   Updated: 2021/10/18 18:00:57 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void clear_screen(void)
+void	minishell_loop()
 {
-	static const char *CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
+	char	*line;
+	char	**args;
 
-	write(STDOUT_FILENO, CLEAR_SCREEN_ANSI, 10);
+	while (TRUE)
+	{
+		line = readline("> ");
+		args = pp_split(line, ' ');
+		//
+		free(line);
+	}
 }
