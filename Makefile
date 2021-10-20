@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+         #
+#    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/20 14:18:41 by joonpark         ###   ########.fr        #
+#    Updated: 2021/10/20 18:26:49 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,12 @@ CFLAGS		:= 	-g -Wall -Wextra -Werror
 
 SRCS_DIR	:= 	./src/
 SOURCES		:= 	main.c \
+				loop.c \
 				clear.c \
-				utils/pp_split.c
+				pwd/pwd.c \
+				utils/pp_split.c \
+				utils/pp_strlen.c \
+				utils/pp_strcmp.c
 SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
@@ -45,13 +49,14 @@ RESET		:=	\033[0m
 
 .PHONY		:=	all ment_re $(NAME) bonus clean fclean re
 
-$(NAME) : $(OBJS_DIR) $(OBJS) 
-	@$(CC) -o $@ $(OBJS) -lreadline
+$(NAME) : $(OBJS_DIR) $(OBJS)
+	$(CC) -o $@ $(OBJS) -lreadline
 	@echo "\n$(GREEN)object files were created$(RESET)"
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)/utils
+	@mkdir -p $(OBJS_DIR)/pwd
 	@echo "$(BLUE)[ Created obj directory ... ]$(NC)"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
@@ -59,6 +64,10 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@echo "$(OBJS_DOT).$(RESET)\c"
 
 $(OBJS_DIR)/utils/%.o : $(SRCS_DIR)/utils/%.c
+	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
+	@echo "$(OBJS_DOT).$(RESET)\c"
+
+$(OBJS_DIR)/pwd/%.o : $(SRCS_DIR)/pwd/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
 	@echo "$(OBJS_DOT).$(RESET)\c"
 
@@ -73,7 +82,7 @@ bonus : $(OBJS) $(BNS_OBJ)
 	@echo "$(GREEN)$(NAME) was created$(RESET)"
 
 clean :
-	@rm -rf $(OBJS_DIR) 
+	@rm -rf $(OBJS_DIR)
 	@echo "$(MENT)[Removing object files]"
 	@echo "$(MAGENTA)$(OBJS)$(RESET)"
 
