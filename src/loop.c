@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 15:47:27 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/18 18:00:57 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/10/20 18:20:13 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	minishell_loop()
 		line = readline("> ");
 		args = pp_split(line, ' ');
 		//
+		pp_pwd(args);
 		free(line);
 	}
 }
