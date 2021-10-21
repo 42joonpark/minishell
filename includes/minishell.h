@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 17:50:32 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/21 19:55:51 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		pp_env(char **env);
 
 int		env_list_alloc(char **env, int *env_cnt, t_env **env_list);
 int		save_env_data(char **env, int env_cnt, t_env *env_list);
-void	print_env(int env_cnt, t_env *env_list);
+void	print_sorted_env(int env_cnt, t_env *env_list);
 int		pp_export(char **args, int env_cnt, t_env *env_list);
 void	minishell_loop();
 
