@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 17:06:21 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:50:32 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ typedef struct s_command{
 	char			*doc;
 }					t_command;
 
+typedef struct s_env
+{
+	char	*str;
+	int		idx;
+}	t_env;
+
 /*
  ** FUNCTIONS
  */
@@ -52,7 +58,11 @@ int		pp_pwd(char **args);
 int		pp_echo(char **args);
 int		pp_cd(char **args);
 int		pp_env(char **env);
-int		pp_export(char **args, char **env);
+
+int		env_list_alloc(char **env, int *env_cnt, t_env **env_list);
+int		save_env_data(char **env, int env_cnt, t_env *env_list);
+void	print_env(int env_cnt, t_env *env_list);
+int		pp_export(char **args, int env_cnt, t_env *env_list);
 void	minishell_loop();
 
 /*
