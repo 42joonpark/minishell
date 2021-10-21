@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/20 19:52:21 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/21 11:08:10 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	find_executable(char *command, char *envs[], char buffer[],
 			int buf_size);
 int		pp_pwd(char **args);
 int		pp_echo(char **args);
+int		pp_cd(char **args);
 void	minishell_loop();
 
 /*

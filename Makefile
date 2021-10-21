@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/20 19:51:50 by donpark          ###   ########.fr        #
+#    Updated: 2021/10/21 11:02:52 by joonpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SOURCES		:= 	main.c \
 				clear.c \
 				pwd/pwd.c \
 				echo/echo.c \
+				cd/cd.c \
 				utils/pp_split.c \
 				utils/pp_strlen.c \
 				utils/pp_strcmp.c
@@ -59,6 +60,7 @@ $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)/utils
 	@mkdir -p $(OBJS_DIR)/pwd
 	@mkdir -p $(OBJS_DIR)/echo
+	@mkdir -p $(OBJS_DIR)/cd
 	@echo "$(BLUE)[ Created obj directory ... ]$(NC)"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
@@ -74,6 +76,10 @@ $(OBJS_DIR)/pwd/%.o : $(SRCS_DIR)/pwd/%.c
 	@echo "$(OBJS_DOT).$(RESET)\c"
 
 $(OBJS_DIR)/echo/%.o : $(SRCS_DIR)/echo/%.c
+	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
+	@echo "$(OBJS_DOT).$(RESET)\c"
+
+$(OBJS_DIR)/cd/%.o : $(SRCS_DIR)/cd/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
 	@echo "$(OBJS_DOT).$(RESET)\c"
 
