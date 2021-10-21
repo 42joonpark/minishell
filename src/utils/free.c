@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joonpark <joonpark@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 17:22:28 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 17:50:40 by joonpark         ###   ########.fr       */
+/*   Created: 2021/10/21 17:53:48 by joonpark          #+#    #+#             */
+/*   Updated: 2021/10/21 17:55:22 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pp_cd(char **args)
+int	free_args(char **args)
 {
-	char	*default_dir;
+	size_t	idx;
 
-	default_dir = NULL;
-	if (args[1] == NULL)
-		default_dir = getenv("HOME");
-	else
-		default_dir = args[1];
-	chdir(default_dir);
+	idx = 0;
+	while (args[idx] != NULL)
+	{
+		free(args[idx]);
+		++idx;
+	}
+	free(args);
 	return (EXIT_SUCCESS);
 }

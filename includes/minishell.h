@@ -72,4 +72,6 @@ char	**pp_split(char *s, char c);
 size_t	pp_strlen(const char *s);
 int		pp_strcmp(const char *s1, const char *s2);
 int		pp_strcmp_limit(const char *s1, const char *s2, char limit);
+int		free_args(char **args);
+
 #endif

@@ -28,7 +28,8 @@ SOURCES		:= 	/main.c \
 				/utils/pp_split.c \
 				/utils/pp_strlen.c \
 				/utils/pp_strcmp.c \
-				/utils/pp_strcmp_limit.c
+				/utils/pp_strcmp_limit.c \
+				/utils/free.c        
 SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
