@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pp_strncmp.c                                       :+:      :+:    :+:   */
+/*   pp_strcmp_limit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/14 21:20:41 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/20 18:03:17 by donpark          ###   ########.fr       */
+/*   Created: 2021/10/21 14:00:24 by joonpark          #+#    #+#             */
+/*   Updated: 2021/10/21 17:10:32 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pp_strcmp(const char *s1, const char *s2)
+int	pp_strcmp_limit(const char *s1, const char *s2, char limit)
 {
-	size_t			i;
 	unsigned char	*p1;
 	unsigned char	*p2;
+	size_t			i;
 
 	i = 0;
 	p1 = (unsigned char *)s1;
 	p2 = (unsigned char *)s2;
 	while (p1[i] || p2[i])
 	{
+		if (p1[i] == limit || p2[i] == limit)
+			return (p1[i] - p2[i]);
 		if (p1[i] != p2[i])
 			return (p1[i] - p2[i]);
 		i++;
