@@ -23,5 +23,5 @@ int	pp_env(char **env)
 		write(1, "\n", 1);
 		i++;
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
