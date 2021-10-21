@@ -6,11 +6,12 @@
 /*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:38:56 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/20 15:39:28 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/10/21 10:51:29 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <string.h>
 
 static void	find_cmd(char *argv[], char *envs[], char **args,
 		int pipefd[2])
@@ -38,8 +39,9 @@ void	find_executable(char *command, char *envs[], char buffer[],
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
 		close(pipefd[1]);
+		waitpid(pid, NULL, 0);
 		read(pipefd[0], buffer, buf_size);
+		buffer[pp_strlen(buffer) - 1] = '\0';
 	}
 }
