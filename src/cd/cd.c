@@ -6,7 +6,7 @@
 /*   By: joonpark <joonpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:22:28 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 17:50:40 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/10/21 18:21:06 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 int	pp_cd(char **args)
 {
 	char	*default_dir;
+	char	*dir;
 
-	default_dir = NULL;
+	default_dir = getenv("HOME");
 	if (args[1] == NULL)
-		default_dir = getenv("HOME");
+		dir = default_dir;
 	else
-		default_dir = args[1];
-	chdir(default_dir);
+		dir = args[1];
+	chdir(dir);
 	return (EXIT_SUCCESS);
 }
