@@ -16,8 +16,10 @@ void	minishell_loop(char **env)
 {
 	char	*line;
 	char	**args;
+	int		is_running;
 
-	while (TRUE)
+	is_running = TRUE;
+	while (is_running)
 	{
 		line = readline("> ");
 		if (pp_strcmp(line, "\0") == 0)
@@ -29,6 +31,8 @@ void	minishell_loop(char **env)
 			pp_echo(args);
 		if (pp_strcmp(args[0], "cd") == 0)
 			pp_cd(args);
+		if (pp_strcmp(args[0], "exit") == 0)
+			is_running = FALSE;
 		if (pp_strcmp(args[0], "env") == 0)
 			pp_env(env);
 		free(line);
