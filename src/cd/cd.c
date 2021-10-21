@@ -6,7 +6,7 @@
 /*   By: joonpark <joonpark@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:22:28 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 18:21:06 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/10/21 18:26:40 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	pp_cd(char **args)
 		dir = default_dir;
 	else
 		dir = args[1];
-	chdir(dir);
+	if (chdir(dir) == 0)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
