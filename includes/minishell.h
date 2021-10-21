@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/20 15:42:04 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/10/20 19:52:21 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,16 @@ typedef struct s_command{
  ** FUNCTIONS
  */
 void	clear_screen(void);
-char	**pp_split(char *s, char c);
 void	find_executable(char *command, char *envs[], char buffer[],
 			int buf_size);
+int		pp_pwd(char **args);
+int		pp_echo(char **args);
+void	minishell_loop();
 
-#endif 
+/*
+ ** UTILS
+ */
+char	**pp_split(char *s, char c);
+size_t	pp_strlen(const char *s);
+int		pp_strcmp(const char *s1, const char *s2);
+#endif

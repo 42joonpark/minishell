@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   pp_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 15:47:27 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/20 20:08:26 by donpark          ###   ########.fr       */
+/*   Created: 2021/10/20 17:37:34 by donpark           #+#    #+#             */
+/*   Updated: 2021/10/20 17:39:04 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	minishell_loop()
+size_t	pp_strlen(const char *s)
 {
-	char	*line;
-	char	**args;
+	size_t	i;
 
-	while (TRUE)
-	{
-		line = readline("> ");
-		if (pp_strcmp(line, "\0") == 0)
-			continue ;
-		args = pp_split(line, ' ');
-			//
-		pp_pwd(args);
-		pp_echo(args);
-		free(line);
-	}
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
