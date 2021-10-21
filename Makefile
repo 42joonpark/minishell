@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/21 17:58:30 by joonpark         ###   ########.fr        #
+#    Updated: 2021/10/21 17:06:40 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,12 @@ SOURCES		:= 	/main.c \
 				/echo/echo.c \
 				/cd/cd.c \
 				/env/env.c \
+				/export/export.c \
 				/utils/pp_split.c \
 				/utils/pp_strlen.c \
 				/utils/pp_strcmp.c \
 				/utils/pp_strcmp_limit.c \
-				/utils/free.c \
-
+				/utils/free.c        
 SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
@@ -66,6 +66,7 @@ $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)/echo
 	@mkdir -p $(OBJS_DIR)/cd
 	@mkdir -p $(OBJS_DIR)/env
+	@mkdir -p $(OBJS_DIR)/export
 	@echo "$(BLUE)[ Created obj directory ... ]$(NC)"
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
@@ -89,6 +90,10 @@ $(OBJS_DIR)/cd/%.o : $(SRCS_DIR)/cd/%.c
 	@echo "$(OBJS_DOT).$(RESET)\c"
 
 $(OBJS_DIR)/env/%.o : $(SRCS_DIR)/env/%.c
+	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
+	@echo "$(OBJS_DOT).$(RESET)\c"
+
+$(OBJS_DIR)/export/%.o : $(SRCS_DIR)/export/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
 	@echo "$(OBJS_DOT).$(RESET)\c"
 
