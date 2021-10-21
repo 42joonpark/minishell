@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/21 11:02:52 by joonpark         ###   ########.fr        #
+#    Updated: 2021/10/21 11:52:01 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,20 +16,21 @@ INC			:= 	-I./includes
 
 CFLAGS		:= 	-g -Wall -Wextra -Werror
 
-SRCS_DIR	:= 	./src/
-SOURCES		:= 	main.c \
-				loop.c \
-				clear.c \
-				pwd/pwd.c \
-				echo/echo.c \
-				cd/cd.c \
-				utils/pp_split.c \
-				utils/pp_strlen.c \
-				utils/pp_strcmp.c
+SRCS_DIR	:= 	./src
+SOURCES		:= 	/main.c \
+				/loop.c \
+				/clear.c \
+				/pwd/pwd.c \
+				/echo/echo.c \
+				/cd/cd.c \
+				/env/env.c \
+				/utils/pp_split.c \
+				/utils/pp_strlen.c \
+				/utils/pp_strcmp.c
 SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
-OBJS_DIR	:=	./obj/
+OBJS_DIR	:=	./obj
 OBJECTS		:=	$(SOURCES:.c=.o)
 OBJS		:=	$(addprefix $(OBJS_DIR), $(OBJECTS))
 
@@ -61,9 +62,10 @@ $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)/pwd
 	@mkdir -p $(OBJS_DIR)/echo
 	@mkdir -p $(OBJS_DIR)/cd
+	@mkdir -p $(OBJS_DIR)/env
 	@echo "$(BLUE)[ Created obj directory ... ]$(NC)"
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c
+$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
 	@echo "$(OBJS_DOT).$(RESET)\c"
 
@@ -80,6 +82,10 @@ $(OBJS_DIR)/echo/%.o : $(SRCS_DIR)/echo/%.c
 	@echo "$(OBJS_DOT).$(RESET)\c"
 
 $(OBJS_DIR)/cd/%.o : $(SRCS_DIR)/cd/%.c
+	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
+	@echo "$(OBJS_DOT).$(RESET)\c"
+
+$(OBJS_DIR)/env/%.o : $(SRCS_DIR)/env/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
 	@echo "$(OBJS_DOT).$(RESET)\c"
 

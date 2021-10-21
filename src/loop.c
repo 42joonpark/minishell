@@ -6,13 +6,13 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 15:47:27 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 11:56:36 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/10/21 11:53:45 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	minishell_loop()
+void	minishell_loop(char **env)
 {
 	char	*line;
 	char	**args;
@@ -33,6 +33,8 @@ void	minishell_loop()
 			pp_cd(args);
 		if (pp_strcmp(args[0], "exit") == 0)
 			is_running = FALSE;
+		if (pp_strcmp(args[0], "env") == 0)
+			pp_env(env);
 		free(line);
 		//free(args);
 	}
