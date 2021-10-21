@@ -1,7 +1,9 @@
 #include "minishell.h"
 
-int	main(void)
+int	main(int argc, char *argv[], char **env)
 {
-	minishell_loop();
+	argc = 0;
+	argv = NULL;
+	minishell_loop(env);
 	return (0);
 }
