@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/21 11:52:01 by donpark          ###   ########.fr        #
+#    Updated: 2021/10/21 14:56:00 by joonpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SOURCES		:= 	/main.c \
 				/env/env.c \
 				/utils/pp_split.c \
 				/utils/pp_strlen.c \
-				/utils/pp_strcmp.c
+				/utils/pp_strcmp.c \
+				/utils/pp_strcmp_limit.c \
 SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
