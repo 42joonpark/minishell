@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 11:53:29 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:06:21 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		pp_pwd(char **args);
 int		pp_echo(char **args);
 int		pp_cd(char **args);
 int		pp_env(char **env);
+int		pp_export(char **args, char **env);
 void	minishell_loop();
 
 /*
@@ -60,4 +61,5 @@ void	minishell_loop();
 char	**pp_split(char *s, char c);
 size_t	pp_strlen(const char *s);
 int		pp_strcmp(const char *s1, const char *s2);
+int		pp_strcmp_limit(const char *s1, const char *s2, char limit);
 #endif
