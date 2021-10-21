@@ -17,10 +17,12 @@ int	pp_pwd(char **args)
 	char	*pwd;
 
 	if (pp_strcmp(args[0], "pwd"))
-		return (0);
+		return (EXIT_FAILURE);
 	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+		return (EXIT_FAILURE);
 	write(1, pwd, pp_strlen(pwd));
 	write(1, "\n", 1);
 	free(pwd);
-	return (1);
+	return (EXIT_SUCCESS);
 }
