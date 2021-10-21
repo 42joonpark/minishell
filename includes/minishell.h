@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 14:56:37 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/10/21 17:55:14 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,5 @@ char	**pp_split(char *s, char c);
 size_t	pp_strlen(const char *s);
 int		pp_strcmp(const char *s1, const char *s2);
 int		pp_strcmp_limit(const char *s1, const char *s2, char limit);
+int		free_args(char **args);
 #endif
