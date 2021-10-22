@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 19:55:51 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/23 01:40:56 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ typedef struct s_env
 	int		idx;
 }	t_env;
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+	int				init_sort_idx;
+}	t_list;
+
 /*
  ** FUNCTIONS
  */
@@ -74,4 +81,9 @@ int		pp_strcmp(const char *s1, const char *s2);
 int		pp_strcmp_limit(const char *s1, const char *s2, char limit);
 int		free_args(char **args);
 
+void	*pp_memset(void *b, int c, size_t len);
+t_list	*pp_lstnew(void *content);
+t_list	*pp_lstlast(t_list *lst);
+void	pp_lstadd_back(t_list **lst, t_list *new);
+int		pp_lstsize(t_list *lst);
 #endif
