@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
+#    By: donpark <donpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/21 17:06:40 by donpark          ###   ########.fr        #
+#    Updated: 2021/10/23 02:01:49 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ CC			:= 	gcc
 
 INC			:= 	-I./includes
 
-CFLAGS		:= 	-g -Wall -Wextra -Werror
-
+CFLAGS		:= 	-g
 SRCS_DIR	:= 	./src
 SOURCES		:= 	/main.c \
 				/loop.c \
@@ -29,7 +28,9 @@ SOURCES		:= 	/main.c \
 				/utils/pp_strlen.c \
 				/utils/pp_strcmp.c \
 				/utils/pp_strcmp_limit.c \
-				/utils/free.c        
+				/utils/free.c \
+				/utils/pp_memset.c \
+				/utils/pp_lst.c
 SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
@@ -56,7 +57,7 @@ RESET		:=	\033[0m
 .PHONY		:=	all ment_re $(NAME) bonus clean fclean re
 
 $(NAME) : $(OBJS_DIR) $(OBJS)
-	$(CC) -o $@ $(OBJS) -lreadline
+	@$(CC) -o $@ $(OBJS) -lreadline
 	@echo "\n$(GREEN)object files were created$(RESET)"
 
 $(OBJS_DIR) :
