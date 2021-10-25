@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: donpark <donpark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/23 01:40:56 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/25 15:02:31 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,11 @@ typedef struct s_command{
 	char			*doc;
 }					t_command;
 
-typedef struct s_env
-{
-	char	*str;
-	int		idx;
-}	t_env;
-
 typedef struct s_list
 {
-	void			*content;
 	struct s_list	*next;
+	struct s_list	*prev;
+	char			*content;
 	int				init_sort_idx;
 }	t_list;
 
@@ -61,16 +56,37 @@ typedef struct s_list
 void	clear_screen(void);
 void	find_executable(char *command, char *envs[], char buffer[],
 			int buf_size);
-int		pp_pwd(char **args);
+int		pp_pwd(void);
 int		pp_echo(char **args);
 int		pp_cd(char **args);
-int		pp_env(char **env);
 
-int		env_list_alloc(char **env, int *env_cnt, t_env **env_list);
-int		save_env_data(char **env, int env_cnt, t_env *env_list);
-void	print_sorted_env(int env_cnt, t_env *env_list);
-int		pp_export(char **args, int env_cnt, t_env *env_list);
-void	minishell_loop();
+// env
+int		env_list(t_list **env_lst, char **env);
+void	put_env_index(t_list **env_lst);
+int		pp_env(t_list **env_lst);
+
+// export
+int		exp_list(t_list **exp_lst, t_list **env_lst);
+int		pp_export(char **args, t_list **exp_lst, t_list **env_lst);
+
+char	*key_eq_val(char *key, char *val);
+void	change_env_val(t_list *lst, char *val);
+int		add_env(t_list **env_lst, char *str);
+
+char	*str_eq_quote_val(char *key, char *val);
+void	change_exp_val(t_list *lst, char *val);
+int		add_exp(t_list **exp_lst, char *str);
+
+char	*get_key(char *str);
+char	*get_value(char *str);
+int		is_exist_eq(char *s);
+t_list	*is_same_content_key(t_list **lst, char *key);
+
+// unset
+int	pp_unset(char **args, t_list **exp_lst, t_list **env_lst);
+
+// main
+void	minishell_loop(t_list **env_lst, t_list **exp_lst);
 
 /*
  ** UTILS
@@ -81,9 +97,16 @@ int		pp_strcmp(const char *s1, const char *s2);
 int		pp_strcmp_limit(const char *s1, const char *s2, char limit);
 int		free_args(char **args);
 
+char	*pp_strdup(const char *s1);
+size_t	pp_strlcpy(char *dst, const char *src, size_t dstsize);
+char	*pp_strjoin(char const *s1, char const *s2);
+
 void	*pp_memset(void *b, int c, size_t len);
 t_list	*pp_lstnew(void *content);
 t_list	*pp_lstlast(t_list *lst);
 void	pp_lstadd_back(t_list **lst, t_list *new);
+void	pp_lstadd_front(t_list **lst, t_list *new);
+void	pp_lstdelone(t_list *lst);
 int		pp_lstsize(t_list *lst);
+
 #endif
