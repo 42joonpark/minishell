@@ -6,22 +6,24 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:22:46 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 11:54:03 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/24 18:19:33 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pp_env(char **env)
+static void	print_env_lst(t_list *lst)
 {
-	int	i;
-
-	i = 0;
-	while (env[i])
+	while (lst != NULL)
 	{
-		write(1, env[i], pp_strlen(env[i]));
+		write(1, lst->content, pp_strlen(lst->content));
 		write(1, "\n", 1);
-		i++;
+		lst = lst->next;
 	}
-	return (1);
+}
+
+int	pp_env(t_list **env_lst)
+{
+	print_env_lst(*env_lst);
+	return (EXIT_SUCCESS);
 }
