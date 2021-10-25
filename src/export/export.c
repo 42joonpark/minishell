@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:23:29 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/25 16:21:45 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/25 17:44:37 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,32 @@ static void	var_add_exp(t_list **exp_lst, char *exp_var, char *key, char *val)
 		add_exp(exp_lst, str);
 }
 
+static int	check_value(char *str, int i, int qq_cnt, int q_cnt)
+{
+	while (str[i] != '\0')
+	{
+		if (str[i] == '=')
+		{
+			i++;
+			break ;
+		}
+		i++;
+	}
+	if (i == (int)pp_strlen(str))
+		return (EXIT_FAILURE);
+	while (str[i] != '\0')
+	{
+		if (str[i] == '"')
+			qq_cnt++;
+		if (str[i] == '\'')
+			q_cnt++;
+		if (qq_cnt > 2 || q_cnt > 2)
+			return (EXIT_FAILURE);
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
 /**
  * need free : key, val, lst->content, lst
  */
@@ -80,7 +106,13 @@ int	pp_export(char **args, t_list **exp_lst, t_list **env_lst)
 	else
 	{
 		key = get_key(args[1]);
+		if (check_value(args[1], 0, 0, 0))
+		{
+			write(1, "syntax error\n", 13);
+			return (EXIT_FAILURE);
+		}
 		val = get_value(args[1]);
+		printf("val: %s\n", val); fflush(stdout);
 		var_add_env(env_lst, args[1], key, val);
 		var_add_exp(exp_lst, args[1], key, val);
 	}

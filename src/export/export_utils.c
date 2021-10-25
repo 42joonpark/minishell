@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:22:28 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/25 14:22:29 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/25 17:45:07 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,34 @@ char	*get_key(char *str)
 	return (tmp);
 }
 
+static char	*value_exception(char *str, int i, char *val)
+{
+	char	*tmp;
+	int		j;
+	int		val_len;
+
+	val_len = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != '"' && str[i] != '\'')
+			val_len++;
+		i++;
+	}
+	tmp = (char *)malloc(val_len + 1);
+	if (tmp == NULL)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (val[j] != '\0')
+	{
+		if (val[j] != '"' && val[j] != '\'')
+			tmp[i++] = val[j];
+		j++;
+	}
+	tmp[i] = '\0';
+	return (tmp);
+}
+
 char	*get_value(char *str)
 {
 	int		i;
@@ -51,7 +79,9 @@ char	*get_value(char *str)
 	if (i == (int)pp_strlen(str))
 		return (NULL);
 	else
-		return (pp_strdup(&str[i]));
+	{
+		return (value_exception(str, i, &str[i]));
+	}
 }
 
 int	is_exist_eq(char *s)
