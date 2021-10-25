@@ -10,6 +10,7 @@ t_list	*pp_lstnew(void *content)
 	pp_memset(node, 0, sizeof(t_list));
 	node->content = content;
 	node->next = NULL;
+	node->prev = NULL;
 	return (node);
 }
 
@@ -34,8 +35,42 @@ void	pp_lstadd_back(t_list **lst, t_list *new)
 	{
 		last = pp_lstlast(*lst);
 		new->next = last->next;
-		last->next = new;
+		new->prev = last;
+		new->prev->next = new;
+		if (new->next != NULL)
+			new->next->prev = new;
 	}
+}
+
+void	pp_lstadd_front(t_list **lst, t_list *new)
+{
+	t_list	*begin;
+
+	if (lst == NULL || new == NULL)
+		return ;
+	if (*lst == NULL)
+		*lst = new;
+	else
+	{
+		begin = *lst;
+		new->next = begin;
+		new->prev = begin->prev;
+		if (new->prev != NULL)
+			new->prev->next = new;
+		new->next->prev = new;
+	}
+}
+
+void	pp_lstdelone(t_list *lst)
+{
+	if (lst == NULL)
+		return ;
+	if (lst->prev != NULL)
+		lst->prev->next = lst->next;
+	if (lst->next != NULL)
+		lst->next->prev = lst->prev;
+	free(lst->content);
+	free(lst);
 }
 
 int	pp_lstsize(t_list *lst)
