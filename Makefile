@@ -68,6 +68,8 @@ RESET		:=	\033[0m
 $(NAME) : $(OBJS_DIR) $(OBJS)
 	@$(CC) -o $@ $(OBJS) -lreadline
 	@echo "\n$(GREEN)object files were created$(RESET)"
+	@$(CC) -o $@ $(OBJS) -lreadline
+	@echo "$(RED)minishell created.$(RESET)"
 
 $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)
@@ -78,35 +80,35 @@ $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)/env
 	@mkdir -p $(OBJS_DIR)/export
 	@mkdir -p $(OBJS_DIR)/unset
-	@echo "$(BLUE)[ Created obj directory ... ]$(NC)"
+	@echo "$(MENT)[ Created obj directory ... ]$(NC)"
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(OBJS_DOT).$(RESET)\c"
+	@echo "$(GREEN).$(RESET)\c"
 
 $(OBJS_DIR)/utils/%.o : $(SRCS_DIR)/utils/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(OBJS_DOT).$(RESET)\c"
+	@echo "$(GREEN).$(RESET)\c"
 
 $(OBJS_DIR)/pwd/%.o : $(SRCS_DIR)/pwd/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(OBJS_DOT).$(RESET)\c"
+	@echo "$(GREEN).$(RESET)\c"
 
 $(OBJS_DIR)/echo/%.o : $(SRCS_DIR)/echo/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(OBJS_DOT).$(RESET)\c"
+	@echo "$(GREEN).$(RESET)\c"
 
 $(OBJS_DIR)/cd/%.o : $(SRCS_DIR)/cd/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(OBJS_DOT).$(RESET)\c"
+	@echo "$(GREEN).$(RESET)\c"
 
 $(OBJS_DIR)/env/%.o : $(SRCS_DIR)/env/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(OBJS_DOT).$(RESET)\c"
+	@echo "$(GREEN).$(RESET)\c"
 
 $(OBJS_DIR)/export/%.o : $(SRCS_DIR)/export/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(OBJS_DOT).$(RESET)\c"
+	@echo "$(GREEN).$(RESET)\c"
 
 $(OBJS_DIR)/unset/%.o : $(SRCS_DIR)/unset/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
