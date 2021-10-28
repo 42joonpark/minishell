@@ -7,6 +7,16 @@ int	main(int argc, char *argv[], char **env)
 	minishell_loop(env);
 	return (0);
 }
+
+static void	print_lst(t_list *lst)
+{
+	while (lst != NULL)
+	{
+		write(1, lst->content, pp_strlen(lst->content));
+		write(1, "\n", 1);
+		lst = lst->next;
+	}
+}
 */
 
 int	main(int argc, char *argv[], char **env)

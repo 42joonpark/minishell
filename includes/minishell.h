@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/25 15:02:31 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/28 12:37:36 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # define	TRUE	1
 # define	FALSE	0
 # define WHICH_DIR	"/usr/bin/which"
+
+# ifdef __APPLE__
+#  define OS 1
+# else
+#  define OS 0
+# endif
 
 /*
  ** TYPEDEFS
@@ -83,7 +89,7 @@ int		is_exist_eq(char *s);
 t_list	*is_same_content_key(t_list **lst, char *key);
 
 // unset
-int	pp_unset(char **args, t_list **exp_lst, t_list **env_lst);
+int		pp_unset(char **args, t_list **exp_lst, t_list **env_lst);
 
 // main
 void	minishell_loop(t_list **env_lst, t_list **exp_lst);
