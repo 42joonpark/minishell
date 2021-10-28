@@ -1,13 +1,5 @@
 #include "minishell.h"
 /*
-int	main(int argc, char *argv[], char **env)
-{
-	argc = 0;
-	argv = NULL;
-	minishell_loop(env);
-	return (0);
-}
-
 static void	print_lst(t_list *lst)
 {
 	while (lst != NULL)
@@ -25,7 +17,7 @@ int	main(int argc, char *argv[], char **env)
 	t_list	*exp_lst;
 
 	(void)argc;
-	argv = NULL;
+	(void)argv;
 	env_lst = NULL;
 	env_list(&env_lst, env);
 	put_env_index(&env_lst);
