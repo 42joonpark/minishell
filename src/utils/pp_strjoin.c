@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   pp_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/18 17:22:46 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/24 18:19:33 by donpark          ###   ########.fr       */
+/*   Created: 2021/01/16 03:12:55 by donpark           #+#    #+#             */
+/*   Updated: 2021/10/24 17:21:32 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_env_lst(t_list *lst)
+char	*pp_strjoin(char const *s1, char const *s2)
 {
-	while (lst != NULL)
-	{
-		write(1, lst->content, pp_strlen(lst->content));
-		write(1, "\n", 1);
-		lst = lst->next;
-	}
-}
+	char	*strjoin;
+	size_t	i;
 
-int	pp_env(t_list **env_lst)
-{
-	print_env_lst(*env_lst);
-	return (EXIT_SUCCESS);
+	if (!s1 && !s2)
+		return (0);
+	else if (s1 && !s2)
+		return (pp_strdup(s1));
+	else if (!s1 && s2)
+		return (pp_strdup(s2));
+	else
+	{
+		strjoin = (char *)malloc(pp_strlen(s1) + pp_strlen(s2) + 1);
+		if (strjoin == NULL)
+			return (0);
+		i = 0;
+		while (*s1)
+			strjoin[i++] = *(s1++);
+		while (*s2)
+			strjoin[i++] = *(s2++);
+		strjoin[i] = '\0';
+	}
+	return (strjoin);
 }

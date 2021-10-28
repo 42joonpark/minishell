@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/28 17:52:13 by joonpark         ###   ########.fr        #
+#    Updated: 2021/10/25 15:03:24 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ CC			:= 	gcc
 INC			:= 	-I./includes
 
 CFLAGS		:= 	-g -Wall -Wextra -Werror
-
 SRCS_DIR	:= 	./src
 SOURCES		:= 	/main.c \
 				/loop.c \
@@ -23,13 +22,24 @@ SOURCES		:= 	/main.c \
 				/pwd/pwd.c \
 				/echo/echo.c \
 				/cd/cd.c \
+				/env/env_list.c \
 				/env/env.c \
+				/export/export_list.c \
 				/export/export.c \
+				/export/export_utils.c \
+				/export/export_add_env.c \
+				/export/export_add_exp.c \
+				/unset/unset.c \
 				/utils/pp_split.c \
 				/utils/pp_strlen.c \
 				/utils/pp_strcmp.c \
 				/utils/pp_strcmp_limit.c \
-				/utils/free.c        
+				/utils/free.c \
+				/utils/pp_memset.c \
+				/utils/pp_lst.c \
+				/utils/pp_strdup.c \
+				/utils/pp_strlcpy.c \
+				/utils/pp_strjoin.c
 SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
@@ -56,6 +66,7 @@ RESET		:=	\033[0m
 .PHONY		:=	all ment_re $(NAME) bonus clean fclean re
 
 $(NAME) : $(OBJS_DIR) $(OBJS)
+	@$(CC) -o $@ $(OBJS) -lreadline
 	@echo "\n$(GREEN)object files were created$(RESET)"
 	@$(CC) -o $@ $(OBJS) -lreadline
 	@echo "$(RED)minishell created.$(RESET)"
@@ -68,6 +79,7 @@ $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)/cd
 	@mkdir -p $(OBJS_DIR)/env
 	@mkdir -p $(OBJS_DIR)/export
+	@mkdir -p $(OBJS_DIR)/unset
 	@echo "$(MENT)[ Created obj directory ... ]$(NC)"
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
@@ -97,6 +109,10 @@ $(OBJS_DIR)/env/%.o : $(SRCS_DIR)/env/%.c
 $(OBJS_DIR)/export/%.o : $(SRCS_DIR)/export/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
 	@echo "$(GREEN).$(RESET)\c"
+
+$(OBJS_DIR)/unset/%.o : $(SRCS_DIR)/unset/%.c
+	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
+	@echo "$(OBJS_DOT).$(RESET)\c"
 
 all : $(NAME)
 

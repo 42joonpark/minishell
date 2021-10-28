@@ -6,18 +6,16 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:23:49 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/20 18:18:39 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/24 12:39:17 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pp_pwd(char **args)
+int	pp_pwd(void)
 {
 	char	*pwd;
-
-	if (pp_strcmp(args[0], "pwd"))
-		return (EXIT_FAILURE);
+  
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 		return (EXIT_FAILURE);
