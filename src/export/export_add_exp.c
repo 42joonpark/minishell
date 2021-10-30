@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:22:06 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/25 14:22:07 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/30 12:00:13 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	add_exp(t_list **exp_lst, char *str)
 
 	flag = 0;
 	curr = *exp_lst;
-	new = pp_lstnew(str);
+	new = pp_lstnew(str, -1);
 	if (new == NULL)
 		return (EXIT_FAILURE);
 	add_exp_node(exp_lst, curr, new, &flag);

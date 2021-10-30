@@ -1,43 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/21 17:53:48 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/30 19:05:40 by donpark          ###   ########.fr       */
+/*   Created: 2021/03/22 03:27:43 by donpark           #+#    #+#             */
+/*   Updated: 2021/10/30 16:28:11 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	free_args(char **args)
+static int	is_newline(char *backup)
 {
-	size_t	idx;
+	int	i;
 
-	idx = 0;
-	while (args[idx] != NULL)
+	i = 0;
+	while (backup[i])
 	{
-		free(args[idx]);
-		++idx;
+		if (backup[i] == '\n')
+			return (i);
+		i++;
 	}
-	free(args);
-	return (EXIT_SUCCESS);
+	return (-1);
 }
 
-void	free_list(t_list *lst)
+int	is_cut_idx(char *str, int *cut_idx)
 {
-	t_list	*tmp;
-
-	tmp = NULL;
-	while (lst != NULL)
-	{
-		tmp = lst->next;
-		free(lst->content);
-		lst->content = NULL;
-		free(lst);
-		lst = NULL;
-		lst = tmp;
-	}
+	(*cut_idx) = is_newline(str);
+	if (*cut_idx != -1)
+		return (1);
+	else
+		return (0);
 }
+
+

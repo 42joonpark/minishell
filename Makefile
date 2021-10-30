@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/25 15:03:24 by donpark          ###   ########.fr        #
+#    Updated: 2021/10/30 19:13:55 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,11 @@ INC			:= 	-I./includes
 
 CFLAGS		:= 	-g -Wall -Wextra -Werror
 SRCS_DIR	:= 	./src
-SOURCES		:= 	/main.c \
+SOURCES		:= 	/test.c \
+				/main.c \
 				/loop.c \
 				/clear.c \
+				/error.c \
 				/pwd/pwd.c \
 				/echo/echo.c \
 				/cd/cd.c \
@@ -39,7 +41,10 @@ SOURCES		:= 	/main.c \
 				/utils/pp_lst.c \
 				/utils/pp_strdup.c \
 				/utils/pp_strlcpy.c \
-				/utils/pp_strjoin.c
+				/utils/pp_strjoin.c \
+				/utils/pp_substr.c \
+				/utils/get_next_line.c \
+				/utils/get_next_line_utils.c
 SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
@@ -142,6 +147,3 @@ norm_test :
 	@find ./src -name "*.c" -exec norminette {} \;
 	@find ./includes -name "*.h" -exec norminette {} \;
 
-help :
-	@echo $(SRCS)
-	@echo $(OBJS)

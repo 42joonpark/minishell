@@ -19,15 +19,10 @@ int	main(int argc, char *argv[], char **env)
 	(void)argc;
 	(void)argv;
 	env_lst = NULL;
-	env_list(&env_lst, env);
-	put_env_index(&env_lst);
-	// print_lst(env_lst);
-	// printf("- %d -\n", pp_lstsize(env_lst));
-	// printf("=========================================================\n"); fflush(stdout);
 	exp_lst = NULL;
-	exp_list(&exp_lst, &env_lst);
-	// print_lst(exp_lst);
-	// printf("-- %d --\n", pp_lstsize(exp_lst));
+	env_list(&env_lst, env);	// env를 list로 만든다.
+	put_env_index(&env_lst);	// export의 정렬 순서를 env id에 입력한다.
+	exp_list(&exp_lst, &env_lst);	// env_lst에 id 순서대로 출력한다.
 	minishell_loop(&env_lst, &exp_lst);
 	return (0);
 }

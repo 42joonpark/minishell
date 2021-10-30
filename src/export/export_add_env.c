@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:22:13 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/25 16:16:12 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/30 11:59:52 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	add_env(t_list **env_lst, char *str)
 	if (str == NULL)
 		return (EXIT_SUCCESS);
 	curr = *env_lst;
-	new = pp_lstnew(str);
+	new = pp_lstnew(str, -1);
 	if (new == NULL)
 		return (EXIT_FAILURE);
 	while (curr != NULL)

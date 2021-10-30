@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:22:00 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/25 14:12:15 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/30 11:59:19 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ static int	get_max_idx(t_list **lst_ptr)
 	int		max;
 
 	lst = *lst_ptr;
-	max = lst->init_sort_idx;
+	max = lst->id;
 	while (lst != NULL)
 	{
-		if (max < lst->init_sort_idx)
-			max = lst->init_sort_idx;
+		if (max < lst->id)
+			max = lst->id;
 		lst = lst->next;
 	}
 	return (max);
@@ -43,7 +43,7 @@ static int	add_exp_lst(t_list *env_lst1, t_list **exp_lst)
 
 	if (pp_strcmp_limit(env_lst1->content, "_=", '=') != 0)
 	{
-		new = pp_lstnew(pp_strdup(env_lst1->content));
+		new = pp_lstnew(pp_strdup(env_lst1->content), -1);
 		if (new == 0)
 			return (EXIT_FAILURE);
 		pp_lstadd_back(exp_lst, new);
@@ -63,7 +63,7 @@ int	exp_list(t_list **exp_lst, t_list **env_lst)
 	while (env_lst1 != NULL)
 	{
 		backtracking(&flag, env_lst, &env_lst1);
-		if (env_lst1->init_sort_idx == i)
+		if (env_lst1->id == i)
 		{
 			if (add_exp_lst(env_lst1, exp_lst))
 				return (EXIT_FAILURE);

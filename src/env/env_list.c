@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:18:34 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/25 14:21:54 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/30 12:00:27 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	env_list(t_list **env_lst, char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
-		new = pp_lstnew(pp_strdup(env[i]));
+		new = pp_lstnew(pp_strdup(env[i]), -1);
 		if (new == 0)
 			return (EXIT_FAILURE);
 		pp_lstadd_back(env_lst, new);
@@ -46,7 +46,7 @@ void	put_env_index(t_list **env_lst)
 				sorted_idx++;
 			env_lst2 = env_lst2->next;
 		}
-		env_lst1->init_sort_idx = sorted_idx;
+		env_lst1->id = sorted_idx;
 		env_lst1 = env_lst1->next;
 	}
 }

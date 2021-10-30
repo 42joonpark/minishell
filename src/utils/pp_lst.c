@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-t_list	*pp_lstnew(void *content)
+t_list	*pp_lstnew(char *content, int id)
 {
 	t_list	*node;
 
@@ -9,6 +9,7 @@ t_list	*pp_lstnew(void *content)
 		return (0);
 	pp_memset(node, 0, sizeof(t_list));
 	node->content = content;
+	node->id = id;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
