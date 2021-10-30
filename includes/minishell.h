@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/28 12:37:36 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/30 18:16:43 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*prev;
 	char			*content;
-	int				init_sort_idx;
+	int				id;
 }	t_list;
 
 /*
