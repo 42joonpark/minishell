@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:18:34 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/25 14:21:54 by donpark          ###   ########.fr       */
+/*   Updated: 2021/10/30 18:18:27 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	put_env_index(t_list **env_lst)
 				sorted_idx++;
 			env_lst2 = env_lst2->next;
 		}
-		env_lst1->init_sort_idx = sorted_idx;
+		env_lst1->id = sorted_idx;
 		env_lst1 = env_lst1->next;
 	}
 }
