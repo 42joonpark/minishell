@@ -38,7 +38,7 @@ void	print_line_list(t_list *line_lst)
 		else if (line_lst->id == REDIRIN)
 			str = "REDIRIN";
 
-		printf("(%d: %s) %s\n", line_lst->id, str, line_lst->content); fflush(stdout);
+		printf("%s (%d: %s) %s %s\n", C_AQUA, line_lst->id, str, line_lst->content, C_NC); fflush(stdout);
 		line_lst = line_lst->next;
 	}
 }

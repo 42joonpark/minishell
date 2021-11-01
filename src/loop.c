@@ -163,28 +163,32 @@ int	modify_arg_type(t_list *line_lst)
 			if (line_lst->next != NULL && line_lst->next->id == ARG)
 			{
 				if (line_lst->id == REDIRIN && opendir(line_lst->next->content))
-				{
 					line_lst->next->id = DIR_TYPE;
-				}
 				else
-				{
 					line_lst->next->id = FILE_TYPE;
-				}
 			}
 			if (line_lst->id == REDIRIN \
 			&& line_lst->next != NULL \
-			&& (line_lst->next->id = DIR_TYPE || line_lst->next->id == FILE_TYPE) \
+			&& (line_lst->next->id == DIR_TYPE || line_lst->next->id == FILE_TYPE) \
 			&& line_lst->next->next !=NULL && line_lst->next->next->id == ARG)
 			{
 				line_lst->next->next->id = COMMAND;
 			}
 			if (line_lst->id == REDIRIN \
 			&& line_lst->next != NULL \
-			&& (line_lst->next->id = DIR_TYPE || line_lst->next->id == FILE_TYPE) \
+			&& (line_lst->next->id == DIR_TYPE || line_lst->next->id == FILE_TYPE) \
 			&& line_lst->next->next->id != COMMAND \
 			&& line_lst->prev != NULL && line_lst->prev->id == ARG)
 			{
 				line_lst->prev->id = COMMAND;
+			}
+			if (line_lst->id == REDIRIN \
+			&& line_lst->prev != NULL && line_lst->prev->id == COMMAND \
+			&& line_lst->next != NULL \
+			&& (line_lst->next->id == DIR_TYPE || line_lst->next->id == FILE_TYPE) \
+			&& line_lst->next->next != NULL && line_lst->next->next->id == COMMAND)
+			{
+				syntax_error("Syntax error\n");	// No such file or directory. (ex. cat < file cat > file2)
 			}
 		}
 		else if (line_lst->id == HEREDOC)
