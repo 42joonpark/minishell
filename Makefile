@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/10/30 19:13:55 by donpark          ###   ########.fr        #
+#    Updated: 2021/11/01 16:35:19 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,10 @@ SRCS_DIR	:= 	./src
 SOURCES		:= 	/test.c \
 				/main.c \
 				/loop.c \
+				/parse_line.c \
+				/modify_arg_type.c \
+				/check_builtin.c \
+				/check_dollar.c \
 				/clear.c \
 				/error.c \
 				/pwd/pwd.c \

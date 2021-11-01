@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/01 13:46:08 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/01 16:36:36 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,12 @@ t_list	*is_same_content_key(t_list **lst, char *key);
 
 // unset
 int		pp_unset(char **args, t_list **exp_lst, t_list **env_lst);
+
+//
+int		is_builtin(char *str);
+int		modify_arg_type(t_list *line_lst);
+int		parse_line(t_list **line_lst, char *line);
+void		check_dollar(t_list *line_lst, t_list *env_lst);
 
 // main
 int		minishell_loop(t_list **env_lst, t_list **exp_lst);
