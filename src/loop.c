@@ -32,7 +32,6 @@ int	add_quote_str(t_list **line_lst, char *line, int *i)
 			pp_lstadd_back(line_lst, pp_lstnew(str, S_QUOTE));
 	}
 	return (EXIT_SUCCESS);
-
 }
 
 void	add_redir_pipe(t_list **line_lst, char *line, int *i)
@@ -87,6 +86,7 @@ void	add_arg(t_list **line_lst, char *line, int *i)
 		str = pp_substr(line, tmp, (*i) - tmp);
 		pp_lstadd_back(line_lst, pp_lstnew(str, ARG));
 	}
+	(*i)--;
 }
 
 int	parse_line(t_list **line_lst, char *line)
@@ -181,6 +181,7 @@ int	modify_arg_type(t_list *line_lst)
 			if (line_lst->id == REDIRIN \
 			&& line_lst->next != NULL \
 			&& (line_lst->next->id = DIR_TYPE || line_lst->next->id == FILE_TYPE) \
+			&& line_lst->next->next->id != COMMAND \
 			&& line_lst->prev != NULL && line_lst->prev->id == ARG)
 			{
 				line_lst->prev->id = COMMAND;

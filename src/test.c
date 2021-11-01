@@ -38,8 +38,7 @@ void	print_line_list(t_list *line_lst)
 		else if (line_lst->id == REDIRIN)
 			str = "REDIRIN";
 
-
-		printf("(%s) %s\n", str, line_lst->content); fflush(stdout);
+		printf("(%d: %s) %s\n", line_lst->id, str, line_lst->content); fflush(stdout);
 		line_lst = line_lst->next;
 	}
 }
