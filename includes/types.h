@@ -15,5 +15,6 @@
 # define PIP		12
 # define REDIROUT	13
 # define REDIRIN	14
+# define TEST		15
 
 #endif

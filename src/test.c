@@ -7,7 +7,9 @@ void	print_line_list(t_list *line_lst)
 
 	while (line_lst != NULL)
 	{
-		if (line_lst->id == APPEND)
+		if (line_lst->id == TEST)
+			str = "TEST";
+		else if (line_lst->id == APPEND)
 			str = "APPEND";
 		else if (line_lst->id == ARG)
 			str = "ARG";

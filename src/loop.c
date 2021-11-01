@@ -37,22 +37,35 @@ int	add_quote_str(t_list **line_lst, char *line, int *i)
 
 void	add_redir_pipe(t_list **line_lst, char *line, int *i)
 {
+	char	*str;
+
 	if (line[*i] == '<' && line[(*i) + 1] == '<')
 	{
 		(*i)++;
-		pp_lstadd_back(line_lst, pp_lstnew("<<", HEREDOC));
+		str = pp_strdup("<<");
+		pp_lstadd_back(line_lst, pp_lstnew(str, HEREDOC));
 	}
 	else if (line[*i] == '>' && line[(*i) + 1] == '>')
 	{
 		(*i)++;
-		pp_lstadd_back(line_lst, pp_lstnew(">>", APPEND));
+		str = pp_strdup(">>");
+		pp_lstadd_back(line_lst, pp_lstnew(str, APPEND));
 	}
 	else if (line[*i] == '<')
-		pp_lstadd_back(line_lst, pp_lstnew("<", REDIRIN));
+	{
+		str = pp_strdup("<");
+		pp_lstadd_back(line_lst, pp_lstnew(str, REDIRIN));
+	}
 	else if (line[*i] == '>')
-		pp_lstadd_back(line_lst, pp_lstnew(">", REDIROUT));
+	{
+		str = pp_strdup(">");
+		pp_lstadd_back(line_lst, pp_lstnew(str, REDIROUT));
+	}
 	else if (line[*i] == '|')
-		pp_lstadd_back(line_lst, pp_lstnew("|", PIP));
+	{
+		str = pp_strdup("|");
+		pp_lstadd_back(line_lst, pp_lstnew(str, PIP));
+	}
 }
 
 void	add_arg(t_list **line_lst, char *line, int *i)
@@ -96,9 +109,13 @@ int	parse_line(t_list **line_lst, char *line)
 				return (EXIT_FAILURE);
 		}
 		else if (line[i] == '<' || line[i] == '>' || line[i] == '|')
+		{
 			add_redir_pipe(line_lst, line, &i);
+		}
 		else
+		{
 			add_arg(line_lst, line, &i);
+		}
 		i++;
 	}
 	// if (pp_lstsize(*line_lst) == 0)
@@ -146,9 +163,27 @@ int	modify_arg_type(t_list *line_lst)
 			if (line_lst->next != NULL && line_lst->next->id == ARG)
 			{
 				if (line_lst->id == REDIRIN && opendir(line_lst->next->content))
+				{
 					line_lst->next->id = DIR_TYPE;
+				}
 				else
+				{
 					line_lst->next->id = FILE_TYPE;
+				}
+			}
+			if (line_lst->id == REDIRIN \
+			&& line_lst->next != NULL \
+			&& (line_lst->next->id = DIR_TYPE || line_lst->next->id == FILE_TYPE) \
+			&& line_lst->next->next !=NULL && line_lst->next->next->id == ARG)
+			{
+				line_lst->next->next->id = COMMAND;
+			}
+			if (line_lst->id == REDIRIN \
+			&& line_lst->next != NULL \
+			&& (line_lst->next->id = DIR_TYPE || line_lst->next->id == FILE_TYPE) \
+			&& line_lst->prev != NULL && line_lst->prev->id == ARG)
+			{
+				line_lst->prev->id = COMMAND;
 			}
 		}
 		else if (line_lst->id == HEREDOC)
@@ -184,7 +219,7 @@ int	minishell_loop(t_list **env_lst, t_list **exp_lst)
 	is_running = TRUE;
 	while (is_running)
 	{
-		line = readline("> ");
+		line = readline("$ ");
 		if (line != NULL)
 			add_history(line);
 		if (pp_strcmp(line, "\0") == 0)
