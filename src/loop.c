@@ -6,6 +6,7 @@ int	minishell_loop(t_lst **env_lst, t_lst **exp_lst)
 	char	*line;
 	int		is_running;
 	t_lst	*line_lst;
+	t_lst	*tmp;
 
 	// char	**args;
 	(void)env_lst;
@@ -40,9 +41,10 @@ int	minishell_loop(t_lst **env_lst, t_lst **exp_lst)
 		check_dollar(line_lst, *env_lst);
 
 		// line_lst 의 content와 type 확인
-		print_line_list(line_lst);
+		// print_line_list(line_lst);
 
-		execute(line_lst);
+		tmp = line_lst;
+		execute(&tmp);
 
 		// args = pp_split(line, ' ');
 		// if (pp_strcmp(args[0], "pwd") == 0)

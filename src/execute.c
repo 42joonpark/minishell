@@ -69,22 +69,22 @@ void	exec(void)
 }
 
 // cmd1 | cmd2 | cmd3 | cmd4 | cmd5 | cmd6
-void	execute(t_lst *line_lst)
+void	execute(t_lst **line_lst)
 {
 	pid_t	pid;
 
-	g_data.pip_cnt = pipe_count(line_lst);
-	g_data.cmd_cnt = cmd_count(line_lst);
+	g_data.pip_cnt = pipe_count(*line_lst);
+	g_data.cmd_cnt = cmd_count(*line_lst);
 	g_data.curr_cmd = 0;
-	while (line_lst != NULL)
+	while ((*line_lst) != NULL)
 	{
 
 		if (g_data.pip_cnt > 0)
 			pipe(g_data.a);
 
-		if (line_lst->id == BUILTIN || line_lst->id == COMMAND)
+		if ((*line_lst)->id == BUILTIN || (*line_lst)->id == COMMAND)
 		{
-			g_data.cmd_arg = cmd_arg_join(&line_lst);
+			g_data.cmd_arg = cmd_arg_join(line_lst);
 			g_data.curr_cmd++;
 		}
 		pid = fork();
@@ -92,7 +92,7 @@ void	execute(t_lst *line_lst)
 			exit(EXIT_FAILURE);
 		else if (pid == 0)
 		{
-			if (line_lst != NULL && line_lst->id == PIP)
+			if ((*line_lst) != NULL && (*line_lst)->id == PIP)
 			{
 				if (g_data.curr_cmd % 2 == 0)
 				{
@@ -121,8 +121,8 @@ void	execute(t_lst *line_lst)
 				close(g_data.b[READ]);
 			}
 			waitpid(pid, NULL, 0);
-			if (line_lst != NULL)
-				line_lst = line_lst->next;
+			if ((*line_lst) != NULL)
+				(*line_lst) = (*line_lst)->next;
 		}
 	}
 }
