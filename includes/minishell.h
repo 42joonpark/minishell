@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/01 16:36:36 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/02 17:15:07 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@
 /*
  ** DEFINES
  */
-# define	TRUE	1
-# define	FALSE	0
+# define TRUE	1
+# define FALSE	0
 # define WHICH_DIR	"/usr/bin/which"
+# define READ	0
+# define WRITE	1
+
+# ifndef P_BUFFER_SIZE
+#  define P_BUFFER_SIZE 4096
+# endif
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
@@ -74,6 +80,20 @@ typedef struct s_list
 	char			*content;
 	int				id;
 }	t_list;
+
+typedef struct s_data
+{
+	char	**env;
+	int		a[2];
+	int		b[2];
+	int		pip_cnt;
+	int		cmd_cnt;
+	char	*cmd_arg;
+
+	int		curr_cmd;
+}	t_data;
+
+t_data		g_data;
 
 /*
  ** FUNCTIONS
@@ -120,6 +140,7 @@ int		is_builtin(char *str);
 int		modify_arg_type(t_list *line_lst);
 int		parse_line(t_list **line_lst, char *line);
 void		check_dollar(t_list *line_lst, t_list *env_lst);
+void	execute(t_list *line_lst);
 
 // main
 int		minishell_loop(t_list **env_lst, t_list **exp_lst);

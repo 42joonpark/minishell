@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/11/01 16:35:19 by donpark          ###   ########.fr        #
+#    Updated: 2021/11/02 17:53:36 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SOURCES		:= 	/test.c \
 				/modify_arg_type.c \
 				/check_builtin.c \
 				/check_dollar.c \
+				/execute.c \
 				/clear.c \
 				/error.c \
 				/pwd/pwd.c \
@@ -47,6 +48,7 @@ SOURCES		:= 	/test.c \
 				/utils/pp_strlcpy.c \
 				/utils/pp_strjoin.c \
 				/utils/pp_substr.c \
+				/utils/pp_which.c \
 				/utils/get_next_line.c \
 				/utils/get_next_line_utils.c
 SRCS		:= 	$(addprefix $(SRCS_DIR), $(SOURCES))
@@ -77,7 +79,6 @@ RESET		:=	\033[0m
 $(NAME) : $(OBJS_DIR) $(OBJS)
 	@$(CC) -o $@ $(OBJS) -lreadline
 	@echo "\n$(GREEN)object files were created$(RESET)"
-	@$(CC) -o $@ $(OBJS) -lreadline
 	@echo "$(RED)minishell created.$(RESET)"
 
 $(OBJS_DIR) :

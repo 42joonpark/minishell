@@ -42,6 +42,7 @@ int	minishell_loop(t_list **env_lst, t_list **exp_lst)
 		// line_lst 의 content와 type 확인
 		print_line_list(line_lst);
 
+		execute(line_lst);
 
 		// args = pp_split(line, ' ');
 		// if (pp_strcmp(args[0], "pwd") == 0)
@@ -58,9 +59,11 @@ int	minishell_loop(t_list **env_lst, t_list **exp_lst)
 		// 	pp_export(args, exp_lst, env_lst);
 		// if (pp_strcmp(args[0], "unset") == 0)
 		// 	pp_unset(args, exp_lst, env_lst);
+
 		free_list(line_lst);
 		line_lst = NULL;
 		free(line);
+		line = NULL;
 		//free(args);
 	}
 	return (EXIT_SUCCESS);

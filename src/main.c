@@ -11,18 +11,20 @@ static void	print_lst(t_list *lst)
 }
 */
 
-int	main(int argc, char *argv[], char **env)
+int	main(int argc, char *argv[], char **envp)
 {
 	t_list	*env_lst;
 	t_list	*exp_lst;
 
 	(void)argc;
 	(void)argv;
+	g_data.env = envp;
 	env_lst = NULL;
 	exp_lst = NULL;
-	env_list(&env_lst, env);	// env를 list로 만든다.
+	env_list(&env_lst, envp);	// env를 list로 만든다.
 	put_env_index(&env_lst);	// export의 정렬 순서를 env id에 입력한다.
 	exp_list(&exp_lst, &env_lst);	// env_lst에 id 순서대로 출력한다.
 	minishell_loop(&env_lst, &exp_lst);
+	printf("main end\n"); fflush(stdout);
 	return (0);
 }
