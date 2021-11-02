@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:22:13 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/30 11:59:52 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/02 18:26:46 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*key_eq_val(char *key, char *val)
 	return (new_str);
 }
 
-void	change_env_val(t_list *lst, char *val)
+void	change_env_val(t_lst *lst, char *val)
 {
 	char	*tmp;
 	char	*str;
@@ -62,10 +62,10 @@ void	change_env_val(t_list *lst, char *val)
 	lst->content = tmp;
 }
 
-int	add_env(t_list **env_lst, char *str)
+int	add_env(t_lst **env_lst, char *str)
 {
-	t_list	*curr;
-	t_list	*new;
+	t_lst	*curr;
+	t_lst	*new;
 
 	if (str == NULL)
 		return (EXIT_SUCCESS);

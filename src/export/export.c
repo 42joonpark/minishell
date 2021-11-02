@@ -6,13 +6,13 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:23:29 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/27 10:51:40 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/02 18:27:23 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_exp_lst(t_list *lst)
+static void	print_exp_lst(t_lst *lst)
 {
 	while (lst != NULL)
 	{
@@ -29,10 +29,10 @@ static void	print_exp_lst(t_list *lst)
  * = 이 없고, val이 없는 상태가 아니라면 ex) 'export a'와 같은 경우가 아니라면
  * lst->content 의 key와 같은 lst 가져오기
  */
-static void	var_add_env(t_list **env_lst, char *exp_var, char *key, char *val)
+static void	var_add_env(t_lst **env_lst, char *exp_var, char *key, char *val)
 {
 	char	*str;
-	t_list	*tmp;
+	t_lst	*tmp;
 
 	if (is_exist_eq(exp_var))
 		str = key_eq_val(key, val);
@@ -48,10 +48,10 @@ static void	var_add_env(t_list **env_lst, char *exp_var, char *key, char *val)
 	}
 }
 
-static void	var_add_exp(t_list **exp_lst, char *exp_var, char *key, char *val)
+static void	var_add_exp(t_lst **exp_lst, char *exp_var, char *key, char *val)
 {
 	char	*str;
-	t_list	*tmp;
+	t_lst	*tmp;
 
 	if (is_exist_eq(exp_var))
 		str = str_eq_quote_val(key, val);
@@ -96,7 +96,7 @@ static int	check_value(char *str, int i, int qq_cnt, int q_cnt)
 /**
  * need free : key, val, lst->content, lst
  */
-int	pp_export(char **args, t_list **exp_lst, t_list **env_lst)
+int	pp_export(char **args, t_lst **exp_lst, t_lst **env_lst)
 {
 	char	*key;
 	char	*val;

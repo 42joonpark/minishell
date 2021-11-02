@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:22:06 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/30 12:00:13 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/02 18:26:57 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*str_eq_quote_val(char *key, char *val)
 	return (new_str);
 }
 
-void	change_exp_val(t_list *lst, char *val)
+void	change_exp_val(t_lst *lst, char *val)
 {
 	char	*str;
 	int		i;
@@ -65,7 +65,7 @@ void	change_exp_val(t_list *lst, char *val)
 	str[i] = '\0';
 }
 
-static void	add_exp_node(t_list **exp_lst, t_list *curr, t_list *new, int *flag)
+static void	add_exp_node(t_lst **exp_lst, t_lst *curr, t_lst *new, int *flag)
 {
 	while (curr != NULL)
 	{
@@ -87,10 +87,10 @@ static void	add_exp_node(t_list **exp_lst, t_list *curr, t_list *new, int *flag)
 	}
 }
 
-int	add_exp(t_list **exp_lst, char *str)
+int	add_exp(t_lst **exp_lst, char *str)
 {
-	t_list	*curr;
-	t_list	*new;
+	t_lst	*curr;
+	t_lst	*new;
 	int		flag;
 
 	flag = 0;

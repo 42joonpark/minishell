@@ -15,7 +15,7 @@ static int	is_dollar(char *str)
 	return (0);
 }
 
-static char	*s2_exist_env(char *s2, t_list *env_lst)
+static char	*s2_exist_env(char *s2, t_lst *env_lst)
 {
 	char	*key;
 
@@ -33,7 +33,7 @@ static char	*s2_exist_env(char *s2, t_list *env_lst)
 	return (NULL);
 }
 
-static void	modify_content(t_list *line_lst, t_list *env_lst)
+static void	modify_content(t_lst *line_lst, t_lst *env_lst)
 {
 	int		i;
 	char	*s1;
@@ -65,7 +65,7 @@ static void	modify_content(t_list *line_lst, t_list *env_lst)
 	}
 }
 
-void	check_dollar(t_list *line_lst, t_list *env_lst)
+void	check_dollar(t_lst *line_lst, t_lst *env_lst)
 {
 	while (line_lst != NULL)
 	{

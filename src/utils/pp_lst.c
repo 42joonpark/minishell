@@ -1,13 +1,13 @@
 #include "minishell.h"
 
-t_list	*pp_lstnew(char *content, int id)
+t_lst	*pp_lstnew(char *content, int id)
 {
-	t_list	*node;
+	t_lst	*node;
 
-	node = (t_list *)malloc(sizeof(t_list));
+	node = (t_lst *)malloc(sizeof(t_lst));
 	if (node == NULL)
 		return (0);
-	pp_memset(node, 0, sizeof(t_list));
+	pp_memset(node, 0, sizeof(t_lst));
 	node->content = content;
 	node->id = id;
 	node->next = NULL;
@@ -15,7 +15,7 @@ t_list	*pp_lstnew(char *content, int id)
 	return (node);
 }
 
-t_list	*pp_lstlast(t_list *lst)
+t_lst	*pp_lstlast(t_lst *lst)
 {
 	if (lst == NULL)
 		return (0);
@@ -24,9 +24,9 @@ t_list	*pp_lstlast(t_list *lst)
 	return (lst);
 }
 
-void	pp_lstadd_back(t_list **lst, t_list *new)
+void	pp_lstadd_back(t_lst **lst, t_lst *new)
 {
-	t_list	*last;
+	t_lst	*last;
 
 	if (lst == NULL || new == NULL)
 		return ;
@@ -43,9 +43,9 @@ void	pp_lstadd_back(t_list **lst, t_list *new)
 	}
 }
 
-void	pp_lstadd_front(t_list **lst, t_list *new)
+void	pp_lstadd_front(t_lst **lst, t_lst *new)
 {
-	t_list	*begin;
+	t_lst	*begin;
 
 	if (lst == NULL || new == NULL)
 		return ;
@@ -62,7 +62,7 @@ void	pp_lstadd_front(t_list **lst, t_list *new)
 	}
 }
 
-void	pp_lstdelone(t_list *lst)
+void	pp_lstdelone(t_lst *lst)
 {
 	if (lst == NULL)
 		return ;
@@ -74,7 +74,7 @@ void	pp_lstdelone(t_list *lst)
 	free(lst);
 }
 
-int	pp_lstsize(t_list *lst)
+int	pp_lstsize(t_lst *lst)
 {
 	int	i;
 

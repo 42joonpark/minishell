@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "types.h"
 
-int	pipe_count(t_list *line_lst)
+int	pipe_count(t_lst *line_lst)
 {
 	int	cnt;
 
@@ -15,7 +15,7 @@ int	pipe_count(t_list *line_lst)
 	return (cnt);
 }
 
-int	cmd_count(t_list *line_lst)
+int	cmd_count(t_lst *line_lst)
 {
 	int	cnt;
 
@@ -29,7 +29,7 @@ int	cmd_count(t_list *line_lst)
 	return (cnt);
 }
 
-char	*cmd_arg_join(t_list **line_lst)
+char	*cmd_arg_join(t_lst **line_lst)
 {
 	char	*join;
 	char	*tmp1;
@@ -69,7 +69,7 @@ void	exec(void)
 }
 
 // cmd1 | cmd2 | cmd3 | cmd4 | cmd5 | cmd6
-void	execute(t_list *line_lst)
+void	execute(t_lst *line_lst)
 {
 	pid_t	pid;
 

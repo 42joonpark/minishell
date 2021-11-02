@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "types.h"
 
-static int	check_first_str(t_list *line_lst)
+static int	check_first_str(t_lst *line_lst)
 {
 	if (line_lst->id == ARG)
 	{
@@ -18,7 +18,7 @@ static int	check_first_str(t_list *line_lst)
 	return (EXIT_SUCCESS);
 }
 
-int	modify_arg_type(t_list *line_lst)
+int	modify_arg_type(t_lst *line_lst)
 {
 	if (check_first_str(line_lst))
 		return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 14:22:28 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/25 17:45:07 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/02 18:27:13 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ int	is_exist_eq(char *s)
 	return (0);
 }
 
-t_list	*is_same_content_key(t_list **lst, char *key)
+t_lst	*is_same_content_key(t_lst **lst, char *key)
 {
-	t_list	*tmp;
+	t_lst	*tmp;
 	char	*content_key;
 
 	tmp = *lst;

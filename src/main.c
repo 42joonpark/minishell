@@ -1,6 +1,6 @@
 #include "minishell.h"
 /*
-static void	print_lst(t_list *lst)
+static void	print_lst(t_lst *lst)
 {
 	while (lst != NULL)
 	{
@@ -13,8 +13,8 @@ static void	print_lst(t_list *lst)
 
 int	main(int argc, char *argv[], char **envp)
 {
-	t_list	*env_lst;
-	t_list	*exp_lst;
+	t_lst	*env_lst;
+	t_lst	*exp_lst;
 
 	(void)argc;
 	(void)argv;

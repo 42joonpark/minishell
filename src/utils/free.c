@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 17:53:48 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/01 11:18:55 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/02 18:25:10 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	free_args(char **args)
 	return (EXIT_SUCCESS);
 }
 
-void	free_list(t_list *lst)
+void	free_list(t_lst *lst)
 {
-	t_list	*tmp;
+	t_lst	*tmp;
 
 	tmp = NULL;
 	while (lst != NULL)

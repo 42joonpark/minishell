@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/02 17:15:07 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/02 18:24:53 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ typedef struct s_command{
 	char			*doc;
 }					t_command;
 
-typedef struct s_list
+typedef struct s_lst
 {
-	struct s_list	*next;
-	struct s_list	*prev;
+	struct s_lst	*next;
+	struct s_lst	*prev;
 	char			*content;
 	int				id;
-}	t_list;
+}	t_lst;
 
 typedef struct s_data
 {
@@ -102,7 +102,7 @@ void	clear_screen(void);
 void	find_executable(char *command, char *envs[], char buffer[],
 			int buf_size);
 
-void	free_list(t_list *lst);
+void	free_list(t_lst *lst);
 
 void	syntax_error(char *err);
 
@@ -111,39 +111,39 @@ int		pp_echo(char **args);
 int		pp_cd(char **args);
 
 // env
-int		env_list(t_list **env_lst, char **env);
-void	put_env_index(t_list **env_lst);
-int		pp_env(t_list **env_lst);
+int		env_list(t_lst **env_lst, char **env);
+void	put_env_index(t_lst **env_lst);
+int		pp_env(t_lst **env_lst);
 
 // export
-int		exp_list(t_list **exp_lst, t_list **env_lst);
-int		pp_export(char **args, t_list **exp_lst, t_list **env_lst);
+int		exp_list(t_lst **exp_lst, t_lst **env_lst);
+int		pp_export(char **args, t_lst **exp_lst, t_lst **env_lst);
 
 char	*key_eq_val(char *key, char *val);
-void	change_env_val(t_list *lst, char *val);
-int		add_env(t_list **env_lst, char *str);
+void	change_env_val(t_lst *lst, char *val);
+int		add_env(t_lst **env_lst, char *str);
 
 char	*str_eq_quote_val(char *key, char *val);
-void	change_exp_val(t_list *lst, char *val);
-int		add_exp(t_list **exp_lst, char *str);
+void	change_exp_val(t_lst *lst, char *val);
+int		add_exp(t_lst **exp_lst, char *str);
 
 char	*get_key(char *str);
 char	*get_value(char *str);
 int		is_exist_eq(char *s);
-t_list	*is_same_content_key(t_list **lst, char *key);
+t_lst	*is_same_content_key(t_lst **lst, char *key);
 
 // unset
-int		pp_unset(char **args, t_list **exp_lst, t_list **env_lst);
+int		pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst);
 
 //
 int		is_builtin(char *str);
-int		modify_arg_type(t_list *line_lst);
-int		parse_line(t_list **line_lst, char *line);
-void		check_dollar(t_list *line_lst, t_list *env_lst);
-void	execute(t_list *line_lst);
+int		modify_arg_type(t_lst *line_lst);
+int		parse_line(t_lst **line_lst, char *line);
+void		check_dollar(t_lst *line_lst, t_lst *env_lst);
+void	execute(t_lst *line_lst);
 
 // main
-int		minishell_loop(t_list **env_lst, t_list **exp_lst);
+int		minishell_loop(t_lst **env_lst, t_lst **exp_lst);
 
 /*
  ** UTILS
@@ -160,12 +160,12 @@ size_t	pp_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*pp_strjoin(char const *s1, char const *s2);
 char	*pp_substr(char const *s, unsigned int start, size_t len);
 
-t_list	*pp_lstnew(char *content, int id);
-t_list	*pp_lstlast(t_list *lst);
-void	pp_lstadd_back(t_list **lst, t_list *new);
-void	pp_lstadd_front(t_list **lst, t_list *new);
-void	pp_lstdelone(t_list *lst);
-int		pp_lstsize(t_list *lst);
+t_lst	*pp_lstnew(char *content, int id);
+t_lst	*pp_lstlast(t_lst *lst);
+void	pp_lstadd_back(t_lst **lst, t_lst *new);
+void	pp_lstadd_front(t_lst **lst, t_lst *new);
+void	pp_lstdelone(t_lst *lst);
+int		pp_lstsize(t_lst *lst);
 
 int		get_next_line(int fd, char **line);
 int		is_cut_idx(char *str, int *cut_idx);
@@ -174,5 +174,5 @@ int		is_cut_idx(char *str, int *cut_idx);
 /*
  ** test
  */
-void	print_line_list(t_list *line_lst);
+void	print_line_list(t_lst *line_lst);
 #endif

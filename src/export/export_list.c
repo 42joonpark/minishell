@@ -6,15 +6,15 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:22:00 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/30 11:59:19 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/02 18:27:04 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	get_max_idx(t_list **lst_ptr)
+static int	get_max_idx(t_lst **lst_ptr)
 {
-	t_list	*lst;
+	t_lst	*lst;
 	int		max;
 
 	lst = *lst_ptr;
@@ -28,7 +28,7 @@ static int	get_max_idx(t_list **lst_ptr)
 	return (max);
 }
 
-static void	backtracking(int *flag, t_list **env_lst, t_list **env_lst1)
+static void	backtracking(int *flag, t_lst **env_lst, t_lst **env_lst1)
 {
 	if (*flag == 1)
 	{
@@ -37,9 +37,9 @@ static void	backtracking(int *flag, t_list **env_lst, t_list **env_lst1)
 	}
 }
 
-static int	add_exp_lst(t_list *env_lst1, t_list **exp_lst)
+static int	add_exp_lst(t_lst *env_lst1, t_lst **exp_lst)
 {
-	t_list	*new;
+	t_lst	*new;
 
 	if (pp_strcmp_limit(env_lst1->content, "_=", '=') != 0)
 	{
@@ -51,9 +51,9 @@ static int	add_exp_lst(t_list *env_lst1, t_list **exp_lst)
 	return (EXIT_SUCCESS);
 }
 
-int	exp_list(t_list **exp_lst, t_list **env_lst)
+int	exp_list(t_lst **exp_lst, t_lst **env_lst)
 {
-	t_list	*env_lst1;
+	t_lst	*env_lst1;
 	int		i;
 	int		flag;
 

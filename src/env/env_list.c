@@ -6,16 +6,16 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 12:18:34 by donpark           #+#    #+#             */
-/*   Updated: 2021/10/30 12:00:27 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/02 18:27:39 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env_list(t_list **env_lst, char **env)
+int	env_list(t_lst **env_lst, char **env)
 {
 	int		i;
-	t_list	*new;
+	t_lst	*new;
 
 	i = 0;
 	while (env[i] != NULL)
@@ -29,10 +29,10 @@ int	env_list(t_list **env_lst, char **env)
 	return (EXIT_SUCCESS);
 }
 
-void	put_env_index(t_list **env_lst)
+void	put_env_index(t_lst **env_lst)
 {
-	t_list	*env_lst1;
-	t_list	*env_lst2;
+	t_lst	*env_lst1;
+	t_lst	*env_lst2;
 	int		sorted_idx;
 
 	env_lst1 = *env_lst;

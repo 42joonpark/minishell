@@ -13,7 +13,7 @@ static int	check_quotes(char *line, char quote, int *i)
 	return (1);
 }
 
-static int	add_quote_str(t_list **line_lst, char *line, int *i)
+static int	add_quote_str(t_lst **line_lst, char *line, int *i)
 {
 	char	quote;
 	int		tmp;		// quote 다음 인덱스
@@ -34,7 +34,7 @@ static int	add_quote_str(t_list **line_lst, char *line, int *i)
 	return (EXIT_SUCCESS);
 }
 
-static void	add_redir_pipe(t_list **line_lst, char *line, int *i)
+static void	add_redir_pipe(t_lst **line_lst, char *line, int *i)
 {
 	char	*str;
 
@@ -67,7 +67,7 @@ static void	add_redir_pipe(t_list **line_lst, char *line, int *i)
 	}
 }
 
-static void	add_arg(t_list **line_lst, char *line, int *i)
+static void	add_arg(t_lst **line_lst, char *line, int *i)
 {
 	char	*str;
 	int		tmp;
@@ -89,7 +89,7 @@ static void	add_arg(t_list **line_lst, char *line, int *i)
 	(*i)--;
 }
 
-int	parse_line(t_list **line_lst, char *line)
+int	parse_line(t_lst **line_lst, char *line)
 {
 	int		i;
 

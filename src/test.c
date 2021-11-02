@@ -1,7 +1,7 @@
 #include "minishell.h"
 #include "types.h"
 
-void	print_line_list(t_list *line_lst)
+void	print_line_list(t_lst *line_lst)
 {
 	char	*str;
 

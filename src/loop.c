@@ -1,11 +1,11 @@
 #include "minishell.h"
 #include "types.h"
 
-int	minishell_loop(t_list **env_lst, t_list **exp_lst)
+int	minishell_loop(t_lst **env_lst, t_lst **exp_lst)
 {
 	char	*line;
 	int		is_running;
-	t_list	*line_lst;
+	t_lst	*line_lst;
 
 	// char	**args;
 	(void)env_lst;
