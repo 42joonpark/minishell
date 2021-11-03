@@ -8,3 +8,12 @@ void	syntax_error(char *err)
 		write(2, "\n", 1);
 	}
 }
+
+void	print_error_msg(char *str, char *err);
+{
+	write(2, "ppsh: ", )
+	if (str != NULL)
+	{
+		write(2, str, )
+	}
+}

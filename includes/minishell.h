@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/03 12:47:22 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/03 19:24:15 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,26 @@
 # include <sys/wait.h>
 # include <limits.h>
 # include <dirent.h>	// opendir
+# include "libft.h"
 
 /*
  ** DEFINES
  */
+# define APPEND		1
+# define ARG		2
+# define BUILTIN	3	// builtin 함수(명령어)
+# define COMMAND	4	// which 로 실행할 수 있는 애들
+# define DELIMITER	5
+# define D_QUOTE	6
+# define DIR_TYPE	7
+# define ENV_TYPE	8	// $
+# define FILE_TYPE	9
+# define S_QUOTE	10
+# define HEREDOC	11
+# define PIP		12
+# define REDIROUT	13
+# define REDIRIN	14
+
 # define TRUE	1
 # define FALSE	0
 # define WHICH_DIR	"/usr/bin/which"
@@ -78,13 +94,14 @@ typedef struct s_lst
 typedef struct s_data
 {
 	char	**env;
-	int		a[2];
-	int		b[2];
-	int		pip_cnt;
-	int		cmd_cnt;
-	char	*cmd_arg;
+	char	exit_status;	// 종료코드에는 1byte가 사용되면 0~255 번을 사용가능하다.
+	// int		a[2];
+	// int		b[2];
+	// int		pip_cnt;
+	// int		cmd_cnt;
+	// char	*cmd_arg;
 
-	int		curr_cmd;
+	// int		curr_cmd;
 }	t_data;
 
 t_data		g_data;
@@ -129,7 +146,7 @@ t_lst	*is_same_content_key(t_lst **lst, char *key);
 // unset
 int		pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst);
 
-//
+
 int		is_builtin(char *str);
 int		modify_arg_type(t_lst *line_lst);
 int		parse_line(t_lst **line_lst, char *line);
@@ -139,9 +156,7 @@ void	execute(t_lst **line_lst);
 // main
 int		minishell_loop(t_lst **env_lst, t_lst **exp_lst);
 
-/*
- ** UTILS
- */
+// utils
 char	**pp_split(char *s, char c);
 size_t	pp_strlen(const char *s);
 int		pp_strcmp(const char *s1, const char *s2);
@@ -165,9 +180,7 @@ int		get_next_line(int fd, char **line);
 int		is_cut_idx(char *str, int *cut_idx);
 
 
-/*
- ** test
- */
+// test
 void	print_line_list(t_lst *line_lst);
 void	print_lst(t_lst *lst);
 #endif
