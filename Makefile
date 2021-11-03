@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/18 13:37:15 by joonpark          #+#    #+#              #
-#    Updated: 2021/11/02 17:53:36 by donpark          ###   ########.fr        #
+#    Updated: 2021/11/03 11:06:13 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,34 +95,6 @@ $(OBJS_DIR) :
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
 	@echo "$(GREEN).$(RESET)\c"
-
-$(OBJS_DIR)/utils/%.o : $(SRCS_DIR)/utils/%.c
-	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(GREEN).$(RESET)\c"
-
-$(OBJS_DIR)/pwd/%.o : $(SRCS_DIR)/pwd/%.c
-	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(GREEN).$(RESET)\c"
-
-$(OBJS_DIR)/echo/%.o : $(SRCS_DIR)/echo/%.c
-	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(GREEN).$(RESET)\c"
-
-$(OBJS_DIR)/cd/%.o : $(SRCS_DIR)/cd/%.c
-	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(GREEN).$(RESET)\c"
-
-$(OBJS_DIR)/env/%.o : $(SRCS_DIR)/env/%.c
-	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(GREEN).$(RESET)\c"
-
-$(OBJS_DIR)/export/%.o : $(SRCS_DIR)/export/%.c
-	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(GREEN).$(RESET)\c"
-
-$(OBJS_DIR)/unset/%.o : $(SRCS_DIR)/unset/%.c
-	@$(CC) -c $(CFLAGS) -o $@ $< $(INC)
-	@echo "$(OBJS_DOT).$(RESET)\c"
 
 all : $(NAME)
 

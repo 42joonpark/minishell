@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/02 18:51:20 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/03 12:47:22 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,6 @@
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX 65536
-# endif
-
-# ifdef __APPLE__
-#  define OS 1
-# else
-#  define OS 0
 # endif
 
 # define C_NC		"\033[0m"
@@ -139,7 +133,7 @@ int		pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst);
 int		is_builtin(char *str);
 int		modify_arg_type(t_lst *line_lst);
 int		parse_line(t_lst **line_lst, char *line);
-void		check_dollar(t_lst *line_lst, t_lst *env_lst);
+void	check_dollar(t_lst *line_lst, t_lst *env_lst);
 void	execute(t_lst **line_lst);
 
 // main
@@ -175,4 +169,5 @@ int		is_cut_idx(char *str, int *cut_idx);
  ** test
  */
 void	print_line_list(t_lst *line_lst);
+void	print_lst(t_lst *lst);
 #endif

@@ -40,3 +40,13 @@ void	print_line_list(t_lst *line_lst)
 		line_lst = line_lst->next;
 	}
 }
+
+void	print_lst(t_lst *lst)
+{
+	while (lst != NULL)
+	{
+		write(1, lst->content, pp_strlen(lst->content));
+		write(1, "\n", 1);
+		lst = lst->next;
+	}
+}
