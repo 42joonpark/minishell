@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 14:22:28 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/02 18:27:13 by donpark          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 char	*get_key(char *str)
@@ -76,7 +64,7 @@ char	*get_value(char *str)
 		}
 		i++;
 	}
-	if (i == (int)pp_strlen(str))
+	if (i == (int)ft_strlen(str))
 		return (NULL);
 	else
 	{
@@ -107,7 +95,7 @@ t_lst	*is_same_content_key(t_lst **lst, char *key)
 	while (tmp != NULL)
 	{
 		content_key = get_key(tmp->content);
-		if (pp_strcmp(key, content_key) == 0)
+		if (ft_strcmp(key, content_key) == 0)
 		{
 			free(content_key);
 			return (tmp);

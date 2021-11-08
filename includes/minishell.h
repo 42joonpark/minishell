@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/20 15:39:41 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/03 19:24:15 by donpark          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -57,14 +45,6 @@
 #  define P_BUFFER_SIZE 4096
 # endif
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
-# endif
-
-# ifndef OPEN_MAX
-#  define OPEN_MAX 65536
-# endif
-
 # define C_NC		"\033[0m"
 # define C_BLOCK	"\033[30m"
 # define C_RED		"\033[31m"
@@ -93,14 +73,14 @@ typedef struct s_lst
 
 typedef struct s_data
 {
-	char	**env;
+	t_lst	*env_lst;
+	t_lst	*exp_lst;
 	char	exit_status;	// 종료코드에는 1byte가 사용되면 0~255 번을 사용가능하다.
 	// int		a[2];
 	// int		b[2];
 	// int		pip_cnt;
 	// int		cmd_cnt;
 	// char	*cmd_arg;
-
 	// int		curr_cmd;
 }	t_data;
 
@@ -109,66 +89,36 @@ t_data		g_data;
 /*
  ** FUNCTIONS
  */
+// clear_screen.c
 void	clear_screen(void);
-void	find_executable(char *command, char *envs[], char buffer[],
-			int buf_size);
 
-void	free_list(t_lst *lst);
+// env/env_list.c
+int		env_list(char **env);
+void	put_env_index(void);
 
+// export/export_list.c
+int		exp_list(void);
+
+// tokenizer.c
+int		tokenizer(t_lst **line_lst, char *line);
+int		parse_1(t_lst **line_lst, char *line);
+int		check_1(t_lst *line_lst);
+int		parse_2(t_lst *line_lst);
+void	parse_3(t_lst *line_lst);
+
+// parse_util.c
+int		check_id(int id);
+int		is_builtin(char *str);
+
+// error.c
 void	syntax_error(char *err);
+void	syntax_error_msg(char *err, char *msg);
 
-int		pp_pwd(void);
-int		pp_echo(char **args);
-int		pp_cd(char **args);
-
-// env
-int		env_list(t_lst **env_lst, char **env);
-void	put_env_index(t_lst **env_lst);
-int		pp_env(t_lst **env_lst);
-
-// export
-int		exp_list(t_lst **exp_lst, t_lst **env_lst);
-int		pp_export(char **args, t_lst **exp_lst, t_lst **env_lst);
-
-char	*key_eq_val(char *key, char *val);
-void	change_env_val(t_lst *lst, char *val);
-int		add_env(t_lst **env_lst, char *str);
-
-char	*str_eq_quote_val(char *key, char *val);
-void	change_exp_val(t_lst *lst, char *val);
-int		add_exp(t_lst **exp_lst, char *str);
-
+// export/export_utils.c
 char	*get_key(char *str);
 char	*get_value(char *str);
-int		is_exist_eq(char *s);
-t_lst	*is_same_content_key(t_lst **lst, char *key);
 
-// unset
-int		pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst);
-
-
-int		is_builtin(char *str);
-int		modify_arg_type(t_lst *line_lst);
-int		parse_line(t_lst **line_lst, char *line);
-void	check_dollar(t_lst *line_lst, t_lst *env_lst);
-void	execute(t_lst **line_lst);
-
-// main
-int		minishell_loop(t_lst **env_lst, t_lst **exp_lst);
-
-// utils
-char	**pp_split(char *s, char c);
-size_t	pp_strlen(const char *s);
-int		pp_strcmp(const char *s1, const char *s2);
-int		pp_strcmp_limit(const char *s1, const char *s2, char limit);
-int		free_args(char **args);
-
-void	*pp_memset(void *b, int c, size_t len);
-char	*pp_strdup(const char *s1);
-size_t	pp_strlcpy(char *dst, const char *src, size_t dstsize);
-char	*pp_strjoin(char const *s1, char const *s2);
-char	*pp_substr(char const *s, unsigned int start, size_t len);
-
+// utils/pp_lst.c
 t_lst	*pp_lstnew(char *content, int id);
 t_lst	*pp_lstlast(t_lst *lst);
 void	pp_lstadd_back(t_lst **lst, t_lst *new);
@@ -176,11 +126,14 @@ void	pp_lstadd_front(t_lst **lst, t_lst *new);
 void	pp_lstdelone(t_lst *lst);
 int		pp_lstsize(t_lst *lst);
 
-int		get_next_line(int fd, char **line);
-int		is_cut_idx(char *str, int *cut_idx);
+// utils/pp_strcmp_limit.c
+int		pp_strcmp_limit(const char *s1, const char *s2, char limit);
 
+// utils/free.c
+void	free_list(t_lst *lst);
 
-// test
-void	print_line_list(t_lst *line_lst);
+// test.c
 void	print_lst(t_lst *lst);
+void	print_line_list(t_lst *line_lst);
+
 #endif

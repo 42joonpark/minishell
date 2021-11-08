@@ -1,53 +1,38 @@
 CC			:= 	gcc
 CFLAGS		:= 	-g -Wall -Wextra -Werror
 
-RDLINE_DIR	:= /Users/donpark/brew/opt/readline/lib/
-RDLINE_INC	:= /Users/donpark/brew/opt/readline/include/
+# RDLINE_DIR	:= /Users/joonpark/.brew/opt/readline/lib/
+# RDLINE_INC	:= /Users/joonpark/.brew/opt/readline/include/
+# RDLINE_DIR	:= /Users/donpark/brew/opt/readline/lib/
+# RDLINE_INC	:= /Users/donpark/brew/opt/readline/include/
+RDLINE_DIR	:= /usr/share/readline/
+RDLINE_INC	:= /usr/include/readline/
 
-LIBFT_DIR = ./libft/
-LIBFT_LIB = $(LIBFT_DIR)libft.a
-LIBFT_INC = $(LIBFT_DIR)
+LIBFT_DIR	:= ./libft/
+LIBFT_LIB	:= $(LIBFT_DIR)libft.a
+LIBFT_INC	:= $(LIBFT_DIR)
 
-INC_DIR = ./includes/
-INCLUDES = minishell.h
-INCS = $(addprefix $(INC_DIR), $(INCLUDES))
+INC_DIR		:= ./includes/
+INCLUDES	:= minishell.h
+INCS		:= $(addprefix $(INC_DIR), $(INCLUDES))
 
 SRCS_DIR	:=	./src/
 SOURCES		:=	main.c \
-				test.c \
-				loop.c \
-				parse_line.c \
-				modify_arg_type.c \
-				check_builtin.c \
-				check_dollar.c \
-				execute.c \
-				clear.c \
-				error.c \
-				pwd/pwd.c \
-				echo/echo.c \
-				cd/cd.c \
+				clear_screen.c \
 				env/env_list.c \
-				env/env.c \
 				export/export_list.c \
-				export/export.c \
 				export/export_utils.c \
-				export/export_add_env.c \
-				export/export_add_exp.c \
-				unset/unset.c \
-				utils/pp_strdup.c
-				utils/pp_split.c \
-				utils/pp_strlen.c \
-				utils/pp_strcmp.c \
+				tokenizer.c \
+				parse_util.c \
+				parse_1.c \
+				check_1.c \
+				parse_2.c \
+				parse_3.c \
+				error.c \
+				utils/pp_lst.c \
 				utils/pp_strcmp_limit.c \
 				utils/free.c \
-				utils/pp_memset.c \
-				utils/pp_lst.c \
-				utils/pp_strlcpy.c \
-				utils/pp_strjoin.c \
-				utils/pp_substr.c \
-				utils/pp_which.c \
-				utils/get_next_line.c \
-				utils/get_next_line_utils.c
+				test.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 
@@ -55,7 +40,7 @@ OBJS_DIR	:=	./obj/
 OBJECTS		:=	$(SOURCES:.c=.o)
 OBJS		:=	$(addprefix $(OBJS_DIR), $(OBJECTS))
 
-LIBRARY		:= -L$(RDLINE_DIR) -lreadline -L$(LIBFT_DIR) -lft
+LIBRARY		:= -L$(LIBFT_DIR) -lft -L$(RDLINE_DIR) -lreadline
 HEADERS		:= -I$(INC_DIR) -I$(RDLINE_INC) -I$(LIBFT_INC)
 
 NAME		:=	minishell

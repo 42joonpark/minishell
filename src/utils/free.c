@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 17:53:48 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/02 18:25:10 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/08 15:26:11 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,4 @@ void	free_list(t_lst *lst)
 		lst = NULL;
 		lst = tmp;
 	}
-
 }

@@ -27,20 +27,14 @@ int	env_len(char **envp)
 	return (i);
 }
 
-void	copy_env(int argc, char *argv[], char **envp)
+void	create_env_exp_lst(int argc, char *argv[], char **envp)
 {
-	int	i;
-
 	(void)argc;
 	(void)argv;
-	g_data.env = (char **)malloc(sizeof(char *) * 1024);
-	i = 0;
-	while (i < env_len(envp))
-	{
-		g_data.env[i] = pp_strdup(envp[i]);
-		i++;
-	}
-	g_data.env[i] = NULL;
+	(void)envp;
+	env_list(envp);		// env를 list로 만든다.
+	put_env_index();	// export의 정렬 순서를 env id에 입력한다.
+	exp_list();			// env_lst에 id 순서대로 정렬하여 exp_lst를 만든다.
 }
 
 void	eof_history(char *line)
@@ -61,8 +55,10 @@ int	main(int argc, char *argv[], char **envp)
 	char	*line;
 	t_lst	*line_lst;
 
+	line_lst = NULL;
+	clear_screen();
 	set_signal();
-	copy_env(argc, argv, envp);
+	create_env_exp_lst(argc, argv, envp);
 	while (1)
 	{
 		line = readline("ppsh$ ");
@@ -72,7 +68,19 @@ int	main(int argc, char *argv[], char **envp)
 			free(line);
 			continue ;
 		}
-		tokenizer(&line_lst, line);
+		if (tokenizer(&line_lst, line))
+		{
+			free_list(line_lst);
+			line_lst = NULL;
+			break ;
+		}
+
+		print_line_list(line_lst);	// [TEST CODE]
+
+		free_list(line_lst);
+		line_lst = NULL;
+		free(line);
+		line = NULL;
 	}
 	return (0);
 }

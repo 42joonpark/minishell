@@ -44,8 +44,7 @@ void	print_lst(t_lst *lst)
 {
 	while (lst != NULL)
 	{
-		write(1, lst->content, pp_strlen(lst->content));
-		write(1, "\n", 1);
+		ft_putendl_fd(lst->content, 1);
 		lst = lst->next;
 	}
 }

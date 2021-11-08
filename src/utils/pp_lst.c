@@ -7,7 +7,7 @@ t_lst	*pp_lstnew(char *content, int id)
 	node = (t_lst *)malloc(sizeof(t_lst));
 	if (node == NULL)
 		return (0);
-	pp_memset(node, 0, sizeof(t_lst));
+	ft_memset(node, 0, sizeof(t_lst));
 	node->content = content;
 	node->id = id;
 	node->next = NULL;

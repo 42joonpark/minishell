@@ -24,7 +24,7 @@ static int	add_quote_str(t_lst **line_lst, char *line, int *i)
 		return (EXIT_FAILURE);
 	if ((*i - tmp) != 0)
 	{
-		str = pp_substr(line, tmp, *i - tmp);
+		str = ft_substr(line, tmp, *i - tmp);
 		if (quote == '"')
 			pp_lstadd_back(line_lst, pp_lstnew(str, D_QUOTE));
 		else
@@ -35,24 +35,23 @@ static int	add_quote_str(t_lst **line_lst, char *line, int *i)
 
 static void	add_redir_pipe(t_lst **line_lst, char *line, int *i)
 {
-	char	*str;
 
 	if (line[*i] == '<' && line[(*i) + 1] == '<')
 	{
 		(*i)++;
-		pp_lstadd_back(line_lst, pp_lstnew(pp_strdup("<<"), HEREDOC));
+		pp_lstadd_back(line_lst, pp_lstnew(ft_strdup("<<"), HEREDOC));
 	}
 	else if (line[*i] == '>' && line[(*i) + 1] == '>')
 	{
 		(*i)++;
-		pp_lstadd_back(line_lst, pp_lstnew(pp_strdup(">>"), APPEND));
+		pp_lstadd_back(line_lst, pp_lstnew(ft_strdup(">>"), APPEND));
 	}
 	else if (line[*i] == '<')
-		pp_lstadd_back(line_lst, pp_lstnew(pp_strdup(">>"), REDIRIN));
+		pp_lstadd_back(line_lst, pp_lstnew(ft_strdup("<"), REDIRIN));
 	else if (line[*i] == '>')
-		pp_lstadd_back(line_lst, pp_lstnew(pp_strdup(">"), REDIROUT));
+		pp_lstadd_back(line_lst, pp_lstnew(ft_strdup(">"), REDIROUT));
 	else if (line[*i] == '|')
-		pp_lstadd_back(line_lst, pp_lstnew(pp_strdup("|"), PIP));
+		pp_lstadd_back(line_lst, pp_lstnew(ft_strdup("|"), PIP));
 }
 
 static void	add_arg(t_lst **line_lst, char *line, int *i)
@@ -71,7 +70,7 @@ static void	add_arg(t_lst **line_lst, char *line, int *i)
 	}
 	if ((*i - tmp) != 0)
 	{
-		str = pp_substr(line, tmp, (*i) - tmp);
+		str = ft_substr(line, tmp, (*i) - tmp);
 		pp_lstadd_back(line_lst, pp_lstnew(str, ARG));
 	}
 	(*i)--;
@@ -88,12 +87,12 @@ int	parse_1(t_lst **line_lst, char *line)
 			i++;
 		if (line[i] == '\\' || line[i] == ';')
 		{
-			syntax_error(line[i]);
+			syntax_error("Syntax error");
 			return (EXIT_FAILURE);
 		}
 		else if (line[i] == '"' || line[i] == '\'')
 		{
-			if (add_quote_str(cmd, line, &i))
+			if (add_quote_str(line_lst, line, &i))
 				return (EXIT_FAILURE);
 		}
 		else if (line[i] == '<' || line[i] == '>' || line[i] == '|')

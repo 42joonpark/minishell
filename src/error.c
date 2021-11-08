@@ -3,17 +3,16 @@
 void	syntax_error(char *err)
 {
 	if (err != NULL)
-	{
-		write(2, err, pp_strlen(err));
-		write(2, "\n", 1);
-	}
+		ft_putendl_fd(err, 2);
 }
 
-void	print_error_msg(char *str, char *err);
+void	syntax_error_msg(char *err, char *msg)
 {
-	write(2, "ppsh: ", )
-	if (str != NULL)
+	ft_putstr_fd("ppsh: ", 2);
+	if (err != NULL)
 	{
-		write(2, str, )
+		ft_putstr_fd("err", 2);
+		ft_putstr_fd(": ", 2);
 	}
+	ft_putendl_fd(msg, 2);
 }
