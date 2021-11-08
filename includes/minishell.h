@@ -45,6 +45,12 @@
 #  define P_BUFFER_SIZE 4096
 # endif
 
+# ifdef __APPLE__
+#  define OS_APPLE 1
+# else
+#  define OS_APPLE 0
+# endif
+
 # define C_NC		"\033[0m"
 # define C_BLOCK	"\033[30m"
 # define C_RED		"\033[31m"
@@ -70,6 +76,12 @@ typedef struct s_lst
 	char			*content;
 	int				id;
 }	t_lst;
+
+typedef struct s_termios
+{
+	struct termios	org_termios;
+	struct termios	new_termios;
+}	t_termios;
 
 typedef struct s_data
 {
