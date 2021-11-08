@@ -61,7 +61,7 @@ RESET		:=	\033[0m
 
 .PHONY		:=	all ment_re $(NAME) bonus clean fclean re
 
-$(NAME) : $(OBJS_DIR) $(OBJS) $(LIBFT_LIB)
+$(NAME) : $(LIBFT_LIB) $(OBJS_DIR) $(OBJS)
 	@$(CC) -o $@ $(OBJS) $(CFLAGS) $(LIBRARY) $(HEADERS)
 	@echo "\n$(GREEN)object files were created$(RESET)"
 	@echo "$(RED)minishell created.$(RESET)"
@@ -84,7 +84,7 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 $(LIBFT_LIB) :
 	@$(MAKE) -sC $(LIBFT_DIR)
 	@$(MAKE) clean -sC $(LIBFT_DIR)
-	@echo "\n$(YELLOW)[ Created libft.a ... ]$(RESET)"
+	@echo "$(YELLOW)[ Created libft.a ... ]$(RESET)"
 
 all : $(NAME)
 
@@ -97,11 +97,13 @@ bonus : $(OBJS) $(BNS_OBJ)
 	@echo "$(GREEN)$(NAME) was created$(RESET)"
 
 clean :
+	@$(MAKE) clean -sC $(LIBFT_DIR)
 	@rm -rf $(OBJS_DIR)
 	@echo "$(MENT)[Removing object files]"
 	@echo "$(MAGENTA)$(OBJS)$(RESET)"
 
 fclean : clean
+	@$(MAKE) fclean -sC $(LIBFT_DIR)
 	@rm -f $(NAME)
 	@echo "$(MENT)[Removing $(NAME)]$(RESET)"
 	@echo "$(NAME):$(MAGENTA) deleted$(RESET)"
