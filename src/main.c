@@ -17,16 +17,6 @@ void	set_signal(void)
 	signal(SIGQUIT, SIG_IGN);	// ctrl+\ 시그널을 무시한다.
 }
 
-int	env_len(char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i] != NULL)
-		i++;
-	return (i);
-}
-
 void	create_env_exp_lst(int argc, char *argv[], char **envp)
 {
 	(void)argc;
