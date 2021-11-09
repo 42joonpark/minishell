@@ -148,4 +148,7 @@ void	free_list(t_lst *lst);
 void	print_lst(t_lst *lst);
 void	print_line_list(t_lst *line_lst);
 
+// echo
+int		pp_echo(t_lst *line_lst);
+
 #endif
