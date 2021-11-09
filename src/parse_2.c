@@ -1,16 +1,5 @@
 #include "minishell.h"
 
-static void	check_first_lstcontent(t_lst *line_lst)
-{
-	if (!check_id(line_lst->id))
-	{
-		if (is_builtin(line_lst->content))
-			line_lst->id = BUILTIN;
-		else
-			line_lst->id = COMMAND;
-	}
-}
-
 static void	check_file_dir_delimiter(t_lst *line_lst)
 {
 	if (line_lst->id == REDIRIN || line_lst->id == REDIROUT || line_lst->id == APPEND)	// <, >, >> 다음은 FILE_TYPE이지만 < 뒤에 디렉토리의 경우도 있음.
@@ -76,10 +65,42 @@ static void check_command(t_lst *line_lst)
 	}
 }
 
+static void	check_command_count(t_lst *line_lst)
+{
+	int	flag;
+
+	flag = 0;
+	while (line_lst != NULL)
+	{
+		while (line_lst != NULL && line_lst->id != PIP)
+		{
+			if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && flag == 0)
+			{
+				flag++;
+				if (line_lst->next != NULL)
+					line_lst = line_lst->next;
+			}
+			if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && flag != 0)
+				line_lst->id = ARG;
+			line_lst = line_lst->next;
+		}
+		flag = 0;
+		if (line_lst != NULL)
+			line_lst = line_lst->next;
+	}
+}
+
 int	parse_2(t_lst *line_lst)
 {
-	check_first_lstcontent(line_lst);
+	if (!check_id(line_lst->id))
+	{
+		if (is_builtin(line_lst->content))
+			line_lst->id = BUILTIN;
+		else
+			line_lst->id = COMMAND;
+	}
 	check_file_dir_delimiter_pip(line_lst);
 	check_command(line_lst);
+	check_command_count(line_lst);
 	return (EXIT_SUCCESS);
 }
