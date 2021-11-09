@@ -33,7 +33,7 @@ SOURCES		:=	main.c \
 				utils/pp_strcmp_limit.c \
 				utils/free.c \
 				test.c \
-				echo/echo.c
+				echo.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 OBJS_DIR	:=	./obj/
@@ -99,6 +99,9 @@ fclean : clean
 	@rm -f $(NAME)
 	@echo "$(MENT)[Removing $(NAME)]$(RESET)"
 	@echo "$(NAME):$(MAGENTA) deleted$(RESET)"
+
+ment_re :
+	@echo "$(RE_MENT)[make re]$(RESET)"
 
 re : ment_re fclean all
 	@echo "$(RE_MENT)[make re done.]$(RESET)"
