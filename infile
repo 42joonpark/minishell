@@ -1,0 +1,19 @@
+#include <string.h>
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+int	main(void)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = readline("> ");
+		if (strcmp(line, "exit") == 0)
+			return (0);
+		printf("%s\n", line); fflush(stdout);	
+
+	}
+	return (0);
+}
