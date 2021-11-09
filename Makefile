@@ -35,7 +35,6 @@ SOURCES		:=	main.c \
 				test.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 
-
 OBJS_DIR	:=	./obj/
 OBJECTS		:=	$(SOURCES:.c=.o)
 OBJS		:=	$(addprefix $(OBJS_DIR), $(OBJECTS))
@@ -59,7 +58,7 @@ MENT		:=	\033[38;5;191m\033[1m
 RE_MENT		:=	\033[38;5;63m\033[1m
 RESET		:=	\033[0m
 
-.PHONY		:=	all ment_re $(NAME) bonus clean fclean re
+.PHONY		:=	all $(NAME) clean fclean re
 
 $(NAME) : $(LIBFT_LIB) $(OBJS_DIR) $(OBJS)
 	@$(CC) -o $@ $(OBJS) $(CFLAGS) $(LIBRARY) $(HEADERS)
@@ -88,14 +87,6 @@ $(LIBFT_LIB) :
 
 all : $(NAME)
 
-ment_re :
-	@echo "$(RE_MENT)[make re]$(RESET)"
-
-bonus : $(OBJS) $(BNS_OBJ)
-	@$(CC) -o $(NAME) $(OBJS)
-	@echo "\n$(GREEN)bonus object files were created$(RESET)"
-	@echo "$(GREEN)$(NAME) was created$(RESET)"
-
 clean :
 	@$(MAKE) clean -sC $(LIBFT_DIR)
 	@rm -rf $(OBJS_DIR)
@@ -115,4 +106,3 @@ norm_test :
 	@echo "$(MENT)[Norminette test]$(CYAN)"
 	@find ./src -name "*.c" -exec norminette {} \;
 	@find ./includes -name "*.h" -exec norminette {} \;
-
