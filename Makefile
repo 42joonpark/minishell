@@ -32,7 +32,8 @@ SOURCES		:=	main.c \
 				utils/pp_lst.c \
 				utils/pp_strcmp_limit.c \
 				utils/free.c \
-				test.c
+				test.c \
+				echo/echo.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 OBJS_DIR	:=	./obj/
