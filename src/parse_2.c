@@ -77,12 +77,14 @@ static void	check_command_count(t_lst *line_lst)
 			if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && flag == 0)
 			{
 				flag++;
-				if (line_lst->next != NULL)
-					line_lst = line_lst->next;
+				line_lst = line_lst->next;
 			}
-			if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && flag != 0)
-				line_lst->id = ARG;
-			line_lst = line_lst->next;
+			if (line_lst != NULL)
+			{
+				if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && flag != 0)
+					line_lst->id = ARG;
+				line_lst = line_lst->next;
+			}
 		}
 		flag = 0;
 		if (line_lst != NULL)

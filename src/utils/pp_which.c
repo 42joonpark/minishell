@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pp_find_executable.c                               :+:      :+:    :+:   */
+/*   pp_which.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:38:56 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 10:51:29 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:30:56 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <string.h>
 
-static void	find_cmd(char *argv[], char *envs[], char **args,
+static void	find_cmd(char *argv[], char *envs[], char **args, \
 		int pipefd[2])
 {
 	close(pipefd[0]);
@@ -22,10 +22,26 @@ static void	find_cmd(char *argv[], char *envs[], char **args,
 	execve(WHICH_DIR, argv, envs);
 }
 
-void	find_executable(char *command, char *envs[], char buffer[],
+static void check_newline(char buffer[])
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i] != '\0')
+	{
+		if (buffer[i] == '\n')
+		{
+			buffer[i] = '\0';
+			break ;
+		}
+		i++;
+	}
+}
+
+void	find_executable(char *command, char *envs[], char buffer[], \
 		int buf_size)
 {
-	static char			*argv[] = {WHICH_DIR, "-a", NULL, NULL};
+	static char			*argv[] = {WHICH_DIR, "-a", NULL};
 	char				**args;
 	int					pipefd[2];
 	pid_t				pid;
@@ -34,7 +50,7 @@ void	find_executable(char *command, char *envs[], char buffer[],
 	pid = fork();
 	if (pid == 0)
 	{
-		args = pp_split(command, ' ');
+		args = ft_split(command, ' ');
 		find_cmd(argv, envs, args, pipefd);
 	}
 	else
@@ -42,6 +58,7 @@ void	find_executable(char *command, char *envs[], char buffer[],
 		close(pipefd[1]);
 		waitpid(pid, NULL, 0);
 		read(pipefd[0], buffer, buf_size);
-		buffer[pp_strlen(buffer) - 1] = '\0';
+		buffer[ft_strlen(buffer) - 1] = '\0';
+		check_newline(buffer);
 	}
 }
