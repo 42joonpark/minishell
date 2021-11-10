@@ -70,6 +70,8 @@ int	main(int argc, char *argv[], char **envp)
 
 		print_line_list(line_lst);	// [TEST CODE]
 
+		execute(line_lst);
+
 		free_list(line_lst);
 		line_lst = NULL;
 		free(line);

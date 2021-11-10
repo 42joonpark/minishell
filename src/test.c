@@ -48,3 +48,15 @@ void	print_lst(t_lst *lst)
 		lst = lst->next;
 	}
 }
+
+void	print_exe_cmdarg(t_exe *exe)
+{
+	int	i;
+
+	i = 0;
+	while (exe->cmd_arg[i] != NULL)
+	{
+		ft_putendl_fd(exe->cmd_arg[i], 1);
+		i++;
+	}
+}
