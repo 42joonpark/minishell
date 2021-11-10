@@ -5,8 +5,10 @@ CFLAGS		:= 	-g -Wall -Wextra -Werror
 # RDLINE_INC	:= /Users/joonpark/.brew/opt/readline/include/
 # RDLINE_DIR	:= /Users/donpark/brew/opt/readline/lib/
 # RDLINE_INC	:= /Users/donpark/brew/opt/readline/include/
-RDLINE_DIR	:= /usr/share/readline/
-RDLINE_INC	:= /usr/include/readline/
+# RDLINE_DIR	:= /usr/share/readline/
+# RDLINE_INC	:= /usr/include/readline/
+RDLINE_DIR	:= /Users/joonpark/homebrew/opt/readline/lib/
+RDLINE_INC	:= /Users/joonpark/homebrew/opt/readline/include/
 
 LIBFT_DIR	:= ./libft/
 LIBFT_LIB	:= $(LIBFT_DIR)libft.a
@@ -32,8 +34,10 @@ SOURCES		:=	main.c \
 				utils/pp_lst.c \
 				utils/pp_strcmp_limit.c \
 				utils/free.c \
+				utils/pp_which.c \
 				test.c \
-				echo.c
+				echo/echo.c \
+				execute.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 OBJS_DIR	:=	./obj/

@@ -67,8 +67,9 @@ int	main(int argc, char *argv[], char **envp)
 			line_lst = NULL;
 			break ;
 		}
-
 		print_line_list(line_lst);	// [TEST CODE]
+
+		execute(line_lst, envp);
 
 		free_list(line_lst);
 		line_lst = NULL;

@@ -5,6 +5,7 @@
  ** INCLUDES
  */
 # include <unistd.h>
+# include <errno.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -76,6 +77,16 @@ typedef struct s_lst
 	char			*content;
 	int				id;
 }	t_lst;
+
+typedef struct	s_exe
+{
+	int		a[2];
+	int		b[2];
+	int		pip_cnt;
+	int		redir_in;
+	int		redir_out;
+	char	**cmd_arg;
+}	t_exe;
 
 typedef struct s_termios
 {
@@ -150,5 +161,9 @@ void	print_line_list(t_lst *line_lst);
 
 // echo
 int		pp_echo(t_lst *line_lst);
+
+
+int		execute(t_lst *line_lst, char *envs[]);
+void	find_executable(char *command, char *envs[], char buffer[], int buf_size);
 
 #endif

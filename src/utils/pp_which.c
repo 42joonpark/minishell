@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pp_find_executable.c                               :+:      :+:    :+:   */
+/*   pp_which.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joonpark <joonpark@student.42.kr>          +#+  +:+       +#+        */
+/*   By: joonpark <joonpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 15:38:56 by joonpark          #+#    #+#             */
-/*   Updated: 2021/10/21 10:51:29 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:13:02 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	find_executable(char *command, char *envs[], char buffer[],
 	pid = fork();
 	if (pid == 0)
 	{
-		args = pp_split(command, ' ');
+		args = ft_split(command, ' ');
 		find_cmd(argv, envs, args, pipefd);
 	}
 	else
@@ -42,6 +42,6 @@ void	find_executable(char *command, char *envs[], char buffer[],
 		close(pipefd[1]);
 		waitpid(pid, NULL, 0);
 		read(pipefd[0], buffer, buf_size);
-		buffer[pp_strlen(buffer) - 1] = '\0';
+		buffer[ft_strlen(buffer) - 1] = '\0';
 	}
 }
