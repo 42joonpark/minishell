@@ -37,10 +37,17 @@ void	eof_history(char *line)
 		if (OS_APPLE)
 			ft_putstr_fd("\033[6C", 1);	// cursor right move
 		ft_putstr_fd("exit\n", 1);
-		exit(1);
+		exit(EXIT_SUCCESS);
 	}
 	else
+	{
+		if (ft_strcmp(line, "exit") == 0)
+		{
+			ft_putendl_fd("exit", 1);
+			exit(EXIT_SUCCESS);
+		}
 		add_history(line);
+	}
 }
 
 int	main(int argc, char *argv[], char **envp)

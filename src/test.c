@@ -35,7 +35,7 @@ void	print_line_list(t_lst *line_lst)
 		else if (line_lst->id == REDIRIN)
 			str = "REDIRIN";
 
-		printf("%s (%d: %s) %s %s\n", C_AQUA, line_lst->id, str, line_lst->content, C_NC); fflush(stdout);
+		fprintf(stderr, "%s (%d: %s) %s %s\n", C_AQUA, line_lst->id, str, line_lst->content, C_NC);
 		line_lst = line_lst->next;
 	}
 }
@@ -44,7 +44,7 @@ void	print_lst(t_lst *lst)
 {
 	while (lst != NULL)
 	{
-		ft_putendl_fd(lst->content, 1);
+		ft_putendl_fd(lst->content, 2);
 		lst = lst->next;
 	}
 }
@@ -56,7 +56,7 @@ void	print_exe_cmdarg(t_exe *exe)
 	i = 0;
 	while (exe->cmd_arg[i] != NULL)
 	{
-		ft_putendl_fd(exe->cmd_arg[i], 1);
+		ft_putendl_fd(exe->cmd_arg[i], 2);
 		i++;
 	}
 }
