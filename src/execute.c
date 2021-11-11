@@ -230,10 +230,13 @@ int	execute(t_lst *line_lst)
 	i = 0;
 	while (line_lst != NULL)
 	{
-		if (i % 2 == 0)
-			pipe(exe->a);
-		else
-			pipe(exe->b);
+		if (exe->pip_cnt > 0)
+		{
+			if (i % 2 == 0)
+				pipe(exe->a);
+			else
+				pipe(exe->b);
+		}
 		pid = fork();
 		if (pid < 0)
 			exit(EXIT_FAILURE);
@@ -241,12 +244,6 @@ int	execute(t_lst *line_lst)
 		{
 			redirect_connect(line_lst, exe);
 
-			/*
-			if (i == 0 && exe->pip_cnt > 0)
-				// pipe 있는 경우
-			if (i == 0 && exe->pip_cnt <= 0)
-				// pipe 없이 명령만 실행하는 경우
-			*/
 			if (i == 0 && exe->pip_cnt == 0)
 			{
 			}
@@ -310,18 +307,17 @@ int	execute(t_lst *line_lst)
 				close(exe->a[READ]);
 				close(exe->b[WRITE]);
 			}
-
 			waitpid(pid, &status, 0);
+			i++;
+			exe->pip_cnt--;
+			while (line_lst != NULL && line_lst->id != PIP)
+				line_lst = line_lst->next;
+			if (line_lst == NULL)
+				break ;
+			else if (line_lst->id == PIP)
+				line_lst = line_lst->next;
 		}
-		i++;
-		exe->pip_cnt--;
-		while (line_lst != NULL && line_lst->id != PIP)
-			line_lst = line_lst->next;
-		if (line_lst == NULL)
-			break ;
-		else if (line_lst->id == PIP)
-			line_lst = line_lst->next;
 	}
-	fprintf(stderr, "=====================\n");
+	// fprintf(stderr, "=====================\n");
 	return (EXIT_SUCCESS);
 }

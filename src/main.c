@@ -52,8 +52,8 @@ void	eof_history(char *line)
 
 int	main(int argc, char *argv[], char **envp)
 {
-	char		*line;
-	t_lst		*line_lst;
+	char	*line;
+	t_lst	*line_lst;
 
 	line_lst = NULL;
 	clear_screen();				// 화면 초기화
