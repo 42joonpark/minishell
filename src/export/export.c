@@ -96,7 +96,7 @@ int	pp_export(char **args, t_lst **exp_lst, t_lst **env_lst)
 		key = get_key(args[1]);
 		if (check_value(args[1], 0, 0, 0))
 		{
-			write(1, "syntax error\n", 13);
+			ft_putendl_fd("syntax error", 1);
 			return (EXIT_FAILURE);
 		}
 		val = get_value(args[1]);

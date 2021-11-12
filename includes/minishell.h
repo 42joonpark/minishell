@@ -10,11 +10,11 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <curses.h>
-# include <termios.h>
 # include <sys/wait.h>
 # include <limits.h>
 # include <dirent.h>	// opendir
+# include <string.h>
+# include <errno.h>
 # include "libft.h"
 
 /*
@@ -77,23 +77,22 @@ typedef struct s_lst
 	int				id;
 }	t_lst;
 
-typedef struct s_termios
+typedef struct	s_exe
 {
-	struct termios	org_termios;
-	struct termios	new_termios;
-}	t_termios;
+	int		a[2];
+	int		b[2];
+	int		pip_cnt;
+	int		redir_in;
+	int		redir_out;
+	char	**cmd_arg;
+	int		flag_b;
+}	t_exe;
 
 typedef struct s_data
 {
 	t_lst	*env_lst;
 	t_lst	*exp_lst;
 	char	exit_status;	// 종료코드에는 1byte가 사용되면 0~255 번을 사용가능하다.
-	// int		a[2];
-	// int		b[2];
-	// int		pip_cnt;
-	// int		cmd_cnt;
-	// char	*cmd_arg;
-	// int		curr_cmd;
 }	t_data;
 
 t_data		g_data;
@@ -141,14 +140,23 @@ int		pp_lstsize(t_lst *lst);
 // utils/pp_strcmp_limit.c
 int		pp_strcmp_limit(const char *s1, const char *s2, char limit);
 
+// utils/pp_which.c
+void	find_executable(char *command, char *envs[], char buffer[], \
+		int buf_size);
+
 // utils/free.c
 void	free_list(t_lst *lst);
+
+// echo
+int		pp_echo(char **args);
+
+// execute.c
+int		execute(t_lst *line_lst);
 
 // test.c
 void	print_lst(t_lst *lst);
 void	print_line_list(t_lst *line_lst);
+void	print_exe_cmdarg(t_exe *exe);
 
-// echo
-int		pp_echo(t_lst *line_lst);
 
 #endif

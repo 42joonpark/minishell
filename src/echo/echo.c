@@ -3,15 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joonpark <joonpark@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 17:21:40 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/09 14:54:12 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:09:31 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+int	pp_echo(char **args)
+{
+	int	option;
+	int	i;
 
+	option = FALSE;
+	i = 0;
+	if (args[i] != NULL && (ft_strcmp(args[i], "-n") == 0))
+	{
+		option = TRUE;
+		i++;
+	}
+	while (args[i] != NULL)
+	{
+		ft_putstr_fd(args[i], 1);
+		i++;
+		if (args[i] != NULL)
+			ft_putstr_fd(" ", 1);
+	}
+	if (!option)
+		ft_putstr_fd("\n", 1);
+	return (EXIT_SUCCESS);
+}
+/*
 int	pp_echo(t_lst *line_lst)
 {
 	int	option;
@@ -39,3 +62,4 @@ int	pp_echo(t_lst *line_lst)
 		write(STDOUT_FILENO, "\n", 1);
 	return (1);
 }
+*/
