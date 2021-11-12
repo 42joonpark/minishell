@@ -217,6 +217,7 @@ int	execute(t_lst *line_lst)
 	pid_t	pid;
 	int		status;
 	int		i;
+	int		flag_b;
 
 	exe = (t_exe *)malloc(sizeof(t_exe));
 	if (exe == NULL)
@@ -224,60 +225,65 @@ int	execute(t_lst *line_lst)
 	exe->pip_cnt = pipe_count(line_lst);
 	exe->redir_in = -1;
 	exe->redir_out = -1;
+	flag_b = 0;
 
 	// command_arg(line_lst, exe);		// [test code] 나중에 삭제할 것.
 	// exe_command(exe);				// [test code] 나중에 삭제할 것.
 	i = 0;
 	while (line_lst != NULL)
 	{
-		if (exe->pip_cnt > 0)
+		if (exe->pip_cnt > 0) // 1. pip_cnt = 1
 		{
 			if (i % 2 == 0)
-				pipe(exe->a);
+				pipe(exe->a);	// 2. i == 0 이니까 처음에는 exe->a
 			else
+			{
+				flag_b = 1;
 				pipe(exe->b);
+			}
 		}
 		pid = fork();
 		if (pid < 0)
 			exit(EXIT_FAILURE);
 		else if (pid == 0)
 		{
-			redirect_connect(line_lst, exe);
+			redirect_connect(line_lst, exe);	// 3.redirect_in : dup2(file_fd, STDIN_FILENO);
 
 			if (i == 0 && exe->pip_cnt == 0)
 			{
 			}
 			else if (i % 2 == 0 && exe->pip_cnt == 0)	//  파이프 마지막 명령 실행
 			{
-				// connect_pipe(exe->b, STDIN_FILENO);
-				dup2(exe->b[READ], STDIN_FILENO);
+				connect_pipe(exe->b, STDIN_FILENO);
+				// dup2(exe->b[READ], STDIN_FILENO);
 			}
 			else if (i % 2 != 0 && exe->pip_cnt == 0)	//  파이프 마지막 명령 실행
 			{
-				// connect_pipe(exe->a, STDIN_FILENO);
-				dup2(exe->a[READ], STDIN_FILENO);
+				connect_pipe(exe->a, STDIN_FILENO);
+				// dup2(exe->a[READ], STDIN_FILENO);	// 10. 실행
 			}
 			else if (i % 2 == 0 && exe->pip_cnt > 0)
 			{
-				// connect_pipe(exe->b, STDIN_FILENO);
-				dup2(exe->b[READ], STDIN_FILENO);
-				// connect_pipe(exe->a, STDOUT_FILENO);
-				dup2(exe->a[WRITE], STDOUT_FILENO);
+				if (flag_b != 0)
+					connect_pipe(exe->b, STDIN_FILENO);
+					// dup2(exe->b[READ], STDIN_FILENO);		// 일단 실행 안됬을것임. 		// 1
+				connect_pipe(exe->a, STDOUT_FILENO);
+				// dup2(exe->a[WRITE], STDOUT_FILENO);		// pipe(w) 연결
 			}
 			else if (i % 2 != 0 && exe->pip_cnt > 0)
 			{
-				// connect_pipe(exe->a, STDIN_FILENO);
-				dup2(exe->a[READ], STDIN_FILENO);
-				// connect_pipe(exe->b, STDOUT_FILENO);
-				dup2(exe->b[WRITE], STDOUT_FILENO);
+				connect_pipe(exe->a, STDIN_FILENO);
+				// dup2(exe->a[READ], STDIN_FILENO);
+				connect_pipe(exe->b, STDOUT_FILENO);
+				// dup2(exe->b[WRITE], STDOUT_FILENO);
 			}
 
-			command_arg(&line_lst, exe);	// {"wc",NULL}
+			command_arg(&line_lst, exe);	// execve 사용할 **변수 생성.
 
 			// if (is_builtin(exe->cmd_arg[0]))
 			// 	exe_builtin(exe->cmd_arg);
 			// else
-				exe_command(exe);
+				exe_command(exe);	// 8. cmd 실행하면 stdin에 들어있는 값을 pipe(w)로 보냄
 			// exit(EXIT_SUCCESS);
 		}
 		else
@@ -300,7 +306,8 @@ int	execute(t_lst *line_lst)
 			else if (i % 2 == 0 && exe->pip_cnt > 0)
 			{
 				close(exe->a[WRITE]);
-				close(exe->b[READ]);
+				if (flag_b != 0)
+					close(exe->b[READ]);	// 일단 실행 안될것임 		 // 2.
 			}
 			else if (i % 2 != 0 && exe->pip_cnt > 0)
 			{
@@ -308,16 +315,84 @@ int	execute(t_lst *line_lst)
 				close(exe->b[WRITE]);
 			}
 			waitpid(pid, &status, 0);
-			i++;
-			exe->pip_cnt--;
-			while (line_lst != NULL && line_lst->id != PIP)
-				line_lst = line_lst->next;
-			if (line_lst == NULL)
-				break ;
-			else if (line_lst->id == PIP)
-				line_lst = line_lst->next;
 		}
+		i++;
+		exe->pip_cnt--;
+		while (line_lst != NULL && line_lst->id != PIP)
+			line_lst = line_lst->next;
+		if (line_lst == NULL)
+		{
+			free(exe);
+			exe = NULL;
+			break ;
+		}
+		else if (line_lst->id == PIP)
+			line_lst = line_lst->next;
 	}
 	// fprintf(stderr, "=====================\n");
 	return (EXIT_SUCCESS);
 }
+/*
+int execute(t_lst *line_lst)
+{
+    t_exe   *exe;
+    pid_t   pid;
+    int     status;
+    int     i;
+    exe = (t_exe *)malloc(sizeof(t_exe));
+    if (exe == NULL)
+        exit(EXIT_FAILURE);
+    exe->pip_cnt = pipe_count(line_lst);
+    exe->redir_in = -1;
+    exe->redir_out = -1;
+    i = 0;
+    int idx = 0;
+    while (idx < 2)
+    {
+        if (idx == 0)
+            pipe(exe->a);
+        else
+            pipe(exe->b);
+        pid = fork();
+        if (pid < 0)
+            exit(EXIT_FAILURE);
+        else if (pid == 0)
+        {
+            redirect_connect(line_lst, exe);
+            if (idx == 0)
+            {
+                dup2(exe->a[WRITE], STDOUT_FILENO);
+                close(exe->a[WRITE]);
+                close(exe->a[READ]);
+            }
+            else
+            {
+                dup2(exe->a[READ], STDIN_FILENO);
+                close(exe->a[READ]);
+                close(exe->a[WRITE]);
+            }
+            command_arg(&line_lst, exe);    // {"wc",NULL}
+            exe_command(exe);
+        }
+        else
+        {
+            if (idx == 0)
+                close(exe->a[WRITE]);
+            else
+                close(exe->a[READ]);
+            waitpid(pid, &status, 0);
+            i++;
+            exe->pip_cnt--;
+            while (line_lst != NULL && line_lst->id != PIP)
+                line_lst = line_lst->next;
+            if (line_lst == NULL)
+                break ;
+            else if (line_lst->id == PIP)
+                line_lst = line_lst->next;
+        }
+        ++idx;
+    }
+    // fprintf(stderr, "=====================\n");
+    return (EXIT_SUCCESS);
+}
+*/

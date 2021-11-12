@@ -33,17 +33,17 @@ void	eof_history(char *line)
 {
 	if (line == NULL)	// readline에서 EOF(Ctrl+d)가 들어왔을 때
 	{
-		ft_putstr_fd("\033[1A", 1);	// cursor line up
+		ft_putstr_fd("\033[1A", 2);	// cursor line up
 		if (OS_APPLE)
-			ft_putstr_fd("\033[6C", 1);	// cursor right move
-		ft_putstr_fd("exit\n", 1);
+			ft_putstr_fd("\033[6C", 2);	// cursor right move
+		ft_putstr_fd("exit\n", 2);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		if (ft_strcmp(line, "exit") == 0)
 		{
-			ft_putendl_fd("exit", 1);
+			ft_putendl_fd("exit", 2);
 			exit(EXIT_SUCCESS);
 		}
 		add_history(line);
@@ -55,8 +55,9 @@ int	main(int argc, char *argv[], char **envp)
 	char	*line;
 	t_lst	*line_lst;
 
+	line = NULL;
 	line_lst = NULL;
-	clear_screen();				// 화면 초기화
+	clear_screen();		// 화면 초기화
 	set_signal();
 	create_env_exp_lst(argc, argv, envp);
 	while (1)
@@ -75,7 +76,7 @@ int	main(int argc, char *argv[], char **envp)
 			break ;
 		}
 
-		print_line_list(line_lst);	// [TEST CODE]
+		// print_line_list(line_lst);	// [TEST CODE]
 
 		execute(line_lst);
 

@@ -1,20 +1,21 @@
-CC			:= 	gcc
-CFLAGS		:= 	-g -Wall -Wextra -Werror
+CC			:=	gcc
+CFLAGS		:=	-g -Wall -Wextra -Werror
+CHECK		:=	-fsanitize=address
 
-# RDLINE_DIR	:= /Users/joonpark/.brew/opt/readline/lib/
-# RDLINE_INC	:= /Users/joonpark/.brew/opt/readline/include/
-# RDLINE_DIR	:= /Users/donpark/brew/opt/readline/lib/
-# RDLINE_INC	:= /Users/donpark/brew/opt/readline/include/
-RDLINE_DIR	:= /usr/share/readline/
-RDLINE_INC	:= /usr/include/readline/
+# RDLINE_DIR	:=	/Users/joonpark/homebrew/opt/readline/lib/
+# RDLINE_INC	:=	/Users/joonpark/homebrew/opt/readline/include/
+# RDLINE_DIR	:=	/Users/donpark/brew/opt/readline/lib/
+# RDLINE_INC	:=	/Users/donpark/brew/opt/readline/include/
+RDLINE_DIR	:=	/usr/share/readline/
+RDLINE_INC	:=	/usr/include/readline/
 
-LIBFT_DIR	:= ./libft/
-LIBFT_LIB	:= $(LIBFT_DIR)libft.a
-LIBFT_INC	:= $(LIBFT_DIR)
+LIBFT_DIR	:=	./libft/
+LIBFT_LIB	:=	$(LIBFT_DIR)libft.a
+LIBFT_INC	:=	$(LIBFT_DIR)
 
-INC_DIR		:= ./includes/
-INCLUDES	:= minishell.h
-INCS		:= $(addprefix $(INC_DIR), $(INCLUDES))
+INC_DIR		:=	./includes/
+INCLUDES	:=	minishell.h
+INCS		:=	$(addprefix $(INC_DIR), $(INCLUDES))
 
 SRCS_DIR	:=	./src/
 SOURCES		:=	main.c \
