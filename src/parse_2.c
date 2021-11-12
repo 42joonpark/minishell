@@ -44,7 +44,7 @@ static void check_command(t_lst *line_lst)
 	{
 		if (line_lst->id == REDIRIN && line_lst->next != NULL \
 		&& (line_lst->next->id == DIR_TYPE || line_lst->next->id == FILE_TYPE) \
-		&& line_lst->next->next != NULL && !check_id(line_lst->next->next->id))
+		&& line_lst->next->next != NULL && !check_id(line_lst->next->next->id))	// < infile "cmd"
 		{
 			if (is_builtin(line_lst->next->next->content))
 				line_lst->next->next->id = BUILTIN;
@@ -53,8 +53,9 @@ static void check_command(t_lst *line_lst)
 		}
 		else if (line_lst->id == REDIRIN && line_lst->next != NULL \
 		&& (line_lst->next->id == DIR_TYPE || line_lst->next->id == FILE_TYPE) \
+		&& line_lst->next->next != NULL \
 		&& (line_lst->next->next->id != BUILTIN || line_lst->next->next->id != COMMAND) \
-		&& line_lst->prev != NULL && !check_id(line_lst->prev->id))
+		&& line_lst->prev != NULL && !check_id(line_lst->prev->id))	// "cmd" < infile |
 		{
 			if (is_builtin(line_lst->prev->content))
 				line_lst->prev->id = BUILTIN;
@@ -79,7 +80,11 @@ static void	check_command_count(t_lst *line_lst)
 				flag++;
 				line_lst = line_lst->next;
 			}
+<<<<<<< HEAD
 			if (line_lst != NULL)
+=======
+			if (line_lst != NULL && line_lst->id != PIP)
+>>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 			{
 				if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && flag != 0)
 					line_lst->id = ARG;

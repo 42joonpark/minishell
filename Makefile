@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 CC			:= 	gcc
 CFLAGS		:= 	-g -Wall -Wextra -Werror
 
@@ -17,6 +18,31 @@ LIBFT_INC	:= $(LIBFT_DIR)
 INC_DIR		:= ./includes/
 INCLUDES	:= minishell.h
 INCS		:= $(addprefix $(INC_DIR), $(INCLUDES))
+=======
+CC			:=	gcc
+CFLAGS		:=	-g -Wall -Wextra -Werror
+CHECK		:=	-fsanitize=address
+
+OS = $(shell uname)
+ifeq ($(OS), Linux)
+RDLINE_DIR	:=	/usr/share/readline/
+RDLINE_INC	:=	/usr/include/readline/
+else
+RDLINE_DIR	:=	/Users/joonpark/homebrew/opt/readline/lib/
+RDLINE_INC	:=	/Users/joonpark/homebrew/opt/readline/include/
+endif
+
+# RDLINE_DIR	:=	/Users/donpark/brew/opt/readline/lib/
+# RDLINE_INC	:=	/Users/donpark/brew/opt/readline/include/
+
+LIBFT_DIR	:=	./libft/
+LIBFT_LIB	:=	$(LIBFT_DIR)libft.a
+LIBFT_INC	:=	$(LIBFT_DIR)
+
+INC_DIR		:=	./includes/
+INCLUDES	:=	minishell.h
+INCS		:=	$(addprefix $(INC_DIR), $(INCLUDES))
+>>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 
 SRCS_DIR	:=	./src/
 SOURCES		:=	main.c \
@@ -35,9 +61,15 @@ SOURCES		:=	main.c \
 				utils/pp_strcmp_limit.c \
 				utils/free.c \
 				utils/pp_which.c \
+<<<<<<< HEAD
 				test.c \
 				echo/echo.c \
 				execute.c
+=======
+				echo/echo.c \
+				execute.c \
+				test.c
+>>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 OBJS_DIR	:=	./obj/
