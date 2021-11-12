@@ -75,16 +75,10 @@ int	main(int argc, char *argv[], char **envp)
 			line_lst = NULL;
 			break ;
 		}
-<<<<<<< HEAD
-		print_line_list(line_lst);	// [TEST CODE]
-=======
 
 		// print_line_list(line_lst);	// [TEST CODE]
 
 		execute(line_lst);
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
-
-		execute(line_lst, envp);
 
 		free_list(line_lst);
 		line_lst = NULL;
