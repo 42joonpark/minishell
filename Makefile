@@ -2,12 +2,17 @@ CC			:=	gcc
 CFLAGS		:=	-g -Wall -Wextra -Werror
 CHECK		:=	-fsanitize=address
 
-# RDLINE_DIR	:=	/Users/joonpark/homebrew/opt/readline/lib/
-# RDLINE_INC	:=	/Users/joonpark/homebrew/opt/readline/include/
-# RDLINE_DIR	:=	/Users/donpark/brew/opt/readline/lib/
-# RDLINE_INC	:=	/Users/donpark/brew/opt/readline/include/
+OS = $(shell uname)
+ifeq ($(OS), Linux)
 RDLINE_DIR	:=	/usr/share/readline/
 RDLINE_INC	:=	/usr/include/readline/
+else
+RDLINE_DIR	:=	/Users/joonpark/homebrew/opt/readline/lib/
+RDLINE_INC	:=	/Users/joonpark/homebrew/opt/readline/include/
+endif
+
+# RDLINE_DIR	:=	/Users/donpark/brew/opt/readline/lib/
+# RDLINE_INC	:=	/Users/donpark/brew/opt/readline/include/
 
 LIBFT_DIR	:=	./libft/
 LIBFT_LIB	:=	$(LIBFT_DIR)libft.a
