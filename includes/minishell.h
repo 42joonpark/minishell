@@ -85,6 +85,7 @@ typedef struct	s_exe
 	int		redir_in;
 	int		redir_out;
 	char	**cmd_arg;
+	int		flag_b;
 }	t_exe;
 
 typedef struct s_data
@@ -92,12 +93,6 @@ typedef struct s_data
 	t_lst	*env_lst;
 	t_lst	*exp_lst;
 	char	exit_status;	// 종료코드에는 1byte가 사용되면 0~255 번을 사용가능하다.
-	// int		a[2];
-	// int		b[2];
-	// int		pip_cnt;
-	// int		cmd_cnt;
-	// char	*cmd_arg;
-	// int		curr_cmd;
 }	t_data;
 
 t_data		g_data;
