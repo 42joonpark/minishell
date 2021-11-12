@@ -20,61 +20,6 @@ char	**convert_env(void)
 	return (env);
 }
 
-void	connect_pipe(int fd[], int io)
-{
-	dup2(fd[io], io);
-	close(fd[io]);
-	// close(fd[WRITE]);
-}
-
-void	close_pipe(int fd[])
-{
-	close(fd[READ]);
-	close(fd[WRITE]);
-}
-
-int	redirect_in(char *file, t_exe *exe)
-{
-	exe->redir_in = open(file, O_RDONLY);
-	if (exe->redir_in < 0)
-	{
-		syntax_error_msg(file, strerror(errno));
-		g_data.exit_status = 1;
-		return (g_data.exit_status);
-	}
-	dup2(exe->redir_in, STDIN_FILENO);
-	close(exe->redir_in);
-	return (EXIT_SUCCESS);
-}
-
-int	redirect_out(char *file, t_exe *exe)
-{
-	exe->redir_out = open(file, O_RDWR | O_CREAT | O_TRUNC, 0664);
-	if (exe->redir_out < 0)
-	{
-		syntax_error_msg(file, strerror(errno));
-		g_data.exit_status = 1;
-		return (g_data.exit_status);
-	}
-	dup2(exe->redir_out, STDOUT_FILENO);
-	close(exe->redir_out);
-	return (EXIT_SUCCESS);
-}
-
-int	redirect_append(char *file, t_exe *exe)
-{
-	exe->redir_out = open(file, O_RDWR | O_CREAT | O_APPEND, 0644);
-	if (exe->redir_out < 0)
-	{
-		syntax_error_msg(file, strerror(errno));
-		g_data.exit_status = 1;
-		return (g_data.exit_status);
-	}
-	dup2(exe->redir_out, STDOUT_FILENO);
-	close(exe->redir_out);
-	return (EXIT_SUCCESS);
-}
-
 void	heredoc(t_lst *line_lst)
 {
 	int		fd[2];
@@ -104,20 +49,6 @@ void	heredoc(t_lst *line_lst)
 		connect_pipe(fd, STDIN_FILENO);
 		waitpid(pid, &status, 0);
 	}
-}
-
-int	pipe_count(t_lst *line_lst)
-{
-	int	cnt;
-
-	cnt = 0;
-	while (line_lst != NULL)
-	{
-		if (line_lst->id == PIP)
-			cnt++;
-		line_lst = line_lst->next;
-	}
-	return (cnt);
 }
 
 void	redirect_connect(t_lst *line_lst, t_exe *exe)
@@ -179,23 +110,24 @@ void	command_arg(t_lst **line_lst, t_exe *exe)
 			(*line_lst) = (*line_lst)->next;
 	}
 }
-/*
+
 void	exe_builtin(char **cmd_arg)
 {
 	if (ft_strcmp(cmd_arg[0], "cd") == 0)
-		pp_cd(&cmd_arg[1]);
+		pp_cd(cmd_arg);
+	else if (ft_strcmp(cmd_arg[0], "pwd") == 0)
+		pp_pwd();
 	else if (ft_strcmp(cmd_arg[0], "echo") == 0)
 		pp_echo(&cmd_arg[1]);
 	else if (ft_strcmp(cmd_arg[0], "env") == 0)
 		pp_env(&g_data.env_lst);
 	else if (ft_strcmp(cmd_arg[0], "export") == 0)
 		pp_export(cmd_arg, &g_data.exp_lst, &g_data.env_lst);
-	else if (ft_strcmp(cmd_arg[0], "pwd") == 0)
-		pp_pwd();
 	else if (ft_strcmp(cmd_arg[0], "unset") == 0)
 		pp_unset(cmd_arg, &g_data.exp_lst, &g_data.env_lst);
+
 }
-*/
+
 void	exe_command(t_exe *exe)
 {
 	char	buf[P_BUFFER_SIZE];
@@ -212,20 +144,14 @@ void	child_process(t_lst *line_lst, t_exe *exe, int i)
 	{
 	}
 	else if (i % 2 == 0 && exe->pip_cnt == 0)	//  파이프 마지막 명령 실행
-	{
 		connect_pipe(exe->b, STDIN_FILENO);
-	}
 	else if (i % 2 != 0 && exe->pip_cnt == 0)	//  파이프 마지막 명령 실행
-	{
 		connect_pipe(exe->a, STDIN_FILENO);
-	}
 	else if (i % 2 == 0 && exe->pip_cnt > 0)
 	{
 		if (exe->flag_b != 0)
 			connect_pipe(exe->b, STDIN_FILENO);
-		// dup2(exe->b[READ], STDIN_FILENO);
 		connect_pipe(exe->a, STDOUT_FILENO);		// cat(o)		wc(x)
-		// dup2(exe->a[WRITE], STDOUT_FILENO);
 	}
 	else if (i % 2 != 0 && exe->pip_cnt > 0)
 	{
@@ -235,11 +161,11 @@ void	child_process(t_lst *line_lst, t_exe *exe, int i)
 
 	command_arg(&line_lst, exe);
 
-	// if (is_builtin(exe->cmd_arg[0]))
-	// 	exe_builtin(exe->cmd_arg);
-	// else
+	if (is_builtin(exe->cmd_arg[0]))
+		exe_builtin(exe->cmd_arg);
+	else
 		exe_command(exe);
-	// exit(EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
 
 void	parent_process(t_exe *exe, pid_t pid, int i)
@@ -250,13 +176,9 @@ void	parent_process(t_exe *exe, pid_t pid, int i)
 	{
 	}
 	else if (i % 2 == 0 && exe->pip_cnt == 0)
-	{
 		close(exe->b[READ]);
-	}
 	else if (i % 2 != 0 && exe->pip_cnt == 0)
-	{
 		close(exe->a[READ]);
-	}
 	else if (i % 2 == 0 && exe->pip_cnt > 0)
 	{
 		close(exe->a[WRITE]);
@@ -271,12 +193,12 @@ void	parent_process(t_exe *exe, pid_t pid, int i)
 	waitpid(pid, &status, 0);
 }
 
-/**
+/*
+ * TODO
+ * builtin 실행 뒤 exit 안됨
+ **************************************
  * pipe 나오기 전까지 명령어는 하나이다.
  * redirect는 미리 열어 둘 수 있을 거 같다.
- * < file cmd
- * < file cmd | cmd
- * < file cmd | cmd > file
  */
 int	execute(t_lst *line_lst)
 {
@@ -312,9 +234,7 @@ int	execute(t_lst *line_lst)
 			child_process(line_lst, exe, i);
 		}
 		else
-		{
 			parent_process(exe, pid, i);
-		}
 		i++;
 		exe->pip_cnt--;
 		while (line_lst != NULL && line_lst->id != PIP)

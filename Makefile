@@ -25,9 +25,6 @@ INCS		:=	$(addprefix $(INC_DIR), $(INCLUDES))
 SRCS_DIR	:=	./src/
 SOURCES		:=	main.c \
 				clear_screen.c \
-				env/env_list.c \
-				export/export_list.c \
-				export/export_utils.c \
 				tokenizer.c \
 				parse_util.c \
 				parse_1.c \
@@ -35,11 +32,23 @@ SOURCES		:=	main.c \
 				parse_2.c \
 				parse_3.c \
 				error.c \
+				pipe.c \
+				redirect.c \
+				cd/cd.c \
+				echo/echo.c \
+				env/env_list.c \
+				env/env.c \
+				export/export_add_env.c \
+				export/export_add_exp.c \
+				export/export_list.c \
+				export/export_utils.c \
+				export/export.c \
+				pwd/pwd.c \
+				unset/unset.c \
 				utils/pp_lst.c \
 				utils/pp_strcmp_limit.c \
 				utils/free.c \
 				utils/pp_which.c \
-				echo/echo.c \
 				execute.c \
 				test.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))

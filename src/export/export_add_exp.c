@@ -6,7 +6,7 @@ char	*str_eq_quote_val(char *key, char *val)
 	int		i;
 	int		j;
 
-	new_str = (char *)malloc(pp_strlen(key) + pp_strlen(val) + 3);
+	new_str = (char *)malloc(ft_strlen(key) + ft_strlen(val) + 3);
 	if (new_str == NULL)
 		return (NULL);
 	i = 0;
@@ -42,7 +42,7 @@ void	change_exp_val(t_lst *lst, char *val)
 		}
 		i++;
 	}
-	if (i == (int)pp_strlen(str))
+	if (i == (int)ft_strlen(str))
 		str[i++] = '=';
 	str[i++] = '\"';
 	j = 0;

@@ -6,7 +6,7 @@ char	*key_eq_val(char *key, char *val)
 	int		i;
 	int		j;
 
-	new_str = (char *)malloc(pp_strlen(key) + pp_strlen(val) + 2);
+	new_str = (char *)malloc(ft_strlen(key) + ft_strlen(val) + 2);
 	if (new_str == NULL)
 		return (NULL);
 	i = 0;
@@ -34,7 +34,7 @@ void	change_env_val(t_lst *lst, char *val)
 	i = 0;
 	while (str[i] != '=' && str[i] != '\0')
 		i++;
-	tmp = (char *)malloc(i + pp_strlen(val) + 2);
+	tmp = (char *)malloc(i + ft_strlen(val) + 2);
 	if (tmp == NULL)
 		return ;
 	j = -1;

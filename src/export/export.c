@@ -4,16 +4,15 @@ static void	print_exp_lst(t_lst *lst)
 {
 	while (lst != NULL)
 	{
-		write(1, "declare -x ", 11);
-		write(1, lst->content, pp_strlen(lst->content));
-		write(1, "\n", 1);
+		ft_putstr_fd("declare -x ", 1);
+		ft_putendl_fd(lst->content, 1);
 		lst = lst->next;
 	}
 }
 
 /**
  * = 이 있는지 확인, = 없으면 env_lst에 추가하지 않음
- * key=val 문자열 만듦
+ * key=val 문자열 만듦
  * = 이 없고, val이 없는 상태가 아니라면 ex) 'export a'와 같은 경우가 아니라면
  * lst->content 의 key와 같은 lst 가져오기
  */
@@ -66,7 +65,7 @@ static int	check_value(char *str, int i, int qq_cnt, int q_cnt)
 		}
 		i++;
 	}
-	if (i == (int)pp_strlen(str))
+	if (i == (int)ft_strlen(str))
 		return (EXIT_SUCCESS);
 	while (str[i] != '\0')
 	{
@@ -81,7 +80,10 @@ static int	check_value(char *str, int i, int qq_cnt, int q_cnt)
 	return (EXIT_SUCCESS);
 }
 
-/**
+/*
+ * TODO
+ * export key=value (추가하는거)
+ ******************************************
  * need free : key, val, lst->content, lst
  */
 int	pp_export(char **args, t_lst **exp_lst, t_lst **env_lst)

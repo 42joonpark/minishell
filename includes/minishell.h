@@ -13,7 +13,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <limits.h>
-# include <dirent.h>	// opendir
+# include <dirent.h>
 # include <string.h>
 # include <errno.h>
 # include "libft.h"
@@ -78,7 +78,7 @@ typedef struct s_lst
 	int				id;
 }	t_lst;
 
-typedef struct	s_exe
+typedef struct s_exe
 {
 	int		a[2];
 	int		b[2];
@@ -89,11 +89,12 @@ typedef struct	s_exe
 	int		flag_b;
 }	t_exe;
 
+// 종료코드(exit_status) 에는 1byte가 사용되면 0~255 번을 사용가능하다.
 typedef struct s_data
 {
 	t_lst	*env_lst;
 	t_lst	*exp_lst;
-	char	exit_status;	// 종료코드에는 1byte가 사용되면 0~255 번을 사용가능하다.
+	char	exit_status;
 }	t_data;
 
 t_data		g_data;
@@ -103,13 +104,6 @@ t_data		g_data;
  */
 // clear_screen.c
 void	clear_screen(void);
-
-// env/env_list.c
-int		env_list(char **env);
-void	put_env_index(void);
-
-// export/export_list.c
-int		exp_list(void);
 
 // tokenizer.c
 int		tokenizer(t_lst **line_lst, char *line);
@@ -126,10 +120,22 @@ int		is_builtin(char *str);
 void	syntax_error(char *err);
 void	syntax_error_msg(char *err, char *msg);
 
-// export/export_utils.c
-char	*get_key(char *str);
-char	*get_value(char *str);
+// pipe.c
+void	connect_pipe(int fd[], int io);
+void	close_pipe(int fd[]);				// 사용안한거 같음
+int		pipe_count(t_lst *line_lst);
 
+// redirect.c
+int		redirect_in(char *file, t_exe *exe);
+int		redirect_out(char *file, t_exe *exe);
+int		redirect_append(char *file, t_exe *exe);
+
+// execute.c
+int		execute(t_lst *line_lst);
+
+/*
+ * utils
+ */
 // utils/pp_lst.c
 t_lst	*pp_lstnew(char *content, int id);
 t_lst	*pp_lstlast(t_lst *lst);
@@ -148,11 +154,38 @@ void	find_executable(char *command, char *envs[], char buffer[], \
 // utils/free.c
 void	free_list(t_lst *lst);
 
-// echo
+/*
+ * builtins
+ */
 int		pp_echo(char **args);
+int		pp_cd(char **args);
+int		pp_env(t_lst **env_lst);
+int		pp_export(char **args, t_lst **exp_lst, t_lst **env_lst);
+int		pp_pwd(void);
+int		pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst);
 
-// execute.c
-int		execute(t_lst *line_lst);
+// env/env_list.c
+int		env_list(char **env);
+void	put_env_index(void);
+
+// export/export_list.c
+int		exp_list(void);
+
+// export/export_utils.c
+char	*get_key(char *str);
+char	*get_value(char *str);
+int		is_exist_eq(char *s);
+t_lst	*is_same_content_key(t_lst **lst, char *key);
+
+// export/export_add_env.c
+char	*key_eq_val(char *key, char *val);
+void	change_env_val(t_lst *lst, char *val);
+int		add_env(t_lst **env_lst, char *str);
+
+// export/export_add_exp.c
+char	*str_eq_quote_val(char *key, char *val);
+void	change_exp_val(t_lst *lst, char *val);
+int		add_exp(t_lst **exp_lst, char *str);
 
 // test.c
 void	print_lst(t_lst *lst);
