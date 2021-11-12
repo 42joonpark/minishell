@@ -23,15 +23,12 @@ char	**convert_env(void)
 void	connect_pipe(int fd[], int io)
 {
 	dup2(fd[io], io);
-<<<<<<< HEAD
-=======
 	close(fd[io]);
 	// close(fd[WRITE]);
 }
 
 void	close_pipe(int fd[])
 {
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 	close(fd[READ]);
 	close(fd[WRITE]);
 }
@@ -45,11 +42,8 @@ int	redirect_in(char *file, t_exe *exe)
 		g_data.exit_status = 1;
 		return (g_data.exit_status);
 	}
-<<<<<<< HEAD
-=======
 	dup2(exe->redir_in, STDIN_FILENO);
 	close(exe->redir_in);
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 	return (EXIT_SUCCESS);
 }
 
@@ -62,11 +56,8 @@ int	redirect_out(char *file, t_exe *exe)
 		g_data.exit_status = 1;
 		return (g_data.exit_status);
 	}
-<<<<<<< HEAD
-=======
 	dup2(exe->redir_out, STDOUT_FILENO);
 	close(exe->redir_out);
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 	return (EXIT_SUCCESS);
 }
 
@@ -79,11 +70,8 @@ int	redirect_append(char *file, t_exe *exe)
 		g_data.exit_status = 1;
 		return (g_data.exit_status);
 	}
-<<<<<<< HEAD
-=======
 	dup2(exe->redir_out, STDOUT_FILENO);
 	close(exe->redir_out);
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 	return (EXIT_SUCCESS);
 }
 
@@ -132,10 +120,6 @@ int	pipe_count(t_lst *line_lst)
 	return (cnt);
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 void	redirect_connect(t_lst *line_lst, t_exe *exe)
 {
 	while (line_lst != NULL && line_lst->id != PIP)
@@ -166,56 +150,11 @@ int	check_arg(t_lst *line_lst)
 	return (cnt);
 }
 
-<<<<<<< HEAD
-int	command_arg(t_lst *line_lst, t_exe *exe)
-=======
 void	command_arg(t_lst **line_lst, t_exe *exe)
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 {
 	int	arg_cnt;
 	int	i;
 
-<<<<<<< HEAD
-	i = 0;
-	while (line_lst != NULL && line_lst->id != PIP)
-	{
-		if (line_lst->id == COMMAND || line_lst->id == BUILTIN)
-		{
-			arg_cnt = check_arg(line_lst);
-			exe->cmd_arg = (char **)malloc(sizeof(char *) * (arg_cnt + 2));
-			exe->cmd_arg[i++] = ft_strdup(line_lst->content);
-			exe->cmd_arg[arg_cnt + 1] = NULL;
-			line_lst = line_lst->next;
-			while (line_lst != NULL && line_lst->id != PIP)
-			{
-				if (line_lst->id == ARG || line_lst->id == D_QUOTE || line_lst->id == S_QUOTE)
-				{
-					exe->cmd_arg[i++] = ft_strdup(line_lst->content);
-				}
-				line_lst = line_lst->next;
-			}
-			break ;
-		}
-		if (line_lst != NULL)
-			line_lst = line_lst->next;
-	}
-	return (i);
-}
-
-t_exe	*new_exe(int pipe_ct)
-{
-	t_exe	*ret;
-
-	ret = (t_exe *)malloc(sizeof(t_exe));
-	if (ret == NULL)
-		exit(EXIT_FAILURE);
-	ret->pip_cnt = pipe_ct;
-	ret->redir_in = -1;
-	ret->redir_out = -1;
-	return (ret);
-}
-
-=======
 	while ((*line_lst) != NULL && (*line_lst)->id != PIP)
 	{
 		if ((*line_lst)->id == COMMAND || (*line_lst)->id == BUILTIN)
@@ -257,87 +196,14 @@ void	exe_builtin(char **cmd_arg)
 		pp_unset(cmd_arg, &g_data.exp_lst, &g_data.env_lst);
 }
 */
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 void	exe_command(t_exe *exe)
 {
 	char	buf[P_BUFFER_SIZE];
 
-<<<<<<< HEAD
-printf("exe_command\n");
-=======
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 	find_executable(exe->cmd_arg[0], convert_env(), buf, P_BUFFER_SIZE);
 	execve(buf, exe->cmd_arg, convert_env());
 }
 
-<<<<<<< HEAD
-/*
-static int child_process(t_lst *line_lst, int idx, char *envs[])
-{
-	char	*cmd;
-	char	buf[100];
-	char	*args[] = {"command", NULL};
-
-	(void)idx;
-	cmd = line_lst->content;
-	if (is_builtin(cmd))
-	{
-		if (ft_strcmp(cmd, "echo") == 0)
-			pp_echo(line_lst);
-		else if (ft_strcmp(cmd, "exit") == 0)
-			exit(0);
-	}
-	else
-	{
-		find_executable(cmd, envs, buf, 100);
-		buf[ft_strlen(buf) - 1] = '\0';
-		args[0] = "cmd";
-		execve(buf, args, envs);
-	}
-	exit(0);
-}
-*/
-
-int	execute(t_lst *line_lst, char *envs[])
-{
-	int		idx;
-	int		i;
-	int		status;
-	t_exe	*exe;
-	pid_t	pid;
-
-	(void)envs;
-	idx = 0;
-	while (line_lst != NULL)
-	{
-		exe = new_exe(pipe_count(line_lst));
-		if (exe == NULL)
-			return (EXIT_FAILURE);
-		pid = fork();
-		if (pid < 0)
-			return (EXIT_FAILURE);
-		redirect_connect(line_lst, exe);
-		i = command_arg(line_lst, exe);
-		if (pid == 0) // child
-		{
-			//child_process(line_lst, idx, envs);
-			exe_command(exe);
-		}
-		else // parent
-		{
-			while (i > 0)
-			{
-				line_lst = line_lst->next;
-				--i;
-			}
-			waitpid(pid, &status, 0);
-			//parent_process(line_lst, idx);
-		}
-		free(exe);
-	}
-	return (EXIT_SUCCESS);
-}
-=======
 void	child_process(t_lst *line_lst, t_exe *exe, int i)
 {
 	redirect_connect(line_lst, exe);
@@ -464,4 +330,3 @@ int	execute(t_lst *line_lst)
 	}
 	return (EXIT_SUCCESS);
 }
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef

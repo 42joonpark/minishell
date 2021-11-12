@@ -79,19 +79,6 @@ typedef struct s_lst
 }	t_lst;
 
 typedef struct	s_exe
-<<<<<<< HEAD
-{
-	int		a[2];
-	int		b[2];
-	int		pip_cnt;
-	int		redir_in;
-	int		redir_out;
-	char	**cmd_arg;
-}	t_exe;
-
-typedef struct s_termios
-=======
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 {
 	int		a[2];
 	int		b[2];
@@ -171,10 +158,5 @@ int		execute(t_lst *line_lst);
 void	print_lst(t_lst *lst);
 void	print_line_list(t_lst *line_lst);
 void	print_exe_cmdarg(t_exe *exe);
-
-
-
-int		execute(t_lst *line_lst, char *envs[]);
-void	find_executable(char *command, char *envs[], char buffer[], int buf_size);
 
 #endif

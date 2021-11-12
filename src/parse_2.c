@@ -80,11 +80,7 @@ static void	check_command_count(t_lst *line_lst)
 				flag++;
 				line_lst = line_lst->next;
 			}
-<<<<<<< HEAD
-			if (line_lst != NULL)
-=======
 			if (line_lst != NULL && line_lst->id != PIP)
->>>>>>> 67054cfc524e86d5ff79a535fd4ce1fe0e82aeef
 			{
 				if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && flag != 0)
 					line_lst->id = ARG;
