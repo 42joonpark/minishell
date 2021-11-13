@@ -5,8 +5,12 @@ char	*str_eq_quote_val(char *key, char *val)
 	char	*new_str;
 	int		i;
 	int		j;
+	int		len;
 
-	new_str = (char *)malloc(ft_strlen(key) + ft_strlen(val) + 3);
+	len = ft_strlen(key);
+	if (val != NULL)
+		len += ft_strlen(val);
+	new_str = (char *)malloc(len + 3);
 	if (new_str == NULL)
 		return (NULL);
 	i = 0;

@@ -58,14 +58,11 @@ int	main(int argc, char *argv[], char **envp)
 	char	*line;
 	t_lst	*line_lst;
 
-(void)argc;
-(void)argv;
-(void)envp;
 	line = NULL;
 	line_lst = NULL;
 	clear_screen();		// 화면 초기화
 	set_signal();
-	// .create_env_exp_lst(argc, argv, envp);
+	create_env_exp_lst(argc, argv, envp);
 	while (1)
 	{
 		line = readline("ppsh$ ");
@@ -79,10 +76,10 @@ int	main(int argc, char *argv[], char **envp)
 		{
 			free_list(line_lst);
 			line_lst = NULL;
-			break ;
+			continue ;
 		}
 
-		// print_line_list(line_lst);	// [TEST CODE]
+		print_line_list(line_lst);	// [TEST CODE]
 
 		execute(line_lst);
 

@@ -33,6 +33,11 @@ static void	modify_content(t_lst *line_lst)
 		if (line_lst->content[i] == '$')
 		{
 			line_lst->id = ENV_TYPE;
+			if (line_lst->content[i + 1] != '\0' && line_lst->content[i + 1] == '?')
+			{
+				line_lst->content = ft_itoa(g_data.exit_status);
+				break ;
+			}
 			s1 = ft_substr(line_lst->content, 0, i);
 			i++;
 			s2 = ft_substr(&(line_lst->content[i]), 0, ft_strlen(&(line_lst->content[i])));

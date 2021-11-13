@@ -5,8 +5,12 @@ char	*key_eq_val(char *key, char *val)
 	char	*new_str;
 	int		i;
 	int		j;
+	int		len;
 
-	new_str = (char *)malloc(ft_strlen(key) + ft_strlen(val) + 2);
+	len = ft_strlen(key);
+	if (val != NULL)
+		len += ft_strlen(val);
+	new_str = (char *)malloc(len + 2);
 	if (new_str == NULL)
 		return (NULL);
 	i = 0;

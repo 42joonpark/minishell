@@ -74,7 +74,7 @@ int	check_arg(t_lst *line_lst)
 	cnt = 0;
 	while (line_lst != NULL && line_lst->id != PIP)
 	{
-		if (line_lst->id == ARG || line_lst->id == D_QUOTE || line_lst->id == S_QUOTE)
+		if (line_lst->id == ARG || line_lst->id == D_QUOTE || line_lst->id == S_QUOTE || line_lst->id == ENV_TYPE)
 			cnt++;
 		line_lst = line_lst->next;
 	}
@@ -98,7 +98,7 @@ void	command_arg(t_lst **line_lst, t_exe *exe)
 			i = 1;
 			while ((*line_lst) != NULL && (*line_lst)->id != PIP)
 			{
-				if ((*line_lst)->id == ARG || (*line_lst)->id == D_QUOTE || (*line_lst)->id == S_QUOTE)
+				if ((*line_lst)->id == ARG || (*line_lst)->id == D_QUOTE || (*line_lst)->id == S_QUOTE || (*line_lst)->id == ENV_TYPE)
 				{
 					exe->cmd_arg[i++] = ft_strdup((*line_lst)->content);
 				}
@@ -207,6 +207,8 @@ void	exe_free(t_exe *exe)
 	exe = NULL;
 }
 
+
+
 /*
  * TODO
  * builtin 실행 뒤 exit 안됨
@@ -219,6 +221,7 @@ int	execute(t_lst *line_lst)
 	t_exe	*exe;
 	pid_t	pid;
 	int		i;
+	int		idx;
 
 	exe = (t_exe *)malloc(sizeof(t_exe));
 	if (exe == NULL)
@@ -250,23 +253,29 @@ int	execute(t_lst *line_lst)
 		}
 		else
 		{
-			fprintf(stderr, "CHILD ID: %d\n", pid);
 			parent_process(exe, pid, i);
 		}
-		if (is_builtin(line_lst->content) && exe->pip_cnt == 0)
+		if (is_builtin(line_lst->content) && exe->pip_cnt == 0 && i == 0)
 		{
 			if (ft_strcmp("cd", line_lst->content) == 0)
 			{
 				command_arg(&line_lst, exe);
 				pp_cd(exe->cmd_arg);	// cd, cd dir
 			}
-			else if (ft_strcmp("export", line_lst->content) == 0)
+			else if (ft_strcmp("export", line_lst->content) == 0 && line_lst->next != NULL)
 			{
-
+				command_arg(&line_lst, exe);
+				idx = 1;
+				while (exe->cmd_arg[++idx] != NULL)
+					ft_strcat(&exe->cmd_arg[1], exe->cmd_arg[idx]);
+				if (exe->cmd_arg[1] != NULL)
+					pp_export(exe->cmd_arg, &g_data.exp_lst, &g_data.env_lst);
 			}
-			else if (ft_strcmp("unset", line_lst->content) == 0)
+			else if (ft_strcmp("unset", line_lst->content) == 0 && line_lst->next != NULL)
 			{
-
+				command_arg(&line_lst, exe);
+				if (exe->cmd_arg[1] != NULL)
+					pp_unset(exe->cmd_arg, &g_data.exp_lst, &g_data.env_lst);
 			}
 		}
 		i++;

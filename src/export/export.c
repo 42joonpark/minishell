@@ -83,6 +83,7 @@ static int	check_value(char *str, int i, int qq_cnt, int q_cnt)
 /*
  * TODO
  * export key=value (추가하는거)
+ * a = b 이런식일 떄 에러 메시지
  ******************************************
  * need free : key, val, lst->content, lst
  */

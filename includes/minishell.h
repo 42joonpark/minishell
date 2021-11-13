@@ -92,9 +92,9 @@ typedef struct s_exe
 // 종료코드(exit_status) 에는 1byte가 사용되면 0~255 번을 사용가능하다.
 typedef struct s_data
 {
-	t_lst	*env_lst;
-	t_lst	*exp_lst;
-	char	exit_status;
+	t_lst			*env_lst;
+	t_lst			*exp_lst;
+	unsigned char	exit_status;
 }	t_data;
 
 t_data		g_data;
