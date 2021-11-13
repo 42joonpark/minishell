@@ -50,6 +50,9 @@ SOURCES		:=	main.c \
 				utils/free.c \
 				utils/pp_which.c \
 				execute.c \
+				child_process.c \
+				execute_arg.c \
+				parent_process.c \
 				test.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 
