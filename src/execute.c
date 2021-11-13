@@ -121,11 +121,10 @@ void	exe_builtin(char **cmd_arg)
 		pp_echo(&cmd_arg[1]);
 	else if (ft_strcmp(cmd_arg[0], "env") == 0)
 		pp_env(&g_data.env_lst);
-	else if (ft_strcmp(cmd_arg[0], "export") == 0)
+	else if (ft_strcmp(cmd_arg[0], "export") == 0 && cmd_arg[1] == NULL)
 		pp_export(cmd_arg, &g_data.exp_lst, &g_data.env_lst);
 	else if (ft_strcmp(cmd_arg[0], "unset") == 0)
 		pp_unset(cmd_arg, &g_data.exp_lst, &g_data.env_lst);
-
 }
 
 void	exe_command(t_exe *exe)
@@ -193,6 +192,21 @@ void	parent_process(t_exe *exe, pid_t pid, int i)
 	waitpid(pid, &status, 0);
 }
 
+void	exe_free(t_exe *exe)
+{
+	int	idx;
+	
+	idx = 0;
+	if (exe->cmd_arg != NULL)
+	{
+		while (exe->cmd_arg[idx] != NULL)
+			free(exe->cmd_arg[idx++]);
+		free(exe->cmd_arg);
+	}
+	free(exe);
+	exe = NULL;
+}
+
 /*
  * TODO
  * builtin 실행 뒤 exit 안됨
@@ -213,6 +227,7 @@ int	execute(t_lst *line_lst)
 	exe->redir_in = -1;
 	exe->redir_out = -1;
 	exe->flag_b = 0;
+	exe->cmd_arg = NULL;
 	i = 0;
 	while (line_lst != NULL)
 	{
@@ -234,15 +249,42 @@ int	execute(t_lst *line_lst)
 			child_process(line_lst, exe, i);
 		}
 		else
+		{
+			fprintf(stderr, "CHILD ID: %d\n", pid);
 			parent_process(exe, pid, i);
+		}
+		if (is_builtin(line_lst->content) && exe->pip_cnt == 0)
+		{
+			if (ft_strcmp("cd", line_lst->content) == 0)
+			{
+				command_arg(&line_lst, exe);
+				pp_cd(exe->cmd_arg);	// cd, cd dir
+			}
+			else if (ft_strcmp("export", line_lst->content) == 0)
+			{
+
+			}
+			else if (ft_strcmp("unset", line_lst->content) == 0)
+			{
+
+			}
+		}
 		i++;
 		exe->pip_cnt--;
 		while (line_lst != NULL && line_lst->id != PIP)
+			 line_lst = line_lst->next;
+			/*
+		while (line_lst != NULL)
+		{
+			if (line_lst->id == PIP)
+				break ;
 			line_lst = line_lst->next;
+		}
+		*/
 		if (line_lst == NULL)
 		{
-			free(exe);
-			exe = NULL;
+			exe_free(exe);
+			//free(exe);
 			break ;
 		}
 		else if (line_lst->id == PIP)

@@ -25,8 +25,11 @@ void	create_env_exp_lst(int argc, char *argv[], char **envp)
 	(void)argc;
 	(void)argv;
 	env_list(envp);		// env를 list로 만든다.
+	
 	put_env_index();	// export의 정렬 순서를 env id에 입력한다.
+	
 	exp_list();			// env_lst에 id 순서대로 정렬하여 exp_lst를 만든다.
+
 }
 
 void	eof_history(char *line)
@@ -55,11 +58,14 @@ int	main(int argc, char *argv[], char **envp)
 	char	*line;
 	t_lst	*line_lst;
 
+(void)argc;
+(void)argv;
+(void)envp;
 	line = NULL;
 	line_lst = NULL;
 	clear_screen();		// 화면 초기화
 	set_signal();
-	create_env_exp_lst(argc, argv, envp);
+	// .create_env_exp_lst(argc, argv, envp);
 	while (1)
 	{
 		line = readline("ppsh$ ");
