@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: donpark <donpark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: joonpark <joonpark@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 17:53:48 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/08 15:26:11 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/13 17:40:02 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	free_args(char **args)
-{
-	size_t	idx;
-
-	idx = 0;
-	while (args[idx] != NULL)
-	{
-		free(args[idx]);
-		++idx;
-	}
-	free(args);
-	return (EXIT_SUCCESS);
-}
 
 void	free_list(t_lst *lst)
 {
@@ -40,4 +26,33 @@ void	free_list(t_lst *lst)
 		lst = NULL;
 		lst = tmp;
 	}
+}
+
+void	exe_free(t_exe *exe)
+{
+	int	idx;
+	
+	idx = 0;
+	if (exe->cmd_arg != NULL)
+	{
+		while (exe->cmd_arg[idx] != NULL)
+			free(exe->cmd_arg[idx++]);
+		free(exe->cmd_arg);
+	}
+	free(exe);
+	exe = NULL;
+}
+
+int	free_args(char **args)
+{
+	size_t	idx;
+
+	idx = 0;
+	while (args[idx] != NULL)
+	{
+		free(args[idx]);
+		++idx;
+	}
+	free(args);
+	return (EXIT_SUCCESS);
 }

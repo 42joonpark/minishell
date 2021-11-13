@@ -80,13 +80,17 @@ typedef struct s_lst
 
 typedef struct s_exe
 {
-	int		a[2];
-	int		b[2];
-	int		pip_cnt;
-	int		redir_in;
-	int		redir_out;
-	char	**cmd_arg;
-	int		flag_b;
+    int     a[2];
+    int     b[2];
+    int     pip_cnt;
+    int     redir_in;
+    int     redir_out;
+    char    **cmd_arg;
+    int     flag_b;
+    int     heredoc_fd[2];
+    char    *heredoc_buf;
+    pid_t   heredoc_pid;
+    int     heredoc_status;
 }	t_exe;
 
 // 종료코드(exit_status) 에는 1byte가 사용되면 0~255 번을 사용가능하다.
@@ -129,9 +133,20 @@ int		pipe_count(t_lst *line_lst);
 int		redirect_in(char *file, t_exe *exe);
 int		redirect_out(char *file, t_exe *exe);
 int		redirect_append(char *file, t_exe *exe);
+void    heredoc(t_lst *line_lst, t_exe *exe);
+void	redirect_connect(t_lst *line_lst, t_exe *exe);
 
 // execute.c
 int		execute(t_lst *line_lst);
+
+// child_process.c
+void	child_process(t_lst *line_lst, t_exe *exe, int i);
+
+// parent_process.c
+void	parent_process(t_exe *exe, pid_t pid, int i);
+
+// execute_arg.c
+void	command_arg(t_lst **line_lst, t_exe *exe);
 
 /*
  * utils
@@ -153,6 +168,8 @@ void	find_executable(char *command, char *envs[], char buffer[], \
 
 // utils/free.c
 void	free_list(t_lst *lst);
+void	exe_free(t_exe *exe);
+int		free_args(char **args);		// 일단 지금은 사용 안함. 호오옹ㄱ시
 
 /*
  * builtins
