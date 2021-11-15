@@ -12,5 +12,6 @@ int	pp_pwd(void)
 	}
 	ft_putendl_fd(pwd, 1);
 	free(pwd);
+	g_data.exit_status = 0;
 	return (EXIT_SUCCESS);
 }

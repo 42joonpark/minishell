@@ -6,7 +6,7 @@ void	handler(int signo)
 	{
 		rl_replace_line("", 0);	// rl_line_buffer 에 있던 문장이 첫번째 인자로 보낸 text 로 대체된다.
 		if (OS_APPLE)
-			ft_putstr_fd("ppsh$   \n", 1);
+			ft_putstr_fd("ppsh$ \n", 1);
 		else
 			ft_putstr_fd("\b\b  \n", 1);
 		rl_on_new_line();	// 줄 바꿈을 한 후에 새 줄로 이동했다고 업데이트 루틴에 알리는 용도.

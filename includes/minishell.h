@@ -179,7 +179,8 @@ int		free_args(char **args);		// 일단 지금은 사용 안함. 호오옹ㄱ시
 int		pp_echo(char **args);
 int		pp_cd(char **args);
 int		pp_env(t_lst **env_lst);
-int		pp_export(char **args, t_lst **exp_lst, t_lst **env_lst);
+//int		pp_export(char **args, t_lst **exp_lst, t_lst **env_lst);
+int		pp_export(char *args, t_lst **exp_lst, t_lst **env_lst);
 int		pp_pwd(void);
 int		pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst);
 

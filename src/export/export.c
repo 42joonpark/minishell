@@ -61,7 +61,7 @@ static void	var_add_exp(t_lst **exp_lst, char *exp_var, char *key, char *val)
  ******************************************
  * need free : key, val, lst->content, lst
  */
-int	pp_export(char **args, t_lst **exp_lst, t_lst **env_lst)
+int	pp_export(char *args, t_lst **exp_lst, t_lst **env_lst)
 {
 	char	*key;
 	char	*val;
@@ -71,14 +71,14 @@ int	pp_export(char **args, t_lst **exp_lst, t_lst **env_lst)
 		g_data.exit_status = 126;
 		return (EXIT_FAILURE);
 	}
-	if (args[1] == NULL)
+	if (args == NULL)
 		print_exp_lst(*exp_lst);
 	else
 	{
-		key = get_key(args[1]);
-		val = get_value(args[1]);
-		var_add_env(env_lst, args[1], key, val);
-		var_add_exp(exp_lst, args[1], key, val);
+		key = get_key(args);
+		val = get_value(args);
+		var_add_env(env_lst, args, key, val);
+		var_add_exp(exp_lst, args, key, val);
 	}
 	return (EXIT_SUCCESS);
 }

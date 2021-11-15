@@ -66,28 +66,60 @@ static void check_command(t_lst *line_lst)
 	}
 }
 
+/**
+ * pipe 전까지 command 개수 체크
+ */
+static void check_command_count_helper(t_lst *line_lst, int *flag)
+{
+	while (line_lst != NULL && line_lst->id != PIP)
+	{
+		while (line_lst->id != COMMAND && line_lst->id != BUILTIN)
+			line_lst = line_lst->next;
+		if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && (*flag) == 0)
+		{
+			(*flag)++;
+			line_lst = line_lst->next;
+		}
+		while (line_lst != NULL && line_lst->id != PIP)
+		{
+			if ((check_id(line_lst->id) || line_lst->id == FILE_TYPE \
+				|| line_lst->id == DIR_TYPE || line_lst->id == DELIMITER) \
+				&& line_lst->next != NULL)
+				line_lst = line_lst->next;
+			else if ((*flag) != 0 && line_lst->id != S_QUOTE)
+				line_lst->id = ARG;
+			line_lst = line_lst->next;
+		}
+	}
+}
+
+
+/**
+ * 첫 번째 command 또는 builtin 만 인정하고 나머지는 ARG로 바꿔 준다.
+ */
 static void	check_command_count(t_lst *line_lst)
 {
 	int	flag;
 
-	flag = 0;
 	while (line_lst != NULL)
 	{
-		while (line_lst != NULL && line_lst->id != PIP)
+		flag = 0;
+		check_command_count_helper(line_lst, &flag);
+		
+		if (flag == 0)
 		{
-			if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && flag == 0)
+			while (line_lst != NULL && line_lst->id != PIP)
 			{
-				flag++;
-				line_lst = line_lst->next;
-			}
-			if (line_lst != NULL && line_lst->id != PIP)
-			{
-				if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && flag != 0)
-					line_lst->id = ARG;
+				if (line_lst->id == ARG || line_lst->id == D_QUOTE || line_lst->id == S_QUOTE)
+				{
+					line_lst->id = COMMAND;
+					break ;
+				}
 				line_lst = line_lst->next;
 			}
 		}
-		flag = 0;
+		while (line_lst != NULL && line_lst->id != PIP)
+			line_lst = line_lst->next;
 		if (line_lst != NULL)
 			line_lst = line_lst->next;
 	}

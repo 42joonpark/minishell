@@ -20,7 +20,6 @@ static char	**convert_env(void)
 	return (env);
 }
 
-//static void	exe_builtin(char **cmd_arg)
 static void	exe_builtin(t_exe *exe)
 {
 	char **cmd_arg;
@@ -35,7 +34,8 @@ static void	exe_builtin(t_exe *exe)
 	else if (ft_strcmp(cmd_arg[0], "env") == 0)
 		pp_env(&g_data.env_lst);
 	else if (ft_strcmp(cmd_arg[0], "export") == 0 && cmd_arg[1] == NULL)
-		pp_export(cmd_arg, &g_data.exp_lst, &g_data.env_lst);
+		//pp_export(cmd_arg[0], &g_data.exp_lst, &g_data.env_lst);
+		pp_export(NULL, &g_data.exp_lst, &g_data.env_lst);
 	else if (ft_strcmp(cmd_arg[0], "unset") == 0)
 		pp_unset(cmd_arg, &g_data.exp_lst, &g_data.env_lst);
 }
@@ -62,7 +62,6 @@ static void	child_process_helper(t_lst *line_lst, t_exe *exe)
 {
 	command_arg(&line_lst, exe);
 	if (is_builtin(exe->cmd_arg[0]))
-		//exe_builtin(exe->cmd_arg);
 		exe_builtin(exe);
 	else
 		exe_command(exe);
@@ -74,6 +73,12 @@ void	child_process(t_lst *line_lst, t_exe *exe, int i)
 	redirect_connect(line_lst, exe);
 	if (i == 0 && exe->pip_cnt == 0)
 	{
+		while (line_lst != NULL && line_lst->id != PIP && line_lst->next != NULL)
+		{
+			if (line_lst->id == COMMAND || line_lst->id == BUILTIN)
+				break ;
+			line_lst = line_lst->next;
+		}
 	}
 	else if (i % 2 == 0 && exe->pip_cnt == 0)	//  파이프 마지막 명령 실행
 		connect_pipe(exe->b, STDIN_FILENO);
