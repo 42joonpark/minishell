@@ -11,6 +11,12 @@ static void	print_env_lst(t_lst *lst)
 
 int	pp_env(t_lst **env_lst)
 {
+	if (env_lst == NULL)
+	{
+		g_data.exit_status = 126;
+		return (EXIT_FAILURE);
+	}
 	print_env_lst(*env_lst);
+	g_data.exit_status = 0;
 	return (EXIT_SUCCESS);
 }

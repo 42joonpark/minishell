@@ -20,9 +20,13 @@ static char	**convert_env(void)
 	return (env);
 }
 
-static void	exe_builtin(char **cmd_arg)
+//static void	exe_builtin(char **cmd_arg)
+static void	exe_builtin(t_exe *exe)
 {
-	if (ft_strcmp(cmd_arg[0], "cd") == 0)
+	char **cmd_arg;
+
+	cmd_arg = exe->cmd_arg;
+	if (ft_strcmp(cmd_arg[0], "cd") == 0 && exe->pip_cnt > 0)
 		pp_cd(cmd_arg);
 	else if (ft_strcmp(cmd_arg[0], "pwd") == 0)
 		pp_pwd();
@@ -40,18 +44,29 @@ static void	exe_command(t_exe *exe)
 {
 	char	buf[P_BUFFER_SIZE];
 
+	ft_memset(buf, 0, P_BUFFER_SIZE);
 	find_executable(exe->cmd_arg[0], convert_env(), buf, P_BUFFER_SIZE);
-	execve(buf, exe->cmd_arg, convert_env());
+	if (buf[0] == '\0')
+	{
+		syntax_error_msg(exe->cmd_arg[0], "command not found");
+		g_data.exit_status = 127;
+	}
+	else
+	{
+		g_data.exit_status = 0;
+		execve(buf, exe->cmd_arg, convert_env());
+	}
 }
 
 static void	child_process_helper(t_lst *line_lst, t_exe *exe)
 {
 	command_arg(&line_lst, exe);
 	if (is_builtin(exe->cmd_arg[0]))
-		exe_builtin(exe->cmd_arg);
+		//exe_builtin(exe->cmd_arg);
+		exe_builtin(exe);
 	else
 		exe_command(exe);
-	exit(EXIT_SUCCESS);
+	exit(g_data.exit_status);
 }
 
 void	child_process(t_lst *line_lst, t_exe *exe, int i)

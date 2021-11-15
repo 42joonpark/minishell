@@ -8,7 +8,8 @@ static int	check_quotes(char *line, char quote, int *i)
 			return (EXIT_SUCCESS);
 		(*i)++;
 	}
-	syntax_error("syntax error");
+	syntax_token_error("ppsh: syntax error near unexpected token", quote);
+	g_data.exit_status = 2;
 	return (EXIT_FAILURE);
 }
 
@@ -87,7 +88,8 @@ int	parse_1(t_lst **line_lst, char *line)
 			i++;
 		if (line[i] == '\\' || line[i] == ';')
 		{
-			syntax_error("Syntax error");
+			syntax_token_error("ppsh: syntax error near unexpected token", line[i]);
+			g_data.exit_status = 2;
 			return (EXIT_FAILURE);
 		}
 		else if (line[i] == '"' || line[i] == '\'')

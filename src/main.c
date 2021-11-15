@@ -65,7 +65,7 @@ int	main(int argc, char *argv[], char **envp)
 	create_env_exp_lst(argc, argv, envp);
 	while (1)
 	{
-		line = readline("ppsh$ ");
+		line = readline("\033[36mppsh$\033[0m ");
 		eof_history(line);
 		if (*line == '\0')
 		{
@@ -79,7 +79,7 @@ int	main(int argc, char *argv[], char **envp)
 			continue ;
 		}
 
-		print_line_list(line_lst);	// [TEST CODE]
+		// print_line_list(line_lst);	// [TEST CODE]
 
 		execute(line_lst);
 

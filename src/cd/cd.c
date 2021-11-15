@@ -10,7 +10,12 @@ int	pp_cd(char **args)
 		dir = default_dir;
 	else
 		dir = args[1];
-	if (chdir(dir) == 0)
+	if (chdir(dir) == -1)
+	{
+		syntax_error_msg2("cd", args[1], "No such file or directory");
+		g_data.exit_status = 1;
 		return (EXIT_FAILURE);
+	}
+	g_data.exit_status = 0;
 	return (EXIT_SUCCESS);
 }

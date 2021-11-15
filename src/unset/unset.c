@@ -1,5 +1,11 @@
 #include "minishell.h"
 
+static int unset_return()
+{
+	g_data.exit_status = 0;
+	return (EXIT_SUCCESS);
+}
+
 int	pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst)
 {
 	t_lst	*exp;
@@ -7,7 +13,7 @@ int	pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst)
 	t_lst	*tmp;
 
 	if (args[1] == NULL)
-		return (EXIT_SUCCESS);
+		return (unset_return());
 	exp = *exp_lst;
 	env = *env_lst;
 	while (exp != NULL)
@@ -24,5 +30,5 @@ int	pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst)
 			pp_lstdelone(tmp);
 		env = env->next;
 	}
-	return (EXIT_SUCCESS);
+	return (unset_return());
 }
