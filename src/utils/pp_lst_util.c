@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   pp_lst_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 20:24:31 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:24:32 by donpark          ###   ########.fr       */
+/*   Created: 2021/11/15 21:00:37 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 21:00:38 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_env_lst(t_lst *lst)
+t_lst	*pp_lstlast(t_lst *lst)
 {
-	while (lst != NULL)
-	{
-		ft_putendl_fd(lst->content, 1);
+	if (lst == NULL)
+		return (0);
+	while (lst->next != NULL)
 		lst = lst->next;
-	}
+	return (lst);
 }
 
-int	pp_env(t_lst **env_lst)
+int	pp_lstsize(t_lst *lst)
 {
-	if (env_lst == NULL)
+	int	i;
+
+	i = 0;
+	while (lst != NULL)
 	{
-		g_data.exit_status = 126;
-		return (EXIT_FAILURE);
+		i++;
+		lst = lst->next;
 	}
-	print_env_lst(*env_lst);
-	g_data.exit_status = 0;
-	return (EXIT_SUCCESS);
+	return (i);
 }

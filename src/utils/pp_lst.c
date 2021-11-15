@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pp_lst.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 20:28:00 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 21:00:40 by donpark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_lst	*pp_lstnew(char *content, int id)
@@ -13,15 +25,6 @@ t_lst	*pp_lstnew(char *content, int id)
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
-}
-
-t_lst	*pp_lstlast(t_lst *lst)
-{
-	if (lst == NULL)
-		return (0);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
 }
 
 void	pp_lstadd_back(t_lst **lst, t_lst *new)
@@ -73,17 +76,3 @@ void	pp_lstdelone(t_lst *lst)
 	free(lst->content);
 	free(lst);
 }
-
-int	pp_lstsize(t_lst *lst)
-{
-	int	i;
-
-	i = 0;
-	while (lst != NULL)
-	{
-		i++;
-		lst = lst->next;
-	}
-	return (i);
-}
-

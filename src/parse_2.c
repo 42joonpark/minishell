@@ -1,50 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 20:39:56 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:58:28 by donpark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static void	check_file_dir_delimiter(t_lst *line_lst)
-{
-	if (line_lst->id == REDIRIN || line_lst->id == REDIROUT || line_lst->id == APPEND)	// <, >, >> 다음은 FILE_TYPE이지만 < 뒤에 디렉토리의 경우도 있음.
-	{
-		if (line_lst->next != NULL)
-		{
-			if (line_lst->id == REDIRIN && opendir(line_lst->next->content))
-				line_lst->next->id = DIR_TYPE;
-			else
-				line_lst->next->id = FILE_TYPE;
-		}
-	}
-	else if (line_lst->id == HEREDOC)	// << 뒤에는 DELIMITER
-	{
-		if (line_lst->next != NULL)
-			line_lst->next->id = DELIMITER;
-	}
-}
-
-static void check_file_dir_delimiter_pip(t_lst *line_lst)
-{
-	while (line_lst != NULL)
-	{
-		check_file_dir_delimiter(line_lst);
-		if (line_lst->id == PIP)	// | 뒤에 id가 ARG이면 BUILTIN, CMD 타입으로 변경
-		{
-			if (line_lst->next != NULL && line_lst->next->id == ARG)
-			{
-				if (is_builtin(line_lst->next->content))
-					line_lst->next->id = BUILTIN;
-				else
-					line_lst->next->id = COMMAND;
-			}
-		}
-		line_lst = line_lst->next;
-	}
-}
-
-static void check_command(t_lst *line_lst)
+static void	check_command(t_lst *line_lst)
 {
 	while (line_lst != NULL)
 	{
 		if (line_lst->id == REDIRIN && line_lst->next != NULL \
 		&& (line_lst->next->id == DIR_TYPE || line_lst->next->id == FILE_TYPE) \
-		&& line_lst->next->next != NULL && !check_id(line_lst->next->next->id))	// < infile "cmd"
+		&& line_lst->next->next != NULL && !check_id(line_lst->next->next->id))
 		{
 			if (is_builtin(line_lst->next->next->content))
 				line_lst->next->next->id = BUILTIN;
@@ -54,8 +28,9 @@ static void check_command(t_lst *line_lst)
 		else if (line_lst->id == REDIRIN && line_lst->next != NULL \
 		&& (line_lst->next->id == DIR_TYPE || line_lst->next->id == FILE_TYPE) \
 		&& line_lst->next->next != NULL \
-		&& (line_lst->next->next->id != BUILTIN || line_lst->next->next->id != COMMAND) \
-		&& line_lst->prev != NULL && !check_id(line_lst->prev->id))	// "cmd" < infile |
+		&& (line_lst->next->next->id != BUILTIN \
+		|| line_lst->next->next->id != COMMAND) \
+		&& line_lst->prev != NULL && !check_id(line_lst->prev->id))
 		{
 			if (is_builtin(line_lst->prev->content))
 				line_lst->prev->id = BUILTIN;
@@ -66,16 +41,14 @@ static void check_command(t_lst *line_lst)
 	}
 }
 
-/**
- * pipe 전까지 command 개수 체크
- */
-static void check_command_count_helper(t_lst *line_lst, int *flag)
+static void	check_command_count_helper(t_lst *line_lst, int *flag)
 {
 	while (line_lst != NULL && line_lst->id != PIP)
 	{
 		while (line_lst->id != COMMAND && line_lst->id != BUILTIN)
 			line_lst = line_lst->next;
-		if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) && (*flag) == 0)
+		if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) \
+		&& (*flag) == 0)
 		{
 			(*flag)++;
 			line_lst = line_lst->next;
@@ -93,10 +66,6 @@ static void check_command_count_helper(t_lst *line_lst, int *flag)
 	}
 }
 
-
-/**
- * 첫 번째 command 또는 builtin 만 인정하고 나머지는 ARG로 바꿔 준다.
- */
 static void	check_command_count(t_lst *line_lst)
 {
 	int	flag;
@@ -105,12 +74,12 @@ static void	check_command_count(t_lst *line_lst)
 	{
 		flag = 0;
 		check_command_count_helper(line_lst, &flag);
-		
 		if (flag == 0)
 		{
 			while (line_lst != NULL && line_lst->id != PIP)
 			{
-				if (line_lst->id == ARG || line_lst->id == D_QUOTE || line_lst->id == S_QUOTE)
+				if (line_lst->id == ARG \
+				|| line_lst->id == D_QUOTE || line_lst->id == S_QUOTE)
 				{
 					line_lst->id = COMMAND;
 					break ;

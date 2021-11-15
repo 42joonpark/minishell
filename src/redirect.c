@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 20:41:47 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:41:48 by donpark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	redirect_in(char *file, t_exe *exe)
@@ -50,7 +62,6 @@ void	heredoc(t_lst *line_lst, t_exe *exe)
 		exit(EXIT_FAILURE);
 	else if (exe->heredoc_pid == 0)
 	{
-		// close(exe->heredoc_fd[READ]);
 		ft_putstr_fd("> ", 1);
 		while (get_next_line(STDIN_FILENO, &(exe->heredoc_buf)) != 0)
 		{
@@ -63,7 +74,6 @@ void	heredoc(t_lst *line_lst, t_exe *exe)
 	}
 	else
 	{
-		// connect_pipe(exe->heredoc_fd, STDIN_FILENO);
 		close(exe->heredoc_fd[WRITE]);
 		waitpid(exe->heredoc_pid, &(exe->heredoc_status), 0);
 		dup2(exe->heredoc_fd[READ], STDIN_FILENO);

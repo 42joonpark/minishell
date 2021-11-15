@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joonpark <joonpark@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 17:53:48 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/13 17:40:02 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/11/15 20:50:57 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_list(t_lst *lst)
 void	exe_free(t_exe *exe)
 {
 	int	idx;
-	
+
 	idx = 0;
 	if (exe->cmd_arg != NULL)
 	{
@@ -55,4 +55,12 @@ int	free_args(char **args)
 	}
 	free(args);
 	return (EXIT_SUCCESS);
+}
+
+void	free_linelst_and_line(t_lst **line_lst, char **line)
+{
+	free_list(*line_lst);
+	*line_lst = NULL;
+	free(*line);
+	*line = NULL;
 }

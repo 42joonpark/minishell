@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 20:32:42 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:37:54 by donpark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	syntax_error(char *err)
@@ -6,7 +18,7 @@ void	syntax_error(char *err)
 		ft_putendl_fd(err, 2);
 }
 
-void	syntax_token_error(char *err, char token)
+void	token_error(char *err, char token)
 {
 	ft_putstr_fd(err, 2);
 	ft_putstr_fd(" `", 2);

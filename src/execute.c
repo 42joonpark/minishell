@@ -1,21 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 20:35:12 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:46:01 by donpark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static t_exe	*init_exe(t_lst *line_lst)
-{
-	t_exe	*exe;
-
-	exe = (t_exe *)malloc(sizeof(t_exe));
-	if (exe == NULL)
-		exit(EXIT_FAILURE);
-	exe->pip_cnt = pipe_count(line_lst);
-	exe->redir_in = -1;
-	exe->redir_out = -1;
-	exe->flag_b = 0;
-	exe->cmd_arg = NULL;
-	return (exe);
-}
-
-static char	**function(char	**arg)
+static char	**make_cmds(char	**arg)
 {
 	char	**ret;
 	char	*pos;
@@ -28,7 +25,8 @@ static char	**function(char	**arg)
 	while (arg[++idx] != NULL && idx < 64)
 	{
 		pos = ft_strchr(arg[idx], '=');
-		if (pos != NULL && arg[idx][0] != '=' && *(pos + 1) != ' ' && *(pos + 1) != '\0') // export a=b
+		if (pos != NULL && arg[idx][0] != '=' \
+		&& *(pos + 1) != ' ' && *(pos + 1) != '\0')
 			ret[ret_idx++] = ft_strdup(arg[idx]);
 		else
 			syntax_error_msg2("export", arg[idx], "not a valid identifier");
@@ -46,7 +44,7 @@ static void	run_builtins_helper(t_lst **line_lst, t_exe *exe)
 		&& (*line_lst)->next != NULL)
 	{
 		command_arg(line_lst, exe);
-		cmds = function(exe->cmd_arg);
+		cmds = make_cmds(exe->cmd_arg);
 		idx = -1;
 		while (cmds[++idx] != NULL)
 			pp_export(cmds[idx], &g_data.exp_lst, &g_data.env_lst);
@@ -100,13 +98,6 @@ static void	run_command(t_lst **line_lst, t_exe *exe, int i)
 	run_builtins(line_lst, exe, i);
 }
 
-/*
- * TODO
- * builtin 실행 뒤 exit 안됨
- **************************************
- * pipe 나오기 전까지 명령어는 하나이다.
- * redirect는 미리 열어 둘 수 있을 거 같다.
- */
 int	execute(t_lst *line_lst)
 {
 	t_exe	*exe;

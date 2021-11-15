@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 20:38:17 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:38:18 by donpark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 static int	check_quotes(char *line, char quote, int *i)
@@ -8,7 +20,7 @@ static int	check_quotes(char *line, char quote, int *i)
 			return (EXIT_SUCCESS);
 		(*i)++;
 	}
-	syntax_token_error("ppsh: syntax error near unexpected token", quote);
+	token_error("ppsh: syntax error near unexpected token", quote);
 	g_data.exit_status = 2;
 	return (EXIT_FAILURE);
 }
@@ -16,12 +28,12 @@ static int	check_quotes(char *line, char quote, int *i)
 static int	add_quote_str(t_lst **line_lst, char *line, int *i)
 {
 	char	quote;
-	int		tmp;		// quote 다음 인덱스	"abcdef" -> a위치
+	int		tmp;
 	char	*str;
 
 	quote = line[(*i)++];
-	tmp = *i;	// tmp는 "abcdef" -> a 위치
-	if (check_quotes(line, quote, i))	// i는 마지막 " 위치
+	tmp = *i;
+	if (check_quotes(line, quote, i))
 		return (EXIT_FAILURE);
 	if ((*i - tmp) != 0)
 	{
@@ -36,7 +48,6 @@ static int	add_quote_str(t_lst **line_lst, char *line, int *i)
 
 static void	add_redir_pipe(t_lst **line_lst, char *line, int *i)
 {
-
 	if (line[*i] == '<' && line[(*i) + 1] == '<')
 	{
 		(*i)++;
@@ -88,7 +99,7 @@ int	parse_1(t_lst **line_lst, char *line)
 			i++;
 		if (line[i] == '\\' || line[i] == ';')
 		{
-			syntax_token_error("ppsh: syntax error near unexpected token", line[i]);
+			token_error("ppsh: syntax error near unexpected token", line[i]);
 			g_data.exit_status = 2;
 			return (EXIT_FAILURE);
 		}

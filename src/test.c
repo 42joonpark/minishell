@@ -34,7 +34,6 @@ void	print_line_list(t_lst *line_lst)
 			str = "REDIROUT";
 		else if (line_lst->id == REDIRIN)
 			str = "REDIRIN";
-
 		fprintf(stderr, "%s (%d: %s) %s %s\n", C_AQUA, line_lst->id, str, line_lst->content, C_NC);
 		line_lst = line_lst->next;
 	}

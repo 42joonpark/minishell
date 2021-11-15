@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 20:24:31 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:24:32 by donpark          ###   ########.fr       */
+/*   Created: 2021/11/15 20:55:18 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:55:59 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_env_lst(t_lst *lst)
+static void	handler(int signo)
 {
-	while (lst != NULL)
+	if (signo == SIGINT)
 	{
-		ft_putendl_fd(lst->content, 1);
-		lst = lst->next;
+		rl_replace_line("", 0);
+		if (OS_APPLE)
+			ft_putstr_fd("ppsh$ \n", 1);
+		else
+			ft_putstr_fd("\b\b  \n", 1);
+		rl_on_new_line();
+		rl_redisplay();
 	}
 }
 
-int	pp_env(t_lst **env_lst)
+void	set_signal(void)
 {
-	if (env_lst == NULL)
-	{
-		g_data.exit_status = 126;
-		return (EXIT_FAILURE);
-	}
-	print_env_lst(*env_lst);
-	g_data.exit_status = 0;
-	return (EXIT_SUCCESS);
+	signal(SIGINT, handler);
+	signal(SIGQUIT, SIG_IGN);
 }

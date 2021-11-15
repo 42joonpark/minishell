@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parent_process.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 20:35:33 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:35:36 by donpark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	parent_process(t_exe *exe, pid_t pid, int i)
@@ -27,5 +39,4 @@ void	parent_process(t_exe *exe, pid_t pid, int i)
 	g_data.exit_status = status >> 8;
 	if (status == 0)
 		g_data.exit_status = status;
-
 }

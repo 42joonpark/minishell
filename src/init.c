@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 20:24:31 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:24:32 by donpark          ###   ########.fr       */
+/*   Created: 2021/11/15 20:35:12 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:46:05 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_env_lst(t_lst *lst)
+t_exe	*init_exe(t_lst *line_lst)
 {
-	while (lst != NULL)
-	{
-		ft_putendl_fd(lst->content, 1);
-		lst = lst->next;
-	}
-}
+	t_exe	*exe;
 
-int	pp_env(t_lst **env_lst)
-{
-	if (env_lst == NULL)
-	{
-		g_data.exit_status = 126;
-		return (EXIT_FAILURE);
-	}
-	print_env_lst(*env_lst);
-	g_data.exit_status = 0;
-	return (EXIT_SUCCESS);
+	exe = (t_exe *)malloc(sizeof(t_exe));
+	if (exe == NULL)
+		exit(EXIT_FAILURE);
+	exe->pip_cnt = pipe_count(line_lst);
+	exe->redir_in = -1;
+	exe->redir_out = -1;
+	exe->flag_b = 0;
+	exe->cmd_arg = NULL;
+	return (exe);
 }

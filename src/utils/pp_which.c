@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pp_which.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 20:28:20 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:28:28 by donpark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <string.h>
 
@@ -11,7 +23,7 @@ static void	find_cmd(char *argv[], char *envs[], char **args, \
 	execve(WHICH_DIR, argv, envs);
 }
 
-static void check_newline(char buffer[])
+static void	check_newline(char buffer[])
 {
 	int	i;
 

@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_3.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/15 20:41:01 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/15 20:41:01 by donpark          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-static char *s2_exist_env(char *s2)
+static char	*s2_exist_env(char *s2)
 {
 	t_lst	*env_lst;
 	char	*key;
+
 	env_lst = g_data.env_lst;
 	while (env_lst != NULL)
 	{
@@ -19,7 +32,7 @@ static char *s2_exist_env(char *s2)
 	return (NULL);
 }
 
-static void modify_env_type(t_lst *line_lst, int *i)
+static void	modify_env_type(t_lst *line_lst, int *i)
 {
 	char	*s1;
 	char	*s2;
@@ -34,7 +47,6 @@ static void modify_env_type(t_lst *line_lst, int *i)
 	if (tmp != NULL)
 		line_lst->content = ft_strjoin(s1, tmp);
 	else
-		ft_strjoin("$", s2);
 		line_lst->content = ft_strjoin(s1, "");
 	free(s1);
 	free(s2);
@@ -42,9 +54,10 @@ static void modify_env_type(t_lst *line_lst, int *i)
 		free(tmp);
 }
 
-static void modify_content(t_lst *line_lst)
+static void	modify_content(t_lst *line_lst)
 {
 	int	 i;
+
 	i = 0;
 	while (line_lst->content[i] != '\0')
 	{
@@ -69,7 +82,8 @@ void	parse_3(t_lst *line_lst)
 	print_line_list(line_lst);
 	while (line_lst != NULL)
 	{
-		if (ft_strchr(line_lst->content, '$') != NULL && line_lst->id != S_QUOTE)
+		if (ft_strchr(line_lst->content, '$') != NULL \
+		&& line_lst->id != S_QUOTE)
 			modify_content(line_lst);
 		line_lst = line_lst->next;
 	}

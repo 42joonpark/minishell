@@ -1,18 +1,31 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/11/15 20:09:59 by donpark           #+#    #+#              #
+#    Updated: 2021/11/15 21:07:41 by donpark          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC			:=	gcc
 CFLAGS		:=	-g -Wall -Wextra -Werror $(CHECK)
 CHECK		:=	-fsanitize=address
 
-OS = $(shell uname)
+OS 			:= $(shell uname)
+USERS 		:= $(shell Users)
 ifeq ($(OS), Linux)
 RDLINE_DIR	:=	/usr/share/readline/
 RDLINE_INC	:=	/usr/include/readline/
-else
+else ifeq ($(USERS), joonpark)
+RDLINE_DIR	:=	/Users/joonpark/.brew/opt/readline/lib/
+RDLINE_INC	:=	/Users/joonpark/.brew/opt/readline/include/
+else ifeq ($(USERS), donpark)
 RDLINE_DIR	:=	/Users/donpark/brew/opt/readline/lib/
 RDLINE_INC	:=	/Users/donpark/brew/opt/readline/include/
 endif
-
-# RDLINE_DIR	:=	/Users/joonpark/.brew/opt/readline/lib/
-# RDLINE_INC	:=	/Users/joonpark/.brew/opt/readline/include/
 
 LIBFT_DIR	:=	./libft/
 LIBFT_LIB	:=	$(LIBFT_DIR)libft.a
@@ -24,12 +37,14 @@ INCS		:=	$(addprefix $(INC_DIR), $(INCLUDES))
 
 SRCS_DIR	:=	./src/
 SOURCES		:=	main.c \
+				signal.c \
 				clear_screen.c \
 				tokenizer.c \
 				parse_util.c \
 				parse_1.c \
 				check_1.c \
 				parse_2.c \
+				parse_2_1.c \
 				parse_3.c \
 				error.c \
 				pipe.c \
@@ -46,11 +61,14 @@ SOURCES		:=	main.c \
 				pwd/pwd.c \
 				unset/unset.c \
 				utils/pp_lst.c \
+				utils/pp_lst_util.c \
 				utils/pp_strcmp_limit.c \
 				utils/free.c \
 				utils/pp_which.c \
 				execute.c \
+				init.c \
 				child_process.c \
+				exec.c \
 				execute_arg.c \
 				parent_process.c \
 				test.c
