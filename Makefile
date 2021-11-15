@@ -6,12 +6,12 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/15 20:09:59 by donpark           #+#    #+#              #
-#    Updated: 2021/11/15 21:07:41 by donpark          ###   ########.fr        #
+#    Updated: 2021/11/15 21:17:01 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			:=	gcc
-CFLAGS		:=	-g -Wall -Wextra -Werror $(CHECK)
+CFLAGS		:=	-g -Wall -Wextra -Werror
 CHECK		:=	-fsanitize=address
 
 OS 			:= $(shell uname)

@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:39:56 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:58:28 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/15 21:28:48 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ static void	check_command_count_helper(t_lst *line_lst, int *flag)
 {
 	while (line_lst != NULL && line_lst->id != PIP)
 	{
-		while (line_lst->id != COMMAND && line_lst->id != BUILTIN)
+		while (line_lst != NULL \
+		&& line_lst->id != COMMAND && line_lst->id != BUILTIN)
 			line_lst = line_lst->next;
+		if (line_lst == NULL)
+			break ;
 		if ((line_lst->id == COMMAND || line_lst->id == BUILTIN) \
 		&& (*flag) == 0)
 		{

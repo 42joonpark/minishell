@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:35:08 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:57:07 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/15 21:20:01 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	run(void)
 			line_lst = NULL;
 			continue ;
 		}
+		print_line_list(line_lst);
 		execute(line_lst);
 		free_linelst_and_line(&line_lst, &line);
 	}
