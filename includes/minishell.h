@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:24:15 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 21:07:19 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/15 21:09:28 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ void	find_executable(char *command, char *envs[], char buffer[], \
 void	free_list(t_lst *lst);
 void	exe_free(t_exe *exe);
 int		free_args(char **args);
+void	free_linelst_and_line(t_lst **line_lst, char **line);
 
 /*
  * builtins

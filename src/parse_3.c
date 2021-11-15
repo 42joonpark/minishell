@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:41:01 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:41:01 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/15 21:10:35 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	modify_content(t_lst *line_lst)
 
 void	parse_3(t_lst *line_lst)
 {
-	print_line_list(line_lst);
 	while (line_lst != NULL)
 	{
 		if (ft_strchr(line_lst->content, '$') != NULL \
