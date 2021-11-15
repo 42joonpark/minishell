@@ -34,10 +34,9 @@ static void	exe_builtin(t_exe *exe)
 	else if (ft_strcmp(cmd_arg[0], "env") == 0)
 		pp_env(&g_data.env_lst);
 	else if (ft_strcmp(cmd_arg[0], "export") == 0 && cmd_arg[1] == NULL)
-		//pp_export(cmd_arg[0], &g_data.exp_lst, &g_data.env_lst);
 		pp_export(NULL, &g_data.exp_lst, &g_data.env_lst);
 	else if (ft_strcmp(cmd_arg[0], "unset") == 0)
-		pp_unset(cmd_arg, &g_data.exp_lst, &g_data.env_lst);
+		pp_unset(NULL, &g_data.exp_lst, &g_data.env_lst);
 }
 
 static void	exe_command(t_exe *exe)

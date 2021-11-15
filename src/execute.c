@@ -25,13 +25,9 @@ static char	**function(char	**arg)
 	ret = (char **)malloc(sizeof(char *) * (64 + 1));
 	idx = 0;
 	ret_idx = 0;
-	while (arg[++idx] != NULL)
+	while (arg[++idx] != NULL && idx < 64)
 	{
 		pos = ft_strchr(arg[idx], '=');
-		/*
-		if (pos == NULL) // export b
-			ret[ret_idx++] = ft_strdup(arg[idx]);
-			*/
 		if (pos != NULL && arg[idx][0] != '=' && *(pos + 1) != ' ' && *(pos + 1) != '\0') // export a=b
 			ret[ret_idx++] = ft_strdup(arg[idx]);
 		else
@@ -50,26 +46,19 @@ static void	run_builtins_helper(t_lst **line_lst, t_exe *exe)
 		&& (*line_lst)->next != NULL)
 	{
 		command_arg(line_lst, exe);
-		/*
-		idx = 1;
-		while (exe->cmd_arg[++idx] != NULL)
-			ft_strcat(&exe->cmd_arg[1], exe->cmd_arg[idx]);
-		if (exe->cmd_arg[1] != NULL)
-			pp_export(exe->cmd_arg, &g_data.exp_lst, &g_data.env_lst);
-			*/
 		cmds = function(exe->cmd_arg);
 		idx = -1;
 		while (cmds[++idx] != NULL)
 			pp_export(cmds[idx], &g_data.exp_lst, &g_data.env_lst);
-// free cmds
+		free_args(cmds);
 	}
-	
 	else if (ft_strcmp("unset", (*line_lst)->content) == 0 \
 		&& (*line_lst)->next != NULL)
 	{
 		command_arg(line_lst, exe);
-		if (exe->cmd_arg[1] != NULL)
-			pp_unset(exe->cmd_arg, &g_data.exp_lst, &g_data.env_lst);
+		idx = 0 ;
+		while (exe->cmd_arg[++idx] != NULL)
+			pp_unset(exe->cmd_arg[idx], &g_data.exp_lst, &g_data.env_lst);
 	}
 }
 

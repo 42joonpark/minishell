@@ -94,8 +94,8 @@ typedef struct s_exe
 }	t_exe;
 
 // 종료코드(exit_status) 에는 1byte가 사용되면 0~255 번을 사용가능하다.
-typedef struct s_data 
-{	
+typedef struct s_data
+{
 	t_lst			*env_lst;
 	t_lst			*exp_lst;
 	unsigned char	exit_status;
@@ -182,7 +182,7 @@ int		pp_env(t_lst **env_lst);
 //int		pp_export(char **args, t_lst **exp_lst, t_lst **env_lst);
 int		pp_export(char *args, t_lst **exp_lst, t_lst **env_lst);
 int		pp_pwd(void);
-int		pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst);
+int		pp_unset(char *args, t_lst **exp_lst, t_lst **env_lst);
 
 // env/env_list.c
 int		env_list(char **env);

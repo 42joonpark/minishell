@@ -79,6 +79,8 @@ int	pp_export(char *args, t_lst **exp_lst, t_lst **env_lst)
 		val = get_value(args);
 		var_add_env(env_lst, args, key, val);
 		var_add_exp(exp_lst, args, key, val);
+		free(key);
+		free(val);
 	}
 	return (EXIT_SUCCESS);
 }
