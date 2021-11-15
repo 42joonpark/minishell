@@ -80,17 +80,17 @@ typedef struct s_lst
 
 typedef struct s_exe
 {
-    int     a[2];
-    int     b[2];
-    int     pip_cnt;
-    int     redir_in;
-    int     redir_out;
-    char    **cmd_arg;
-    int     flag_b;
-    int     heredoc_fd[2];
-    char    *heredoc_buf;
-    pid_t   heredoc_pid;
-    int     heredoc_status;
+	int		a[2];
+	int		b[2];
+	int		pip_cnt;
+	int		redir_in;
+	int		redir_out;
+	char	**cmd_arg;
+	int		flag_b;
+	int		heredoc_fd[2];
+	char	*heredoc_buf;
+	pid_t	heredoc_pid;
+	int		heredoc_status;
 }	t_exe;
 
 // 종료코드(exit_status) 에는 1byte가 사용되면 0~255 번을 사용가능하다.
@@ -122,7 +122,9 @@ int		is_builtin(char *str);
 
 // error.c
 void	syntax_error(char *err);
+void	syntax_token_error(char *err, char token);
 void	syntax_error_msg(char *err, char *msg);
+void	syntax_error_msg2(char *err1, char *err2, char *msg);
 
 // pipe.c
 void	connect_pipe(int fd[], int io);
@@ -133,7 +135,7 @@ int		pipe_count(t_lst *line_lst);
 int		redirect_in(char *file, t_exe *exe);
 int		redirect_out(char *file, t_exe *exe);
 int		redirect_append(char *file, t_exe *exe);
-void    heredoc(t_lst *line_lst, t_exe *exe);
+void	heredoc(t_lst *line_lst, t_exe *exe);
 void	redirect_connect(t_lst *line_lst, t_exe *exe);
 
 // execute.c
@@ -177,9 +179,10 @@ int		free_args(char **args);		// 일단 지금은 사용 안함. 호오옹ㄱ시
 int		pp_echo(char **args);
 int		pp_cd(char **args);
 int		pp_env(t_lst **env_lst);
-int		pp_export(char **args, t_lst **exp_lst, t_lst **env_lst);
+//int		pp_export(char **args, t_lst **exp_lst, t_lst **env_lst);
+int		pp_export(char *args, t_lst **exp_lst, t_lst **env_lst);
 int		pp_pwd(void);
-int		pp_unset(char **args, t_lst **exp_lst, t_lst **env_lst);
+int		pp_unset(char *args, t_lst **exp_lst, t_lst **env_lst);
 
 // env/env_list.c
 int		env_list(char **env);

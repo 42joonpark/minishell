@@ -14,7 +14,7 @@ static int	check_syntax(t_lst *line_lst)
 		g_data.exit_status = 2;
 		return (g_data.exit_status);
 	}
-	else if (check_id(line_lst->id) && check_id(line_lst->next->id))
+	else if (check_id(line_lst->id) && check_id(line_lst->next->id))	// < , <<, >, >>, | 가 연속해서 오는 경우
 	{
 		ft_putstr_fd("ppsh: syntax error near unexpected token", 2);
 		ft_putstr_fd("`", 2);

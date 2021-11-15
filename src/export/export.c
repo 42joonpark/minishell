@@ -54,32 +54,6 @@ static void	var_add_exp(t_lst **exp_lst, char *exp_var, char *key, char *val)
 		add_exp(exp_lst, str);
 }
 
-static int	check_value(char *str, int i, int qq_cnt, int q_cnt)
-{
-	while (str[i] != '\0')
-	{
-		if (str[i] == '=')
-		{
-			i++;
-			break ;
-		}
-		i++;
-	}
-	if (i == (int)ft_strlen(str))
-		return (EXIT_SUCCESS);
-	while (str[i] != '\0')
-	{
-		if (str[i] == '"')
-			qq_cnt++;
-		if (str[i] == '\'')
-			q_cnt++;
-		if (qq_cnt > 2 || q_cnt > 2)
-			return (EXIT_FAILURE);
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
 /*
  * TODO
  * export key=value (추가하는거)
@@ -87,24 +61,26 @@ static int	check_value(char *str, int i, int qq_cnt, int q_cnt)
  ******************************************
  * need free : key, val, lst->content, lst
  */
-int	pp_export(char **args, t_lst **exp_lst, t_lst **env_lst)
+int	pp_export(char *args, t_lst **exp_lst, t_lst **env_lst)
 {
 	char	*key;
 	char	*val;
 
-	if (args[1] == NULL)
+	if (env_lst == NULL || exp_lst == NULL)
+	{
+		g_data.exit_status = 126;
+		return (EXIT_FAILURE);
+	}
+	if (args == NULL)
 		print_exp_lst(*exp_lst);
 	else
 	{
-		key = get_key(args[1]);
-		if (check_value(args[1], 0, 0, 0))
-		{
-			ft_putendl_fd("syntax error", 1);
-			return (EXIT_FAILURE);
-		}
-		val = get_value(args[1]);
-		var_add_env(env_lst, args[1], key, val);
-		var_add_exp(exp_lst, args[1], key, val);
+		key = get_key(args);
+		val = get_value(args);
+		var_add_env(env_lst, args, key, val);
+		var_add_exp(exp_lst, args, key, val);
+		free(key);
+		free(val);
 	}
 	return (EXIT_SUCCESS);
 }
