@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:30:47 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:30:48 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/16 13:20:03 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_1(t_lst *line_lst)
 {
 	int	ret;
 
-	if (line_lst->id == PIP)
+	if (line_lst != NULL && line_lst->id == PIP)
 	{
 		syntax_error("ppsh: syntax error near unexpected token `|'");
 		g_data.exit_status = 2;

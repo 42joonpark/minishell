@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:41:01 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 21:10:35 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/16 17:17:44 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,49 +32,106 @@ static char	*s2_exist_env(char *s2)
 	return (NULL);
 }
 
-static void	modify_env_type(t_lst *line_lst, int *i)
+char	*dallor_str(char *s, int *idx)
 {
-	char	*s1;
-	char	*s2;
-	char	*tmp;
+	int		i;
+	char	*str;
 
-	s1 = ft_substr(line_lst->content, 0, *i);
-	(*i)++;
-	s2 = \
-	ft_substr(&(line_lst->content[*i]), 0, ft_strlen(&(line_lst->content[*i])));
-	free(line_lst->content);
-	tmp = s2_exist_env(s2);
-	if (tmp != NULL)
-		line_lst->content = ft_strjoin(s1, tmp);
-	else
-		line_lst->content = ft_strjoin(s1, "");
-	free(s1);
-	free(s2);
-	if (tmp != NULL)
-		free(tmp);
+	i = 0;
+	while (s[i] != '\0' && s[i] != ' ' && s[i] != '\'')
+	{
+		(*idx)++;
+		i++;
+		if (s[i] == '?' || s[i] == '$')
+			break ;
+	}
+	str = ft_substr(s, 0, i);
+	return (str);
+}
+
+char	*remain_str(char *s, int *idx)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	while (s[i] != '\0' && s[i] != '$')
+	{
+		(*idx)++;
+		i++;
+	}
+	str = ft_substr(s, 0, i);
+	return (str);
 }
 
 static void	modify_content(t_lst *line_lst)
 {
-	int	 i;
+	int		i;
+	char	*str;
+	char	*tmp1;
+	char	*tmp2;
+	char	*tmp3;
+	char	*tmp4;
+	int		flag;
 
+	str = NULL;
 	i = 0;
 	while (line_lst->content[i] != '\0')
 	{
+		flag = FALSE;
+		tmp2 = str;
+		tmp1 = remain_str(&line_lst->content[i], &i);
+
+		str = ft_strjoin(str, tmp1);
+		if (tmp1 != NULL)
+			free(tmp1);
+		if (tmp2 != NULL)
+			free(tmp2);
 		if (line_lst->content[i] == '$')
 		{
-			line_lst->id = ENV_TYPE;
-			if (line_lst->content[i + 1] != '\0' \
-			&& line_lst->content[i + 1] == '?')
-			{
-				line_lst->content = ft_itoa(g_data.exit_status);
-				break ;
-			}
-			modify_env_type(line_lst, &i);
-			break ;
+			i++;
+			flag = TRUE;
 		}
-		i++;
+		tmp2 = str;
+		tmp1 = dallor_str(&line_lst->content[i], &i);
+		if (tmp1[0] != '\0' && ft_strcmp(tmp1, "?") != 0)
+		{
+			tmp3 = s2_exist_env(tmp1);
+			if (tmp3 != NULL)
+				line_lst->id = ENV_TYPE;
+			str = ft_strjoin(str, tmp3);
+			if (tmp1 != NULL)
+				free(tmp1);
+			if (tmp3 != NULL)
+				free(tmp3);
+			if (tmp2 != NULL)
+				free(tmp2);
+		}
+		else
+		{
+			if (tmp1[0] == '\0' && flag == TRUE)
+			{
+				tmp3 = str;
+				str = ft_strjoin(str, "$");
+				if (tmp3 != NULL)
+					free(tmp3);
+			}
+			else if (ft_strcmp(tmp1, "?") == 0)
+			{
+				tmp3 = str;
+				tmp4 = ft_itoa(g_data.exit_status);
+				str = ft_strjoin(str, tmp4);
+				if (tmp3 != NULL)
+					free(tmp3);
+				if (tmp4 != NULL)
+					free(tmp4);
+			}
+			if (tmp1 != NULL)
+				free(tmp1);
+		}
 	}
+	free(line_lst->content);
+	line_lst->content = str;
 }
 
 void	parse_3(t_lst *line_lst)

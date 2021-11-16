@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:39:56 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 21:28:48 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/16 13:21:33 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	check_command_count(t_lst *line_lst)
 
 int	parse_2(t_lst *line_lst)
 {
-	if (!check_id(line_lst->id))
+	if (line_lst != NULL && !check_id(line_lst->id))
 	{
 		if (is_builtin(line_lst->content))
 			line_lst->id = BUILTIN;

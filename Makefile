@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/15 20:09:59 by donpark           #+#    #+#              #
-#    Updated: 2021/11/15 21:17:01 by donpark          ###   ########.fr        #
+#    Updated: 2021/11/16 11:12:27 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,7 +144,11 @@ ment_re :
 re : ment_re fclean all
 	@echo "$(RE_MENT)[make re done.]$(RESET)"
 
-norm_test :
+norm :
 	@echo "$(MENT)[Norminette test]$(CYAN)"
 	@find ./src -name "*.c" -exec norminette {} \;
 	@find ./includes -name "*.h" -exec norminette {} \;
+
+tester :
+	@gcc tester.c libft/libft.a
+	@./a.out

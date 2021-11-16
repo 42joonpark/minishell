@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:38:17 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:38:18 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/16 13:22:39 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,10 @@ int	parse_1(t_lst **line_lst, char *line)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		while (line[i] == ' ')
+		while (line[i] != '\0' && line[i] == ' ')
 			i++;
+		if (line[i] == '\0')
+			return (EXIT_SUCCESS);
 		if (line[i] == '\\' || line[i] == ';')
 		{
 			token_error("ppsh: syntax error near unexpected token", line[i]);

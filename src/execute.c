@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:35:12 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:46:01 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/16 13:49:01 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static void	run_builtins(t_lst **line_lst, t_exe *exe, int i)
 			command_arg(line_lst, exe);
 			pp_cd(exe->cmd_arg);
 		}
+		else if (ft_strcmp("exit", (*line_lst)->content) == 0)
+			g_data.exit = TRUE;
 		else
 			run_builtins_helper(line_lst, exe);
 	}

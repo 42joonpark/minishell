@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:41:12 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:41:12 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/16 13:50:02 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	is_builtin(char *str)
 	|| ft_strcmp(str, "pwd") == 0 \
 	|| ft_strcmp(str, "export") == 0 \
 	|| ft_strcmp(str, "unset") == 0 \
-	|| ft_strcmp(str, "env") == 0)
+	|| ft_strcmp(str, "env") == 0 \
+	|| ft_strcmp(str, "exit") == 0)
 		return (1);
 	return (0);
 }
