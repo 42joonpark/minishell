@@ -6,12 +6,12 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/15 20:09:59 by donpark           #+#    #+#              #
-#    Updated: 2021/11/16 11:12:27 by donpark          ###   ########.fr        #
+#    Updated: 2021/11/16 19:46:49 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC			:=	gcc
-CFLAGS		:=	-g -Wall -Wextra -Werror
+CFLAGS		:=	-g -Wall -Wextra -Werror $(CHECK)
 CHECK		:=	-fsanitize=address
 
 OS 			:= $(shell uname)
@@ -46,6 +46,7 @@ SOURCES		:=	main.c \
 				parse_2.c \
 				parse_2_1.c \
 				parse_3.c \
+				parse_3_1.c \
 				error.c \
 				pipe.c \
 				redirect.c \
@@ -148,6 +149,7 @@ norm :
 	@echo "$(MENT)[Norminette test]$(CYAN)"
 	@find ./src -name "*.c" -exec norminette {} \;
 	@find ./includes -name "*.h" -exec norminette {} \;
+	@echo "$(RESET)"
 
 tester :
 	@gcc tester.c libft/libft.a

@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:41:12 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/16 13:50:02 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/16 17:37:17 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,24 @@ int	check_id(int id)
 		return (1);
 	else
 		return (0);
+}
+
+char	*exist_env(char *s)
+{
+	t_lst	*env_lst;
+	char	*key;
+
+	env_lst = g_data.env_lst;
+	while (env_lst != NULL)
+	{
+		key = get_key(env_lst->content);
+		if (ft_strcmp(s, key) == 0)
+		{
+			free(key);
+			return (get_value(env_lst->content));
+		}
+		free(key);
+		env_lst = env_lst->next;
+	}
+	return (NULL);
 }

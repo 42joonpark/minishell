@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:38:17 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/16 13:22:39 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/16 17:32:27 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,8 @@ static void	add_arg(t_lst **line_lst, char *line, int *i)
 	(*i)--;
 }
 
-int	parse_1(t_lst **line_lst, char *line)
+int	parse_1(t_lst **line_lst, char *line, int i)
 {
-	int	i;
-
-	i = 0;
 	while (line[i] != '\0')
 	{
 		while (line[i] != '\0' && line[i] == ' ')

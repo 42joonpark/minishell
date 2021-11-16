@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:24:15 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/16 13:47:27 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/16 19:45:51 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,17 @@ void	set_signal(void);
 void	clear_screen(void);
 
 int		tokenizer(t_lst **line_lst, char *line);
-int		parse_1(t_lst **line_lst, char *line);
+int		parse_1(t_lst **line_lst, char *line, int i);
 int		check_1(t_lst *line_lst);
 int		parse_2(t_lst *line_lst);
 void	check_file_dir_delimiter_pip(t_lst *line_lst);
 void	parse_3(t_lst *line_lst);
+char	*dallor_str(char *s, int *idx);
+char	*remain_str(char *s, int *idx);
 
 int		check_id(int id);
 int		is_builtin(char *str);
+char	*exist_env(char *s);
 
 void	syntax_error(char *err);
 void	token_error(char *err, char token);
@@ -167,6 +170,7 @@ void	free_list(t_lst *lst);
 void	exe_free(t_exe *exe);
 int		free_args(char **args);
 void	free_linelst_and_line(t_lst **line_lst, char **line);
+void	free_tmp(char *tmp[4], int init);
 
 /*
  * builtins
