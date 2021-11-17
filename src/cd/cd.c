@@ -5,17 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/15 20:23:36 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:23:37 by donpark          ###   ########.fr       */
+/*   Created: 2021/11/17 18:26:11 by donpark           #+#    #+#             */
+/*   Updated: 2021/11/17 18:26:13 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void add_oldpwd(void)
+static void	add_oldpwd(void)
 {
-	char    *tmp;
-	char    *pwd;
+	char	*tmp;
+	char	*pwd;
 
 	pwd = getcwd(NULL, 0);
 	tmp = ft_strjoin("OLDPWD=", pwd);
@@ -24,10 +24,10 @@ static void add_oldpwd(void)
 	free(tmp);
 }
 
-static char *oldpwd_get_value(char *oldpwd)
+static char	*oldpwd_get_value(char *oldpwd)
 {
-	t_lst   *lst;
-	char    *key;
+	t_lst	*lst;
+	char	*key;
 
 	lst = g_data.env_lst;
 	while (lst != NULL)
@@ -44,7 +44,7 @@ static char *oldpwd_get_value(char *oldpwd)
 	return (NULL);
 }
 
-static int  return_result(int flag, char *dir)
+static int	return_result(int flag, char *dir)
 {
 	if (flag)
 		free(dir);
@@ -52,7 +52,7 @@ static int  return_result(int flag, char *dir)
 	return (EXIT_SUCCESS);
 }
 
-static int  do_cd(char **args, char *dir, int flag)
+static int	do_cd(char **args, char *dir, int flag)
 {
 	add_oldpwd();
 	if (chdir(dir) == -1)
@@ -64,11 +64,11 @@ static int  do_cd(char **args, char *dir, int flag)
 	return (return_result(flag, dir));
 }
 
-int pp_cd(char **args)
+int	pp_cd(char **args)
 {
-	char    *default_dir;
-	char    *dir;
-	int     flag;
+	char	*default_dir;
+	char	*dir;
+	int		flag;
 
 	flag = FALSE;
 	default_dir = getenv("HOME");
