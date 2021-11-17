@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:24:15 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/16 19:45:51 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/17 15:50:28 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_lst
 	struct s_lst	*prev;
 	char			*content;
 	int				id;
+	int				space;
 }	t_lst;
 
 typedef struct s_exe
@@ -117,6 +118,9 @@ void	clear_screen(void);
 
 int		tokenizer(t_lst **line_lst, char *line);
 int		parse_1(t_lst **line_lst, char *line, int i);
+int		add_quote_str(t_lst **line_lst, char *line, int *i);
+void	add_redir_pipe(t_lst **line_lst, char *line, int *i);
+void	add_arg(t_lst **line_lst, char *line, int *i);
 int		check_1(t_lst *line_lst);
 int		parse_2(t_lst *line_lst);
 void	check_file_dir_delimiter_pip(t_lst *line_lst);
@@ -146,7 +150,7 @@ void	redirect_connect(t_lst *line_lst, t_exe *exe);
 int		execute(t_lst *line_lst);
 t_exe	*init_exe(t_lst *line_lst);
 void	child_process(t_lst *line_lst, t_exe *exe, int i);
-void	exe_builtin(t_exe *exe);
+void	exe_builtin(t_exe *exe, t_lst *line_lst);
 void	exe_command(t_exe *exe);
 void	parent_process(t_exe *exe, pid_t pid, int i);
 void	command_arg(t_lst **line_lst, t_exe *exe);
@@ -175,7 +179,7 @@ void	free_tmp(char *tmp[4], int init);
 /*
  * builtins
  */
-int		pp_echo(char **args);
+int		pp_echo(char **args, t_lst *line_lst);
 int		pp_cd(char **args);
 int		pp_env(t_lst **env_lst);
 int		pp_export(char *args, t_lst **exp_lst, t_lst **env_lst);

@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:28:00 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 21:00:40 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/17 15:10:30 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_lst	*pp_lstnew(char *content, int id)
 	node->id = id;
 	node->next = NULL;
 	node->prev = NULL;
+	node->space = FALSE;
 	return (node);
 }
 

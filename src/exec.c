@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 21:05:19 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/16 13:53:11 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/17 15:35:46 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	**convert_env(void)
 	return (env);
 }
 
-void	exe_builtin(t_exe *exe)
+void	exe_builtin(t_exe *exe, t_lst *line_lst)
 {
 	char	**cmd_arg;
 
@@ -42,7 +42,7 @@ void	exe_builtin(t_exe *exe)
 	else if (ft_strcmp(cmd_arg[0], "pwd") == 0)
 		pp_pwd();
 	else if (ft_strcmp(cmd_arg[0], "echo") == 0)
-		pp_echo(&cmd_arg[1]);
+		pp_echo(&cmd_arg[1], line_lst);
 	else if (ft_strcmp(cmd_arg[0], "env") == 0)
 		pp_env(&g_data.env_lst);
 	else if (ft_strcmp(cmd_arg[0], "export") == 0 && cmd_arg[1] == NULL)

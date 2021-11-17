@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:30:51 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/16 13:55:14 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/17 15:39:48 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 static void	child_process_helper(t_lst *line_lst, t_exe *exe)
 {
+	t_lst	*tmp;
+
+	tmp = line_lst;
 	command_arg(&line_lst, exe);
 	if (is_builtin(exe->cmd_arg[0]))
-		exe_builtin(exe);
+		exe_builtin(exe, tmp);
 	else
 		exe_command(exe);
 	exit(g_data.exit_status);

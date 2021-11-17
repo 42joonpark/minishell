@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/15 20:09:59 by donpark           #+#    #+#              #
-#    Updated: 2021/11/16 19:46:49 by donpark          ###   ########.fr        #
+#    Updated: 2021/11/17 15:50:22 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SOURCES		:=	main.c \
 				tokenizer.c \
 				parse_util.c \
 				parse_1.c \
+				parse_1_1.c \
 				check_1.c \
 				parse_2.c \
 				parse_2_1.c \
