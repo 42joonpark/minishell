@@ -24,6 +24,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <sys/types.h>
+# include <signal.h>
 # include <limits.h>
 # include <dirent.h>
 # include <string.h>
@@ -106,6 +108,7 @@ typedef struct s_data
 	t_lst			*exp_lst;
 	unsigned char	exit_status;
 	int				exit;
+	pid_t			pid;
 }	t_data;
 
 t_data		g_data;
@@ -206,6 +209,9 @@ int		add_env(t_lst **env_lst, char *str);
 char	*str_eq_quote_val(char *key, char *val);
 void	change_exp_val(t_lst *lst, char *val);
 int		add_exp(t_lst **exp_lst, char *str);
+
+void	reset_signal();
+void	quit_handler(int signo);
 
 // test.c
 void	print_lst(t_lst *lst);

@@ -90,6 +90,7 @@ static void	run_command(t_lst **line_lst, t_exe *exe, int i)
 			pipe(exe->b);
 		}
 	}
+	reset_signal();
 	pid = fork();
 	if (pid < 0)
 		exit(EXIT_FAILURE);

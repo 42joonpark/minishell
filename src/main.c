@@ -52,6 +52,7 @@ static void	run(void)
 	line_lst = NULL;
 	while (1)
 	{
+	set_signal();
 		line = readline("\033[36mppsh$\033[0m ");
 		eof_history(line);
 		if (*line == '\0')
@@ -74,7 +75,7 @@ static void	run(void)
 int	main(int argc, char *argv[], char **envp)
 {
 	clear_screen();
-	set_signal();
+	//set_signal();
 	create_env_exp_lst(argc, argv, envp);
 	run();
 	return (0);
