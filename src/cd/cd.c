@@ -16,10 +16,17 @@ int	pp_cd(char **args)
 {
 	char	*default_dir;
 	char	*dir;
+	int		flag;
 
+	flag = FALSE;
 	default_dir = getenv("HOME");
-	if (args[1] == NULL || ft_strcmp("~", args[1]) == 0)
+	if (args[1] == NULL)
 		dir = default_dir;
+	else if (args[1][0] == '~')
+	{
+		dir = ft_strjoin(default_dir, &args[1][1]);
+		flag = TRUE;
+	}
 	else
 		dir = args[1];
 	if (chdir(dir) == -1)
@@ -28,6 +35,8 @@ int	pp_cd(char **args)
 		g_data.exit_status = 1;
 		return (EXIT_FAILURE);
 	}
+	if (flag)
+		free(dir);
 	g_data.exit_status = 0;
 	return (EXIT_SUCCESS);
 }
