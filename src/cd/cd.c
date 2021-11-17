@@ -12,31 +12,42 @@
 
 #include "minishell.h"
 
-int	pp_cd(char **args)
+static void add_oldpwd(int flag, char *dir)
 {
-	char	*default_dir;
-	char	*dir;
-	int		flag;
+    char    *tmp;
+    char    *pwd;
+    pwd = getcwd(NULL, 0);
+    tmp = ft_strjoin("OLDPWD=", pwd);
+    pp_export(tmp, &g_data.exp_lst, &g_data.env_lst);
+    free(pwd);
+    free(tmp);
+    if (flag)
+        free(dir);
+}
 
-	flag = FALSE;
-	default_dir = getenv("HOME");
-	if (args[1] == NULL)
-		dir = default_dir;
-	else if (args[1][0] == '~')
-	{
-		dir = ft_strjoin(default_dir, &args[1][1]);
-		flag = TRUE;
-	}
-	else
-		dir = args[1];
-	if (chdir(dir) == -1)
-	{
-		syntax_error_msg2("cd", args[1], "No such file or directory");
-		g_data.exit_status = 1;
-		return (EXIT_FAILURE);
-	}
-	if (flag)
-		free(dir);
-	g_data.exit_status = 0;
-	return (EXIT_SUCCESS);
+int pp_cd(char **args)
+{
+    char    *default_dir;
+    char    *dir;
+    int     flag;
+    flag = FALSE;
+    default_dir = getenv("HOME");
+    if (args[1] == NULL)
+        dir = default_dir;
+    else if (args[1][0] == '~')
+    {
+        dir = ft_strjoin(default_dir, &args[1][1]);
+        flag = TRUE;
+    }
+    else
+        dir = args[1];
+    if (chdir(dir) == -1)
+    {
+        syntax_error_msg2("cd", args[1], "No such file or directory");
+        g_data.exit_status = 1;
+        return (EXIT_FAILURE);
+    }
+    add_oldpwd(flag, dir);
+    g_data.exit_status = 0;
+    return (EXIT_SUCCESS);
 }
