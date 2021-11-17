@@ -41,29 +41,18 @@ char	*key_eq_val(char *key, char *val)
 
 void	change_env_val(t_lst *lst, char *val)
 {
-	char	*tmp;
 	char	*str;
-	int		i;
-	int		j;
+	char	*key;
+	char	*tmp;
 
-	str = lst->content;
-	i = 0;
-	while (str[i] != '=' && str[i] != '\0')
-		i++;
-	tmp = (char *)malloc(i + ft_strlen(val) + 2);
-	if (tmp == NULL)
-		return ;
-	j = -1;
-	while (++j < i)
-		tmp[j] = lst->content[j];
-	tmp[j++] = '=';
-	i = 0;
-	if (val != NULL)
-		while (val[i] != '\0')
-			tmp[j++] = val[i++];
-	tmp[j] = '\0';
+	key = get_key(lst->content);
+	str = ft_strjoin(key, "=");
+	free(key);
+	tmp = str;
+	str = ft_strjoin(tmp, val);
+	free(tmp);
 	free(lst->content);
-	lst->content = tmp;
+	lst->content = str;
 }
 
 int	add_env(t_lst **env_lst, char *str)
@@ -74,7 +63,7 @@ int	add_env(t_lst **env_lst, char *str)
 	if (str == NULL)
 		return (EXIT_SUCCESS);
 	curr = *env_lst;
-	new = pp_lstnew(str, -1);
+	new = pp_lstnew(ft_strdup(str), -1);
 	if (new == NULL)
 		return (EXIT_FAILURE);
 	while (curr != NULL)

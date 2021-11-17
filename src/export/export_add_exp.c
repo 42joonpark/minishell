@@ -44,29 +44,20 @@ char	*str_eq_quote_val(char *key, char *val)
 void	change_exp_val(t_lst *lst, char *val)
 {
 	char	*str;
-	int		i;
-	int		j;
+	char	*key;
+	char	*tmp;
 
-	str = lst->content;
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '=')
-		{
-			i++;
-			break ;
-		}
-		i++;
-	}
-	if (i == (int)ft_strlen(str))
-		str[i++] = '=';
-	str[i++] = '\"';
-	j = 0;
-	if (val != NULL)
-		while (val[j] != '\0')
-			str[i++] = val[j++];
-	str[i++] = '\"';
-	str[i] = '\0';
+	key = get_key(lst->content);
+	str = ft_strjoin(key, "=\"");
+	free(key);
+	tmp = str;
+	str = ft_strjoin(tmp, val);
+	free(tmp);
+	tmp = str;
+	str = ft_strjoin(tmp, "\"");
+	free(tmp);
+	free(lst->content);
+	lst->content = str;
 }
 
 static void	add_exp_node(t_lst **exp_lst, t_lst *curr, t_lst *new, int *flag)
@@ -99,7 +90,7 @@ int	add_exp(t_lst **exp_lst, char *str)
 
 	flag = 0;
 	curr = *exp_lst;
-	new = pp_lstnew(str, -1);
+	new = pp_lstnew(ft_strdup(str), -1);
 	if (new == NULL)
 		return (EXIT_FAILURE);
 	add_exp_node(exp_lst, curr, new, &flag);
