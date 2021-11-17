@@ -14,16 +14,21 @@
 
 static void	handler(int signo)
 {
-	if (signo == SIGINT)
+	pid_t	pid;
+
+	pid = waitpid(-1, NULL, 0);
+	if (signo == SIGINT && pid == -1)
 	{
 		rl_replace_line("", 0);
 		if (OS_APPLE)
-			ft_putstr_fd("ppsh$ \n", 1);
+			ft_putstr_fd("\n", 1);
 		else
 			ft_putstr_fd("\b\b  \n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 	}
+	else if (signo == SIGINT)
+		ft_putstr_fd("\n", 1);
 }
 
 void	set_signal(void)
