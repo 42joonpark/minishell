@@ -187,6 +187,9 @@ void	put_env_index(void);
 
 int		exp_list(void);
 
+long	check_exit_num(const char *str);
+void	exit_arg(t_lst **line_lst);
+
 char	*get_key(char *str);
 char	*get_value(char *str);
 int		is_exist_eq(char *s);

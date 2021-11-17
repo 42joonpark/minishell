@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC			:=	gcc
-CFLAGS		:=	-g -Wall -Wextra -Werror $(CHECK)
+CFLAGS		:=	-g -Wall -Wextra -Werror
 CHECK		:=	-fsanitize=address
 
 OS 			:= $(shell uname)
@@ -72,6 +72,7 @@ SOURCES		:=	main.c \
 				exec.c \
 				execute_arg.c \
 				parent_process.c \
+				exit_func.c \
 				test.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 

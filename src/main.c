@@ -36,6 +36,7 @@ void	eof_history(char *line)
 		if (ft_strcmp(line, "exit") == 0)
 		{
 			ft_putendl_fd("exit", 2);
+			free(line);
 			exit(EXIT_SUCCESS);
 		}
 		add_history(line);

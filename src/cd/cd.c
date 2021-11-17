@@ -18,7 +18,7 @@ int	pp_cd(char **args)
 	char	*dir;
 
 	default_dir = getenv("HOME");
-	if (args[1] == NULL)
+	if (args[1] == NULL || ft_strcmp("~", args[1]) == 0)
 		dir = default_dir;
 	else
 		dir = args[1];

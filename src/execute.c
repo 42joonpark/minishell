@@ -70,7 +70,7 @@ static void	run_builtins(t_lst **line_lst, t_exe *exe, int i)
 			pp_cd(exe->cmd_arg);
 		}
 		else if (ft_strcmp("exit", (*line_lst)->content) == 0)
-			g_data.exit = TRUE;
+			exit_arg(line_lst);
 		else
 			run_builtins_helper(line_lst, exe);
 	}

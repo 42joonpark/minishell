@@ -66,7 +66,7 @@ void	free_linelst_and_line(t_lst **line_lst, char **line)
 	if (g_data.exit == TRUE)
 	{
 		ft_putendl_fd("exit", 1);
-		exit(EXIT_SUCCESS);
+		exit(g_data.exit_status);
 	}
 }
 
