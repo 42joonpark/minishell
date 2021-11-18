@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+/*
 static void	handler(int signo)
 {
 	pid_t	pid;
@@ -23,6 +24,29 @@ static void	handler(int signo)
 		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
+	}
+	else if (signo == SIGINT) 		// 자식 있으면 부모가
+		ft_putstr_fd("\n", 1);
+}
+*/
+
+static void	handler(int signo)
+{
+	pid_t	pid;
+	char	*str;
+
+	pid = waitpid(-1, NULL, 0);
+	if (signo == SIGINT && pid == -1) // ㅍㅕㅇ소는 부모가, 자식 있으면 자식이
+	{
+		str = ft_strdup(rl_line_buffer);
+		rl_replace_line("", 0);
+		ft_putstr_fd("\033[K", 1);
+		ft_putstr_fd("\033[36mppsh$\033[0m ", 1);
+		ft_putstr_fd(str, 1);
+		ft_putstr_fd("\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+		free(str);
 	}
 	else if (signo == SIGINT) 		// 자식 있으면 부모가
 		ft_putstr_fd("\n", 1);
