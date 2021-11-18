@@ -27,7 +27,7 @@ add includes path and dir in Makefile
 7. [unset](#unset)
 
 # cd [option] [dst]
-### cd to dst directory ###
+### change the working directory ###
 - '-' \
 	cd to OLDPWD
 
