@@ -1,5 +1,5 @@
-# minishell
-Minishell
+# Minishell
+Minishell is a simple shell.
 
 # contributors
 <a href="https://github.com/42joonpark">
@@ -17,14 +17,6 @@ brew install readline
 ```
 add includes path and dir in Makefile
 
-# Rules
-1. commit은 작은 단위로 자주 해주세요.
-2. main으로 pull request는 정상적으로 작동하는 경우에만 해주세요.
-3. 발생된 모든 issue는 "issues"에 공유해주세요
-
-# About
-Minishell is a simple shell.
-
 # Builtins
 1. cd
 2. pwd
@@ -33,6 +25,42 @@ Minishell is a simple shell.
 5. export
 6. env
 7. unset
+
+# cd [option] [dst]
+### cd to dst directory ###
+- '-'
+
+    cd to OLDPWD
+
+- '~'
+
+    cd to $HOME dir
+
+- relative path
+
+- absolute path
+
+# pwd
+### return working directory name ### 
+
+# echo
+### write arguments to the standard output ###
+
+- n
+
+    Do not print the trailing newline character.
+    
+# exit
+### ###
+
+# export
+### ###
+
+# env
+### ###
+
+# unset
+### ###
 
 # errors
 any input with ; or \ are syntax error.
