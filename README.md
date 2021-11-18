@@ -10,6 +10,13 @@ Minishell
   <img src="https://github.com/pdh9311.png?size=50">
 </a>
 
+# Build
+Need readline header.
+```sh
+brew install readline
+```
+add includes path and dir in Makefile
+
 # Rules
 1. commit은 작은 단위로 자주 해주세요.
 2. main으로 pull request는 정상적으로 작동하는 경우에만 해주세요.
