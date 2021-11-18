@@ -11,7 +11,7 @@ Minishell
 </a>
 
 # Build
-Need readline header.
+> Note: `readline is required.`
 ```sh
 brew install readline
 ```
@@ -23,7 +23,7 @@ add includes path and dir in Makefile
 3. 발생된 모든 issue는 "issues"에 공유해주세요
 
 # About
-Minishell is a simple shell of bash
+Minishell is a simple shell.
 
 # Builtins
 1. cd
