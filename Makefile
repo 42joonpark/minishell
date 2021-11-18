@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/15 20:09:59 by donpark           #+#    #+#              #
-#    Updated: 2021/11/17 15:50:22 by donpark          ###   ########.fr        #
+#    Updated: 2021/11/18 13:47:29 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ SOURCES		:=	main.c \
 				execute_arg.c \
 				parent_process.c \
 				exit_func.c \
+				shlvl.c \
 				test.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 

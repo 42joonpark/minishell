@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:24:15 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/17 15:50:28 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/18 14:11:22 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef struct s_data
 	t_lst			*exp_lst;
 	unsigned char	exit_status;
 	int				exit;
-	pid_t			pid;
+	int				shlvl;
 }	t_data;
 
 t_data		g_data;
@@ -158,6 +158,7 @@ void	exe_command(t_exe *exe);
 void	parent_process(t_exe *exe, pid_t pid, int i);
 void	command_arg(t_lst **line_lst, t_exe *exe);
 
+void	init_shlvl(void);
 /*
  * utils
  */

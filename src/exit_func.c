@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:47:40 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/17 15:47:40 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/18 14:50:39 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	exit_arg(t_lst **line_lst)
 	check = check_exit_num((*line_lst)->content);
 	if (check > INT_MAX)
 		syntax_error_msg2("exit", (*line_lst)->content, \
-			"numeric argument required.");
+			"smaller than INT_MAX numeric argument required.");
 	else
 	{
 		g_data.exit_status = check;

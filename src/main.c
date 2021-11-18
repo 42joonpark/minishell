@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:35:08 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/16 13:32:34 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/18 14:52:50 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	main(int argc, char *argv[], char **envp)
 	clear_screen();
 	//set_signal();
 	create_env_exp_lst(argc, argv, envp);
+	init_shlvl();
 	run();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:24:53 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:25:00 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/18 14:47:38 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,37 @@ static void	backtracking(int *flag, t_lst **env_lst1)
 	}
 }
 
+static void	create_content(t_lst *env_lst1, char **content)
+{
+	char	*key;
+	char	*val;
+	char	*tmp1;
+	char	*tmp2;
+
+	key = get_key(env_lst1->content);
+	val = get_value(env_lst1->content);
+	tmp1 = ft_strjoin(key, "=\"");
+	tmp2 = ft_strjoin(tmp1, val);
+	(*content) = ft_strjoin(tmp2, "\"");
+	if (key != NULL)
+		free(key);
+	if (val != NULL)
+		free(val);
+	if (tmp1 != NULL)
+		free(tmp1);
+	if (tmp2 != NULL)
+		free(tmp2);
+}
+
 static int	add_exp_lst(t_lst *env_lst1)
 {
 	t_lst	*new;
+	char	*content;
 
 	if (pp_strcmp_limit(env_lst1->content, "_=", '=') != 0)
 	{
-		new = pp_lstnew(ft_strdup(env_lst1->content), -1);
+		create_content(env_lst1, &content);
+		new = pp_lstnew(content, -1);
 		if (new == 0)
 			return (EXIT_FAILURE);
 		pp_lstadd_back(&g_data.exp_lst, new);

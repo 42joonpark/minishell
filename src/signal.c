@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:55:18 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:55:59 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/18 14:53:35 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	quit_handler(int signo)
 
 	pid = waitpid(-1, NULL, 0);
 	if (signo == SIGQUIT && pid == -1)	// 자식이 있으면 무조건 자식이
-		;
+		return ;
 	else if (signo == SIGQUIT)			// 자식이 있므녀 무조건 부모가
 		ft_putendl_fd("Quit: 3", 1);
 }

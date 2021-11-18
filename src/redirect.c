@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:41:47 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 21:19:17 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/18 14:51:57 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	redirect_connect(t_lst *line_lst, t_exe *exe)
 			redirect_append(line_lst->next->content, exe);
 		else if (line_lst->id == HEREDOC)
 		{
-			fprintf(stderr, "===== %s ----\n", line_lst->content);
 			heredoc(line_lst->next, exe);
 		}
 		line_lst = line_lst->next;
