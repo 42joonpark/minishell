@@ -6,7 +6,7 @@
 #    By: donpark <donpark@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/15 20:09:59 by donpark           #+#    #+#              #
-#    Updated: 2021/11/18 13:47:29 by donpark          ###   ########.fr        #
+#    Updated: 2021/11/18 15:06:31 by donpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ else ifeq ($(USERS), joonpark)
 RDLINE_DIR	:=	/Users/joonpark/.brew/opt/readline/lib/
 RDLINE_INC	:=	/Users/joonpark/.brew/opt/readline/include/
 else ifeq ($(USERS), donpark)
-RDLINE_DIR	:=	/Users/donpark/brew/opt/readline/lib/
-RDLINE_INC	:=	/Users/donpark/brew/opt/readline/include/
+RDLINE_DIR	:=	/Users/donpark/.brew/opt/readline/lib/
+RDLINE_INC	:=	/Users/donpark/.brew/opt/readline/include/
 endif
 
 LIBFT_DIR	:=	./libft/
