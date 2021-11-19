@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:35:08 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/18 14:52:50 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/19 12:13:55 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	run(void)
 	line_lst = NULL;
 	while (1)
 	{
-	set_signal();
+		set_signal();
 		line = readline("\033[36mppsh$\033[0m ");
 		eof_history(line);
 		if (*line == '\0')
@@ -75,7 +75,6 @@ static void	run(void)
 int	main(int argc, char *argv[], char **envp)
 {
 	clear_screen();
-	//set_signal();
 	create_env_exp_lst(argc, argv, envp);
 	init_shlvl();
 	run();

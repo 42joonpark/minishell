@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:24:15 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/18 14:11:22 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/19 12:13:33 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ t_data		g_data;
  ** FUNCTIONS
  */
 void	set_signal(void);
+void	reset_signal(void);
 void	clear_screen(void);
 
 int		tokenizer(t_lst **line_lst, char *line);
@@ -210,9 +211,6 @@ int		add_env(t_lst **env_lst, char *str);
 char	*str_eq_quote_val(char *key, char *val);
 void	change_exp_val(t_lst *lst, char *val);
 int		add_exp(t_lst **exp_lst, char *str);
-
-void	reset_signal();
-void	quit_handler(int signo);
 
 // test.c
 void	print_lst(t_lst *lst);
