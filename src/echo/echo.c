@@ -28,9 +28,10 @@ int	pp_echo(char **args, t_lst *line_lst)
 	while (args[i] != NULL)
 	{
 		ft_putstr_fd(args[i], 1);
-		i++;
 		if (args[i] != NULL && line_lst != NULL && line_lst->space == TRUE)
 			ft_putstr_fd(" ", 1);
+		line_lst = line_lst->next;
+		i++;
 	}
 	if (!option)
 		ft_putstr_fd("\n", 1);
