@@ -88,3 +88,6 @@ Duplicate names are changed to new values.
 
 # errors
 any input with ; or \ are syntax error.
+
+# Diagram #
+![Untitled Diagram](https://user-images.githubusercontent.com/83530766/142572055-78e0d113-9b9f-43ea-bd89-9c6f65ac5e72.png)
