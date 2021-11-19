@@ -62,6 +62,7 @@ static void	run(void)
 		}
 		if (tokenizer(&line_lst, line))
 		{
+			free(line);
 			free_list(line_lst);
 			line_lst = NULL;
 			continue ;
