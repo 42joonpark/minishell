@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 17:53:48 by joonpark          #+#    #+#             */
-/*   Updated: 2021/11/16 20:05:25 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/19 17:37:16 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,16 @@ int	free_args(char **args)
 
 void	free_linelst_and_line(t_lst **line_lst, char **line)
 {
-	free_list(*line_lst);
-	*line_lst = NULL;
-	free(*line);
-	*line = NULL;
+	if (*line_lst != NULL)
+	{
+		free_list(*line_lst);
+		*line_lst = NULL;
+	}
+	if (*line != NULL)
+	{
+		free(*line);
+		*line = NULL;
+	}
 	if (g_data.exit == TRUE)
 	{
 		ft_putendl_fd("exit", 1);

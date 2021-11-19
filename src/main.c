@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:35:08 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/19 12:13:55 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/19 17:36:26 by joonpark         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ static void	run(void)
 		}
 		if (tokenizer(&line_lst, line))
 		{
-			free(line);
-			free_list(line_lst);
-			line_lst = NULL;
+			free_linelst_and_line(&line_lst, &line);
 			continue ;
 		}
 		print_line_list(line_lst);
