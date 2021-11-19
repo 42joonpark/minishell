@@ -65,7 +65,6 @@ static void	run(void)
 			free_linelst_and_line(&line_lst, &line);
 			continue ;
 		}
-		print_line_list(line_lst);
 		execute(line_lst);
 		free_linelst_and_line(&line_lst, &line);
 	}

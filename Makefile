@@ -74,8 +74,7 @@ SOURCES		:=	main.c \
 				execute_arg.c \
 				parent_process.c \
 				exit_func.c \
-				shlvl.c \
-				test.c
+				shlvl.c
 SRCS		:=	$(addprefix $(SRCS_DIR), $(SOURCES))
 
 OBJS_DIR	:=	./obj/
@@ -156,7 +155,3 @@ norm :
 	@find ./src -name "*.c" -exec norminette {} \;
 	@find ./includes -name "*.h" -exec norminette {} \;
 	@echo "$(RESET)"
-
-tester :
-	@gcc tester.c libft/libft.a
-	@./a.out

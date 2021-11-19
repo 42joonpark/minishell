@@ -212,9 +212,4 @@ char	*str_eq_quote_val(char *key, char *val);
 void	change_exp_val(t_lst *lst, char *val);
 int		add_exp(t_lst **exp_lst, char *str);
 
-// test.c
-void	print_lst(t_lst *lst);
-void	print_line_list(t_lst *line_lst);
-void	print_exe_cmdarg(t_exe *exe);
-
 #endif
