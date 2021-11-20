@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:55:18 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/19 12:13:48 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/20 12:17:35 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	handler_1(int signo)
 		str = ft_strdup(rl_line_buffer);
 		rl_replace_line("", 0);
 		ft_putstr_fd("\033[K", 1);
-		ft_putstr_fd("\033[36mppsh$\033[0m ", 1);
+		ft_putstr_fd("ppsh$ ", 1);
 		ft_putstr_fd(str, 1);
 		ft_putstr_fd("\n", 1);
 		rl_on_new_line();
