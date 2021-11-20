@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_add_exp.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:24:52 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/15 20:25:01 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/20 17:17:58 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,18 @@ void	change_exp_val(t_lst *lst, char *val)
 
 static void	add_exp_node(t_lst **exp_lst, t_lst *curr, t_lst *new, int *flag)
 {
+	int	check;
+
 	while (curr != NULL)
 	{
-		if (pp_strcmp_limit(curr->content, new->content, '=') > 0)
+		check = pp_strcmp_limit(curr->content, new->content, '=');
+		if (check > 0)
 		{
 			if (*flag == 0)
+			{
 				pp_lstadd_front(exp_lst, new);
+				*exp_lst = (*exp_lst)->prev;
+			}
 			else
 				pp_lstadd_front(&curr, new);
 			break ;

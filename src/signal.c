@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
+/*   By: donpark <donpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:55:18 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/20 12:17:35 by donpark          ###   ########.fr       */
+/*   Updated: 2021/11/20 17:16:42 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,15 @@ static void	handler_1(int signo)
 	{
 		str = ft_strdup(rl_line_buffer);
 		rl_replace_line("", 0);
-		ft_putstr_fd("\033[K", 1);
-		ft_putstr_fd("ppsh$ ", 1);
-		ft_putstr_fd(str, 1);
-		ft_putstr_fd("\n", 1);
+		if (OS_APPLE)
+		{
+			ft_putstr_fd("\033[K", 1);
+			ft_putstr_fd("ppsh$ ", 1);
+			ft_putstr_fd(str, 1);
+			ft_putstr_fd("\n", 1);
+		}
+		else
+			ft_putstr_fd("\b\b  \n", 1);
 		rl_on_new_line();
 		rl_redisplay();
 		free(str);
