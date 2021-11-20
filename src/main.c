@@ -6,7 +6,7 @@
 /*   By: donpark <donpark@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 20:35:08 by donpark           #+#    #+#             */
-/*   Updated: 2021/11/19 17:36:26 by joonpark         ###   ########.fr       */
+/*   Updated: 2021/11/20 12:25:06 by donpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	run(void)
 	while (1)
 	{
 		set_signal();
-		line = readline("\033[36mppsh$\033[0m ");
+		line = readline("ppsh$ ");
 		eof_history(line);
 		if (*line == '\0')
 		{
