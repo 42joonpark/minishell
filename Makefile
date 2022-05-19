@@ -119,7 +119,7 @@ $(OBJS_DIR) :
 	@mkdir -p $(OBJS_DIR)unset
 	@echo "$(MENT)[ Created obj directory ... ]$(RESET)"
 
-$(OBJS_DIR)%.o : $(SRCS_DIR)%.c
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(INCS)
 	@$(CC) -c $< -o $@ $(CFLAGS) $(HEADERS)
 	@echo "$(GREEN).$(RESET)\c"
 
